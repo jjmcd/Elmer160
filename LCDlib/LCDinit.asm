@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.6 $ $Date: 2004-11-23 10:36:34-05 $
+;  $Revision: 1.7 $ $Date: 2004-11-23 17:19:02-05 $
 
 		include		"LCDMacs.inc"
 
@@ -45,6 +45,14 @@ LCDinit:
 		; Initialize the LCD to 4 bits
 		;
 		; Set the ports in case the user has forgotten
+		IFDEF		__16F628
+		movlw		H'F8'
+		andwf		CMCON,F
+		ENDIF
+		IFDEF		__16F628A
+		movlw		H'F8'
+		andwf		CMCON,F
+		ENDIF
 		movlw		H'80'		; Turn off low 7 bits
 		IFDEF		__16F88		; For 16F88 only
 		andwf		PORTA,F		; of PORTA
