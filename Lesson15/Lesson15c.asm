@@ -7,6 +7,7 @@
 ;	illuminate LED2.  This version debounces the input.
 ;
 ; WB8RCR - 19-Aug-04
+; $Revsion$ $Date: 2004-10-20 14:07:02-04 $
 ;
 ;=====================================================================
 
