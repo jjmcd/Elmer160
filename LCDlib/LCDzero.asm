@@ -1,11 +1,11 @@
-		include		"PickleMacs.inc"
+		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCDzero
 	; Required routines
-		extern		SendI
-		extern		waste
-		extern		wastel
+		extern		LCDsndI
+		extern		Del40us
+		extern		Del2ms
 
 ; ------------------------------------------------------------------------
 	; Set the LCD DDRAM address to zero

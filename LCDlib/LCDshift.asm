@@ -1,18 +1,18 @@
-		include		"PickleMacs.inc"
+		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCDshift
 	; Required routines
-		extern		SendI
-		extern		waste
-		extern		wastel
+		extern		LCDsndI
+		extern		Del40us
+		extern		Del2ms
 
 		code
 ; ------------------------------------------------------------------------
 	; Set the LCD to shift mode
 LCDshift:
 		LCD16	H'00',H'07'
-		call	waste		; Leave a little longer wait
+		call	Del40us		; Leave a little longer wait
 		return
 
 		end
