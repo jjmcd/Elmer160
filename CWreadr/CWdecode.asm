@@ -1,33 +1,50 @@
 ;	CW decode routines
 		include		p16f628.inc
 		include		CWdefs.inc
+		list		b=4,n=70
 
+;	Functions provided
 		global		c_minof,c_minon,decod,ag_parm,dec_sg
-		global  	ctrsegn,swinput,tmed_on,tmed_of,tmax_of
-		global		plval,pldata,speed,cntchar
-		extern		moltip,dividi
+;	Storage provided
+		global  	ctrsegn,tmed_on,tmed_of,tmax_of
+		global		plval,pldata,speed
+;	used by decod
+		; LCD routines
 		extern		wrtlcd,bytelcd
-		extern		ord_of,ord_on
+		; Table Lookups
 		extern		ric_a,ric_b,ric_c,ric_d,ric_e,ric_f
-		extern		tmin1_on,tmin1_of,tmin2_on,tmin2_of,tmin3_on,tmin3_of
-		extern		timeon,timeoff
-		extern		timchr1,timchr2
-		extern		w_num1,w_num2,w_num3,w_num4,w_count
-		extern		w_conv
+		; Storage
+		extern		w_conv	; Binary-ASCII work area
+;	used by ag_parm
+		extern		moltip			; Multiply
+		extern		w_num2,w_num3	; Multiply work area
+		extern		tmin1_on		; ON lowest duration
+		extern		tmin1_of		; OFF lowest duration
+		extern		tmin2_on		; ON second shortest
+		extern		tmin2_of		; OFF second shortest
+;	used by c_minof
+		extern		ord_of			; Sort routine for off's
+		extern		timeoff			; OFF signal duration
+;	used by c_minon
+		extern		ord_on			; Sort routine for on's
+;	used by ag_parm and c_minof
+		extern		tmin3_of		; OFF greatest duration
+;	used by ag_parm and c_minon
+		extern		tmin3_on		; ON greatest duration
+;	used by c_minon and dec_sg
+		extern		timeon			; ON signal duration
 
 ;       program variables definitions 
 		udata
-cntchar res 1 ;      0x0e		;received characters counter  
-pldata  res 1 ;      0x10		;received dit/dash map (max 8)
-plval   res 1 ;	 0x11		;significant dit/dash map (max 8)
-speed	res 1 ;	 0x1f
+pldata  res 		1 				; received dit/dash map (max 8)
+plval   res 		1 				; significant dit/dash map (max 8)
+speed	res 		1 				;	
 
-tmed_on res 1 ;	 0x1c		;ON signal mean duration
-tmed_of res 1 ;	 0x1d		;OFF signal mean duration
-tmax_of res 1 ;	 0x1e		;interwords pause mean duration
+tmed_on res 		1 				; ON signal mean duration
+tmed_of res 		1 				; OFF signal mean duration
+tmax_of res 		1 				; interwords pause mean duration
 
-swinput res 1 ;	 0x20		;input ON/OFF state indicator
-ctrsegn res 1 ;	 0x21		;received signs counter 
+ctrsegn res		 	1 				; received signs counter 
 
 		code
 ;	Received character decoding routine
@@ -41,26 +58,25 @@ ctrsegn res 1 ;	 0x21		;received signs counter
 ;	- decoded character on LCD display
 ;	
 decod
-	movlw	 " "		; space default character
-	movwf	 w_conv		;
-	movf     plval,F      	; verify PLVAL content
-	btfsc	 STATUS,Z	; if zero
-	return			; go to end routine	
+		movlw		" "				; space default character
+		movwf		w_conv			;
+		movf    	plval,F      	; verify PLVAL content
+		btfsc		STATUS,Z		; if zero
+		return						; go to end routine	
 decod1	
-	movlw	 d'1'		; verify if plval = 1
-	subwf	 plval,F	;
-	btfss	 STATUS,Z	;
-	goto	 decod3		;
-	call	 ric_a		; and tab A search
-	goto	 endecod
-
+		movlw		d'1'			; verify if plval = 1
+		subwf		plval,F			;
+		btfss		STATUS,Z		;
+		goto		decod3			;
+		call		ric_a			; and tab A search
+		goto		endecod
 decod3	
-	movlw	 d'2'		; verify if plval = 3
-	subwf	 plval,F	;
-	btfss	 STATUS,Z	;
-	goto	 decod7		;
-	call	 ric_b		; and tab B search
-	goto	 endecod
+		movlw		d'2'			; verify if plval = 3
+		subwf		plval,F			;
+		btfss		STATUS,Z		;
+		goto		decod7			;
+		call		ric_b			; and tab B search
+		goto		endecod
 
 decod7	
 	movlw	 d'4'		; verify if plval = 7
