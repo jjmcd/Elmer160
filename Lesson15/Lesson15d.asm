@@ -3,10 +3,10 @@
 ;	Determine which way we are turning the encoder
 ;
 ;	Depending on the direction of rotation, illuminate LED 1
-;	or LED 3.  If an impossible value is calculated, 
-;	illuminate LED2.  Uses a simpler algorithm.
+;	or LED 3.  Uses a simpler algorithm.
 ;
 ; WB8RCR - 21-Sep-04
+; $Revision: 1.5 $ $Date: 2004-10-20 09:36:09-04 $
 ;
 ;=====================================================================
 
