@@ -15,6 +15,9 @@
 ;  are destroyed on exit.
 ;
 ;**
+;  WB8RCR - 24-Sep-04
+;  $Revision: 1.5 $ $Date: 2004-11-23 10:24:14-05 $
+
 		include		"LCDMacs.inc"
 
 	; Provided Routines
