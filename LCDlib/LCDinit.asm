@@ -27,12 +27,13 @@
 	; Provided Routines
 		global		LCDinit		; Initialize the LCD
 	; Required routines
-		extern		LCDsndI		; Send a command bybble to the LCD
-		extern		Del40us		; Delay 40 usec
+		extern		LCDsend
+;		extern		LCDsndI		; Send a command bybble to the LCD
+;		extern		Del40us		; Delay 40 usec
 		extern		Del2ms		; Delay 1.8 msec
 
 _LCDOV1	udata_ovr
-_LCDV01	res			1			; Storage for loop counter
+Count	res			1			; Storage for loop counter
 
 		code
 ; ------------------------------------------------------------------------
@@ -58,30 +59,41 @@ LCDinit:
 		; First, need to wait a long time after power up to
 		; allow time for 44780 to get it's act together
 		movlw		020h		; Need >15.1ms after 4.5V
-		movwf		_LCDV01		; we will wait 65ms after 2V
-		call		Del2ms		; (in the case of LF parts)
-		decfsz		_LCDV01,F	;
+		movwf		Count		; we will wait 65ms (after 2V
+		call		Del2ms		; in the case of LF parts)
+		decfsz		Count,F		;
 		goto		$-2
 
 		; Initialization begins with sending 0x03 3 times followed
 		; by a 0x02 to define 4 bit data
-		LCD16		H'03',h'03'
-		LCD16		H'03',h'02'
+		movlw		H'33'
+		call		LCDsend
+		movlw		H'32'
+		call		LCDsend
 
 		; Now set up the display the way we want it
 		IFDEF		LCD2LINE
-		LCD16		H'02',H'0c'	; Set lines, font
-						; 7, 1=2 lines; 6, 0=5x7; 5, 4, don't care 
-						;;; Note 0c0, 080 seems no diff on DMC20434
+		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_2_LINE | LCD_5X10_FONT
+		call		LCDsend
 		ELSE
-		LCD16		H'02',H'04'	; Set lines, font
+		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_1_LINE | LCD_5X10_FONT
+		call		LCDsend
 		ENDIF
-		LCD16		H'00',H'08'	; Display Off
-		LCD16		H'00',H'01'	; Display On
-		LCD16		H'00',H'06'	; Set Entry Mode
-						; 7=0; 6=1; 5, 1=increment; 6, 1=shift
-						;; Note, 060, 070 DOES seem to change things
-		LCD16		H'00',H'0c'	; cursor, display on blink
+
+		; It seems to help to turn off the display and clear it before
+		; setting the entry mode
+		movlw		LCD_DISPLAY | LCD_DISP_OFF	; Display Off
+		call		LCDsend
+		movlw		LCD_DISP_CLEAR	; Display clear
+		call		LCDsend
+
+		; Set display to no shift
+		movlw		LCD_ENTRY_MODE | LCD_NO_SHIFT | LCD_DIS_INCR
+		call		LCDsend
+
+		; Turn on display, cursor, and cursor blinking
+		movlw		LCD_DISPLAY | LCD_DISP_ON | LCD_CURS_ON | LCD_BLINK_ON
+		call		LCDsend
 
 		return
 		end

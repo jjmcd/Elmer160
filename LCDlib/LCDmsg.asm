@@ -49,7 +49,7 @@ LCDmsg
 		IFDEF		LCD2LINE
 		incf		BufAddr,F	; Point to the beginning of text
 		movf		BufAddr,W	; And calculate where the start
-		addlw		.8			; of line 2 is on the 16
+		addlw		LCDLINELEN	; of line 2 is on the 16
 		movwf		Switch		; character display
 		ENDIF
 
@@ -59,7 +59,7 @@ MsL
 		xorwf		BufAddr,W	; Are we there yet?
 		btfss		STATUS,Z
 		goto		MsL1		; No, continue on
-		movlw		.32			; Yes, point to the start of 
+		movlw		LINE2OFFSET	; Yes, point to the start of 
 		call		LCDaddr		; line 2 in the LCD memory
 MsL1
 		ENDIF
