@@ -6,7 +6,7 @@
 ;	or LED 3.  Uses a simpler algorithm.
 ;
 ; WB8RCR - 21-Sep-04
-; $Revision: 1.8 $ $Date: 2004-10-20 11:22:07-04 $
+; $Revision: 1.9 $ $Date: 2004-10-20 11:23:54-04 $
 ;
 ;=====================================================================
 
@@ -83,11 +83,6 @@ SetUp
 	; Movement is counterclockwise, turn on LED3
 SetDn
 		movlw		B'00000110'		; Initially set the outputs
-		movwf		Output			; to all LEDs off
-		return
-	; Got a bad combination, turn on LED2
-SetErr
-		movlw		B'00001010'		; Initially set the outputs
 		movwf		Output			; to all LEDs off
 		return
 	; No change, don't change LEDs
