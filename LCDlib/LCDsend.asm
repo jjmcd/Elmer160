@@ -10,6 +10,8 @@
 ;  Sends the 8 bit command, 4 bits at a time
 ;
 ;**
+;  WB8RCR - 20-Nov-04
+;  $Revision: 1.2 $ $Date: 2004-11-23 13:41:52-05 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
