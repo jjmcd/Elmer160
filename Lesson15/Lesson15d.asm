@@ -43,14 +43,13 @@ HZ10T	equ			D'200'			; Number of clock ticks for Hz10
 
 	; In order to debounce the input, we won't accept a reading
 	; until we have seen the same input on two successive
-	; reads of the encoder spaced 3 ms apart.
+	; reads of the encoder spaced 500 us apart.
 Hz2000
 	; Read the encoder bits
 		movf		PORTA,W			; Pick up the input word
-		andlw		H'03'			; Mask off all but encoder
+		andlw		B'00000011'		; Mask off all but encoder
 		movwf		ThisRead		; And save into current reading
 	; See if the same as last time
-		movf		ThisRead,W		; Pick up current
 		xorwf		LastRead,W		; Will be zero if same
 		btfsc		STATUS,Z		; Zero?
 		goto		NewReading		; Yes, will use reading
@@ -75,11 +74,6 @@ NewReading
 	; Set LEDs
 		movlw		B'00001110'		; Initially set the outputs
 		movwf		Output			; to all LEDs off
-
-	; Check if change
-		btfss		HasChanged,0	; Test has changed bit
-		goto		SetNo			; No change, do nothing
-		bcf			HasChanged,0	; Remember that we used it
 
 		movf		Input,W			; Pick up the input word
 		addlw		H'02'			; Add two (magic)
