@@ -3,10 +3,14 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.32 $ $Date: 2005-03-18 13:14:34-04 $
+;	$Revision: 1.33 $ $Date: 2005-03-29 10:11:08-04 $
 
 			include		Processor.inc
+			IF			PROC == 627	; For 16F627/628
+			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
+			ELSE
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
+			ENDIF
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
 			extern		LCDshift,LCDunshf,LCD8,LCDzero,LCDmsg
@@ -24,58 +28,59 @@ STARTUP		code
 			code
 Start
 	;	Initialize
-			call		LCDinit
+			lcall		LCDinit
 Loop
 	;	Test LCDdig, also uses LCDletr
-			call		TstDig
+			lcall		TstDig
 	;	Test 1 sec delay
-			call		Del1s
+			lcall		Del1s
 	;	Test LCDclear
-			call		LCDclear
-			call		Del1s
+			lcall		LCDclear
+			lcall		Del1s
 	;	Test LCDaddr
-			call		TstAdr
-			call		Del1s
+			lcall		TstAdr
+			lcall		Del1s
 	;	Test scrolling
-			call		TstScr
-			call		Del1s
+			lcall		TstScr
+			lcall		Del1s
 	;	Test LCDmsg
-			call		TstMsg
-			call		Del1s
+			lcall		TstMsg
+			lcall		Del1s
 	;	Test LCDmsg - 16 char
-			call		TstMs6
-			call		Del1s
+			lcall		TstMs6
+			lcall		Del1s
 	;	Test scrolling - 16 char
-			call		TstSc6
-			call		Del1s
+			lcall		TstSc6
+			lcall		Del1s
 	;	Test LCDaddr - 16 char
-			call		TstA6r
-			call		Del1s
+			lcall		TstA6r
+			lcall		Del1s
 
 	; Get ready to start over
-			call		LCDclear	; Move cursor to the start
-			call		LCDzero		; for the next guy
-			goto		Loop
+			lcall		LCDclear	; Move cursor to the start
+			lcall		LCDzero		; for the next guy
+			lgoto		Loop
 
 ;	Test scrolling - 16 character display
 TstSc6
-			call		LCDclear	; Clear it out
-			call		LCDinsc		; Initialize scrolling
+			lcall		LCDclear	; Clear it out
+			lcall		LCDinsc		; Initialize scrolling
 			clrf		Index		; Start with zeroth character
 TstSc61		movf		Index,W		; Pick up the index
-			call		TabSc6		; Look up the desired character
-			call		LCDsc16		; Display it
-			call		Del256ms	; Slow it down
+			lcall		TabSc6		; Look up the desired character
+			lcall		LCDsc16		; Display it
+			lcall		Del256ms	; Slow it down
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			goto		TstSc61		; No, do it again
+			lgoto		TstSc61		; No, do it again
 			return					;
 
 ;	Test the message function - 16-character (2x8) display
 TstMs6
-			call		LCDclear	; Clear out the display
+			lcall		LCDclear	; Clear out the display
+			pagesel		TstMs6
 			clrf		Index		; Start with zeroth character
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
@@ -95,12 +100,13 @@ TstMs61		movf		Index,W		; Pick up the index
 			movlw		.16			; Message length
 			movwf		Buffer		; Stuff it in buffer
 			movlw		Buffer		; Message in buffer, can
-			call		LCDmsg		; display it with LCDmsg
+			lcall		LCDmsg		; display it with LCDmsg
 			return					; All done
 
 ;	Test the message function
 TstMsg
-			call		LCDclear	; Clear out the display
+			lcall		LCDclear	; Clear out the display
+			pagesel		TstMsg
 			clrf		Index		; Start with zeroth character
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
@@ -120,82 +126,86 @@ TstMsg1		movf		Index,W		; Pick up the index
 			movlw		.8			; Message length
 			movwf		Buffer		; Stuff it in buffer
 			movlw		Buffer		; Message in buffer, can
-			call		LCDmsg		; display it with LCDmsg
+			lcall		LCDmsg		; display it with LCDmsg
 			return					; All done
 
 ;	Test scrolling - 8 character only
 TstScr
-			call		LCDclear	; First clear memory
-			call		LCDshift	; Set to shift mode
-			call		LCD8		; First char on right
+			lcall		LCDclear	; First clear memory
+			lcall		LCDshift	; Set to shift mode
+			lcall		LCD8		; First char on right
 			clrf		Index		; Start with zeroth character
 TstScr1		movf		Index,W		; Pick up the index
-			call		TabScr		; Look up the desired character
-			call		LCDletr		; Display it
-			call		Del256ms	; Slow it down
+			lcall		TabScr		; Look up the desired character
+			lcall		LCDletr		; Display it
+			lcall		Del256ms	; Slow it down
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			goto		TstScr1		; No, do it again
-			call		LCDunshf	; Get out of shift mode
+			lgoto		TstScr1		; No, do it again
+			lcall		LCDunshf	; Get out of shift mode
 			return					;
 
 ;	Test digit ... send 1..8 to LCD
 TstDig
-			call		LCDclear	; Clear out old stuff
+			lcall		LCDclear	; Clear out old stuff
 			clrf		Index		; Start with zeroth character
 TstDig1		movf		Index,W		; Pick up the index
-			call		TabDig		; Look up the desired character
-			call		LCDdig		; Display it
+			lcall		TabDig		; Look up the desired character
+			lcall		LCDdig		; Display it
 			incf		Index,1		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			goto		TstDig1		; No, do it again
+			lgoto		TstDig1		; No, do it again
 			return					; Yes, all done
 ;	Test address ... will send "Elecraft" slowly, from the ends in
 TstAdr
 			clrf		Index		; Start with zeroth
 TstAd1		movf		Index,W		; Pick up the index
-			call		TabAd1		; And get the char position
+			lcall		TabAd1		; And get the char position
 			movwf		IndInd		; Save it
-			call		LCDaddr		; and position cursor
+			lcall		LCDaddr		; and position cursor
 			movf		IndInd,W	; Get the position again
-			call		TabAdr		; and get the character
-			call		LCDletr		; Display it
+			lcall		TabAdr		; and get the character
+			lcall		LCDletr		; Display it
 			movlw		H'11'		; Move cursor out of the way
-			call		LCDaddr		; for a nicer display
-			call		Del256ms	; Slow it down
+			lcall		LCDaddr		; for a nicer display
+			lcall		Del256ms	; Slow it down
 			incf		Index,1		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			goto		TstAd1		; No, do it again
+			lgoto		TstAd1		; No, do it again
 			return					; Yes, all done
 
 ;	Test address - 16 char display ... will send "Wilderness Radio" slowly, from the ends in
 TstA6r
-			call		LCDclear	; Clear out prev message
+			lcall		LCDclear	; Clear out prev message
+			pagesel		TstA6r
 			clrf		Index		; Start with zeroth
 TstA61		movf		Index,W		; Pick up the index
-			call		TabA61		; And get the char position
+			lcall		TabA61		; And get the char position
 			movwf		IndInd		; Save it
 			sublw		.7			; Check if second part of LCD
 			btfss		STATUS,C	; Borrow?
 			goto		TstA62		; No
 			movf		IndInd,W	; Yes
-			call		LCDaddr		; and position cursor
+			lcall		LCDaddr		; and position cursor
+			pagesel		TstA6r
 			goto		TstA63		; Skip over right half
 TstA62		movf		IndInd,W	; Pick up position
 			addlw		H'38'		; Move to right half
-			call		LCDaddr		; of LCD (add 64-8)
+			lcall		LCDaddr		; of LCD (add 64-8)
+			pagesel		TstA6r
 TstA63		movf		IndInd,W	; Get the position again
 			call		TabAd6		; and get the character
-			call		LCDletr		; Display it
+			lcall		LCDletr		; Display it
 			movlw		H'11'		; Move cursor out of the way
-			call		LCDaddr		; for a nicer display
-			call		Del256ms	; Slow it down
+			lcall		LCDaddr		; for a nicer display
+			lcall		Del256ms	; Slow it down
+			pagesel		TstA6r
 			incf		Index,1		; Next character
 			movlw		.16			; Message length
 			subwf		Index,W		; WIll be zero when done
