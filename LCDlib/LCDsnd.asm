@@ -1,14 +1,13 @@
-		include		"p16f88.inc"
 		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD
-		global	LCDsndD			; Send data to the LCD
+		global	LCDsndD		; Send data to the LCD
 	; Required routines
-		extern	Del450ns			; Delay 450 nsec
+		extern	Del450ns	; Delay 450 nsec
 
-LCDEN	equ			H'04'		; LCD enable bit number in PORTB
-LCDRS	equ			H'40'		; LCD register select bit in PORTB
+LCDEN	equ			H'04'	; LCD enable bit number in PORTB
+LCDRS	equ			H'40'	; LCD register select bit in PORTB
 
 		code
 ; ------------------------------------------------------------------------
@@ -28,8 +27,8 @@ LCDsndI:
 	; Actually move the data
 		movwf	PORTB		; Send data to PORTB
 		bsf		PORTB,LCDEN	; turn on enable bit
-		call	Del450ns		; 450ns
+		call	Del450ns	; 450ns
 		bcf		PORTB,LCDEN	; clear enable bit
-		call	Del450ns		; 450ns
+		call	Del450ns	; 450ns
 		return
 		end
