@@ -1,6 +1,6 @@
-		title		'LCDletr, LCDdig - Display letter or digit'
-		subtitle	'Part of the LCDlib library'
-		list		b=4,c=132,n=77,x=Off
+			title		'LCDletr, LCDdig - Display letter or digit'
+			subtitle	'Part of the LCDlib library'
+			list		b=4,c=132,n=77,x=Off
 
 ; ------------------------------------------------------------------------
 ;**
@@ -16,51 +16,32 @@
 ;  exit.
 ;
 ;**
-		include		"LCDMacs.inc"
+			include		"LCDMacs.inc"
 
 	; Provided Routines
-		global		LCDdig,LCDletr
+			global		LCDdig,LCDletr
 	; Required routines
-		extern		LCDsndD
-		extern		Del40us
+			extern		LCDsndD
+			extern		Del40us
 
-_LCDOV1	udata_ovr
-_LCDV01	res			1			; Storage for letter
-_LCDV02	res			1			; Storage for high nybble of letter
+_LCDOV1		udata_ovr
+SaveLetr	res			1			; Storage for letter
 
-		code
+			code
 LCDdig:
-		andlw		00fh
-		iorlw		030h		; note falls thru
+			andlw		00fh
+			iorlw		030h		; note falls thru
 
-; ------------------------------------------------------------------------
-;**
-;  Send a letter to the LCD.
-;
-;  LCDletr sends a letter to the LCD.  The letter
-;  will be entered at the current DDRAM postion.
-;  The letter is provided in the W register. The
-;  contents of the W register are destroyed on
-;  exit.
-;
-;**
 LCDletr:
-		movwf		_LCDV01		; save off the letter
-		andlw		0f0h		; high nybble
-		movwf		_LCDV02		; Save hi nybble
-		rrf			_LCDV02,F	; And move it to the right
-		rrf			_LCDV02,F	;
-		rrf			_LCDV02,F	;
-		rrf			_LCDV02,F	;
-		movfw		_LCDV02		; Pick it up
-		call		LCDsndD
+			movwf		SaveLetr	; save off the letter
+			swapf		SaveLetr,W	; Swap bytes
+			call		LCDsndD
 
-		movfw		_LCDV01		; get it
-		andlw		00fh		; Mask off high stuff
-		call		LCDsndD
+			movfw		SaveLetr	; get it
+			call		LCDsndD
 
-		call		Del40us		; delay a while
-								; Note: Doesn't work without this
-		return
+			call		Del40us		; delay a while
+									; Note: Doesn't work without this
+			return
 
-		end
+			end
