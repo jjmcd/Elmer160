@@ -27,7 +27,7 @@
 ;	2 scrolls off the left of line 2, the second copy will
 ;	scroll into the right of line 1.
 ;
-;	$Revision: 1.20 $ $Date: 2005-02-05 21:30:50-05 $
+;	$Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
 
 		include		Processor.inc
 

@@ -3,7 +3,7 @@
 ;  Macros and defines used in LCDlib
 ;
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.20 $ $Date: 2005-01-23 11:09:48-05 $
+;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
 
 ;------------------------------------------------------------------
 ; Select processor include file depending on processor symbol
