@@ -1,26 +1,19 @@
-#ifdef never
-/*! \file LCDzero.asm
+		title		'LCDzero - Set LCD entry address to zero'
+		subtitle	'Part of the LCDlib library'
+		list		b=4,c=132,n=77,x=Off
 
- \brief Set the LCD DDRAM address to zero.
-
- Provides the function LCDzero.  Requires the functions
- LCDsndI, Del40us and Del2ms.
-
-*/
-
-/*! \function LCDzero.asm
-
- \brief Set the LCD DDRAM address to zero
-
-
- LCDzero is called when it is desired to begin a new display on the
- LCD.  The DDRAM address, which affects where the next character will
- be written, is set to zero which is the first position on the LCD.
-
- The W register is not preserved and is ignored.
-*/
-#endif
-
+;**
+;  LCDzero
+;
+;  Set LCD DDRAM address to zero.
+;
+;  This function sets the LCD entry address to zero.  This
+;  causes the next character to be displayed as the first
+;  character on the display.
+;
+;  The W register is ignored.  The contents of the W
+;  register are destroyed.
+;**
 		include		"LCDMacs.inc"
 
 	; Provided Routines
