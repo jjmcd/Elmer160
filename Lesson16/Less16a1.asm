@@ -4,11 +4,8 @@
 ;	complements the contents of the W register
 ;
 ;	WB8RCR - 29-Oct-04
-;	$Revision: 1.3 $ $Date: 2004-11-16 10:02:52-05 $
+;	$Revision: 1.4 $ $Date: 2004-11-16 11:36:16-05 $
 ;===========================================================
-
-		processor	pic16f84a
-		include		p16f84a.inc
 
 ;	Define the global entry point so the linker can see it
 		global		aSub
