@@ -1,5 +1,15 @@
 		nolist
-; Macros used in LCDlib
+; Macros and defines used in LCDlib
+
+;------------------------------------------------------------------
+; Add include so it only needs to be in one place
+		include		p16f84a.inc
+
+;------------------------------------------------------------------
+; How many lines on the display
+; Comment out for a single line display
+#define LCD2LINE
+
 
 ;------------------------------------------------------------------
 ; Send a 16 bit command to the LCD
