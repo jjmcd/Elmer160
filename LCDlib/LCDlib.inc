@@ -1,8 +1,7 @@
-;	Include file for LCDlib
+;  Include file for LCDlib
 ;
-;	WB8RCR - 24-Sep-04
-;
-;	13-Nov-04 - added LCDaddr and LCDmsg
+;  WB8RCR - 24-Sep-04
+;  $Revision: 1.3 $ $Date: 2004-11-23 11:50:16-05 $
 
 
 ;	Defines for LCDsubs
