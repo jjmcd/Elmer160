@@ -10,6 +10,9 @@
 ;  are also here.
 ;
 ;**
+;  WB8RCR 26-Sep-04
+;  $Revision: 1.4 $ $Date: 2004-11-23 08:16:34-05 $
+
 	; Provided routines
 		global		DelWrk,DelWrkL
 	; Provided data
