@@ -11,6 +11,8 @@
 ;  register is ignored.  The contents of the W register
 ;  are destroyed.
 ;**
+;  WB8RCR - 26-Sep-04
+;  $Revision: 1.3 $ $Date: 2004-11-23 07:59:30-05 $
 
 			global		Del256ms
 			extern		Del2ms
