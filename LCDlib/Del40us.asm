@@ -1,3 +1,17 @@
+		title		'Del40us - Delay 40 microseconds (approximately)'
+		subtitle	'Part of the LCDlib library'
+		list		b=4,c=132,n=77,x=Off
+
+;**
+;  Del40us
+;
+;  Delay 40 microseconds (approximately).
+;
+;  This function delays for 40 microseconds.  The W
+;  register is ignored.  The contents of the W register
+;  are destroyed.
+;**
+
 		include		"LCDMacs.inc"
 
 	; Provided Routines
@@ -30,7 +44,7 @@ kloop:	decfsz		_DELV002,F	; _DELV002 = _DELV002-1, skip next if zero
 		goto 		kloop
 		decfsz		_DELV001,F	; _DELV001 = _DELV001-1, skip next if zero
 		goto		jloop
-		nop		; Fill out remaining 3 usec (at 4MHz)
+		nop			; Fill out remaining 3 usec (at 4MHz)
 		nop
 		nop
 		return

@@ -1,3 +1,17 @@
+			title			'Del2ms - Delay 2 millisecond (approximately)'
+			subtitle		'Part of the LCDlib library'
+			list			b=4,c=132,n=77,x=Off
+
+;**
+;  Del2ms
+;
+;  Delay 2 millisecond (approximately).
+;
+;  This function delays for 1.8 milliseconds.  The W
+;  register is ignored.  The contents of the W register
+;  are destroyed.
+;**
+
 		include		"LCDMacs.inc"
 
 	; Provided Routines
