@@ -27,7 +27,7 @@
 ;	2 scrolls off the left of line 2, the second copy will
 ;	scroll into the right of line 1.
 ;
-;	$Revision: 1.1 $ $Date: 2005-02-05 17:29:04-05 $
+;	$Revision: 1.2 $ $Date: 2005-02-05 21:30:02-05 $
 
 		include		Processor.inc
 
@@ -47,9 +47,6 @@ L2END	equ			H'68'		; First char past end of line 2
 _LCDOV2	udata_ovr
 Char	res			1			; Temporary storage for char
 
-_LCDOV1	udata_ovr
-Temp	res			1			; Temporary storage for addr
-
 		code
 LCDsc16
 		movwf		Char		; Save off the character
@@ -59,39 +56,40 @@ LCDsc16
 		call		LCDaddr		; Set the cursor address
 		movf		Char,W		; Pick up the character
 		call		LCDletr		; and write it
-		incf		LCDad2,F	; Increment the address
-		movf		LCDad2,W	; Get the address and see if
-		call		Limit		; we have run off the end of
-		movwf		LCDad2		; memory, if so, wrap it.
 
 		call		LCDunshf	; Set to unshift so we don't
 		movf		LCDad1,W	; shift twice.  Now handle the
 		call		LCDaddr		; second write just like
 		movf		Char,W		; the first.
 		call		LCDletr
-		incf		LCDad1,F
-		movf		LCDad1,W
-		call		Limit
-		movwf		LCDad1
+
+		call		Limit		; Check to see whether wrapped
+
 		return
 
 ;	Test whether the address has moved off the high end
 ;	of memory for a line
 Limit
-		movwf		Temp		; Save off the address
+		incf		LCDad1,F	; Increment line 1 address
+		incf		LCDad2,F	; and line 2 address
+		movf		LCDad1,W	; Pick up the line 1 address
 		sublw		L1END		; Is it past the end of line 1?
 		btfsc		STATUS,Z	;
 		goto		Limit1		; Yes, go wrap it
-		movf		Temp,W		; Pick up the address again
-		sublw		L2END		; Is it off the end of line 2?
-		btfsc		STATUS,Z
+								; Note that the lines won't wrap
+								; at the same time or else this
+								; wouldn't work.
+		movf		LCDad2,W	; Pick up the line 2 address
+		sublw		L2END		; Is it past the end of line 2?
+		btfsc		STATUS,Z	;
 		goto		Limit2		; Yes, go wrap it
-		movf		Temp,W		; No wrapping, pic up
 		return					; original address
 Limit1
 		movlw		L1START		; Return start of line 1
+		movwf		LCDad1		;
 		return
 Limit2
-		movlw		L2START		; Return start of line 2
+		movlw		L2START		; and also line 2
+		movwf		LCDad2		;
 		return
 		end
