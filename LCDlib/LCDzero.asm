@@ -15,7 +15,7 @@
 ;  register are destroyed.
 ;**
 ;  WB8RCR - 24-Sep-04
-;  $Revision: 1.6 $ $Date: 2004-11-23 14:19:44-05 $
+;  $Revision: 1.7 $ $Date: 2004-11-23 14:20:02-05 $
 
 		include		"LCDMacs.inc"
 
