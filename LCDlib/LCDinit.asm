@@ -1,4 +1,27 @@
+		title		'LCDinit - Initialize the LCD display'
+		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
+
+;**
+;  LCDinit
+;
+;  Initialize the LCD display.
+;
+;  LCDinit intializes the LCD.  This routine must be
+;  called before any other LCD routines.  The LCD
+;  requires significant time between power up and
+;  initialization; LCDinit waits this amount of time.
+;  In addition, initialization requires sending a
+;  series of commands to the LCD, some of which take
+;  some time for the LCD controller to process.
+;  As a result, LCDinit takes almost a tenth of a
+;  second to execute.
+;
+;  The contents of the W register are ignored by
+;  this routine.  The contents of the W register
+;  are destroyed on exit.
+;
+;**
 		include		"LCDMacs.inc"
 
 	; Provided Routines
@@ -9,7 +32,7 @@
 		extern		Del2ms		; Delay 1.8 msec
 
 _LCDOV1	udata_ovr
-_LCDV01	res		1		; Storage for loop counter
+_LCDV01	res			1			; Storage for loop counter
 
 		code
 ; ------------------------------------------------------------------------
@@ -19,28 +42,28 @@ LCDinit:
 		;
 		; First, need to wait a long time after power up to
 		; allow time for 44780 to get it's act together
-		movlw	020h		; Need >15.1ms after 4.5V
-		movwf	_LCDV01	; we will wait 65ms after 2V
+		movlw		020h		; Need >15.1ms after 4.5V
+		movwf		_LCDV01		; we will wait 65ms after 2V
 
-		call	Del2ms		;
-		decfsz	_LCDV01,F
-		goto	$-2
+		call		Del2ms		;
+		decfsz		_LCDV01,F
+		goto		$-2
 
 		; Initialization begins with sending 0x03 3 times followed
 		; by a 0x02 to define 4 bit data
-		LCD16	H'03',h'03'
-		LCD16	H'03',h'02'
+		LCD16		H'03',h'03'
+		LCD16		H'03',h'02'
 
 		; Now set up the display the way we want it
-		LCD16	H'02',H'08'	; Set lines, font
-					; 7, 1=2 lines; 6, 0=5x7; 5, 4, don't care 
-					;;; Note 0c0, 080 seems no diff on DMC20434
-		LCD16	H'00',H'08'	; Display Off
-		LCD16	H'00',H'01'	; Display On
-		LCD16	H'00',H'06'	; Set Entry Mode
-					; 7=0; 6=1; 5, 1=increment; 6, 1=shift
-					;; Note, 060, 070 DOES seem to change things
-		LCD16	H'00',H'0c'	; cursor, display on blink
+		LCD16		H'02',H'08'	; Set lines, font
+						; 7, 1=2 lines; 6, 0=5x7; 5, 4, don't care 
+						;;; Note 0c0, 080 seems no diff on DMC20434
+		LCD16		H'00',H'08'	; Display Off
+		LCD16		H'00',H'01'	; Display On
+		LCD16		H'00',H'06'	; Set Entry Mode
+						; 7=0; 6=1; 5, 1=increment; 6, 1=shift
+						;; Note, 060, 070 DOES seem to change things
+		LCD16		H'00',H'0c'	; cursor, display on blink
 
 		return
 		end
