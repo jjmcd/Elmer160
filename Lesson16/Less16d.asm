@@ -8,12 +8,6 @@ STARTUP	code
 		goto		Start
 		code
 Start
-	; Make PORTB pins be outputs
-		errorlevel	-302
-		banksel		TRISB
-		clrf		TRISB
-		banksel		PORTB
-		errorlevel	+302
 
 	; Initialize the LCD
 		call		LCDinit
