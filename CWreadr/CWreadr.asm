@@ -1,3 +1,4 @@
+; CWreadr.asm $Revision: 1.2 $ $Date: 2005-02-03 09:03:28-05 $
 ;**************************************************************
 ;                    CW decoding program                      *
 ;                for PIC16F628 microprocessor                 *

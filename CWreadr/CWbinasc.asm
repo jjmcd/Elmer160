@@ -1,3 +1,5 @@
+		title		"CW Decoding Program - binary to ASCII conversion"
+		subtitle	"CWbinasc.asm $Revision: 1.2 $ $Date: 2005-02-03 09:06:54-05 $"
 ;	Binary to ASCII conversion
 		include		p16f628.inc
 
