@@ -7,7 +7,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.10 $ $Date: 2005-01-23 11:08:52-05 $
+;  $Revision: 1.20 $ $Date: 2005-01-23 11:09:50-05 $
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD
