@@ -1,6 +1,9 @@
 ;			list
 	; LCDMacs.inc - Macros and defines used in LCD
-; Macros and defines used in LCDlib
+;  Macros and defines used in LCDlib
+;
+;  WB8RCR - 26-Sep-04
+;  $Revision: 1.4 $ $Date: 2004-11-23 13:35:10-05 $
 
 ;------------------------------------------------------------------
 ; Add include so it only needs to be in one place
