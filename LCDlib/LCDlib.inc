@@ -1,7 +1,7 @@
 ;  Include file for LCDlib
 ;
 ;  WB8RCR - 24-Sep-04
-;  $Revision: 1.10 $ $Date: 2005-01-23 11:08:50-05 $
+;  $Revision: 1.20 $ $Date: 2005-02-06 08:42:46-05 $
 
 
 ;	Defines for LCDsubs
@@ -10,10 +10,12 @@
 		extern		LCDaddr		; Set the DDRAM address
 		extern		LCDshift	; Set the LCD to shift mode
 		extern		LCDunshf	; Turn off LCD shift mode
-		extern		LCDinit		; Initialize the LCS
+		extern		LCDinit		; Initialize the LCD
+		extern		LCDinsc		; Initialize 16 character scrolling
 		extern		LCDletr		; Send a letter to the LCD
 		extern		LCDdig		; Send a digit to the LCD
 		extern		LCDmsg		; Display a variable length message
+		extern		LCDsc16		; Scroll text on 2x8 (1x16) display
 		extern		LCD8		; Set the DDRAM address to the end
 		extern		Del2ms		; Delay 1.8 msec
 		extern		Del128ms	; Delay 128 msec
