@@ -15,6 +15,9 @@
 ;  The contents of the W register are ignored.  The contents of
 ;  the W register are destroyed.
 ;**
+;  WB8RCR - 24-Sep-04
+;  $Revision: 1.5 $ $Date: 2004-11-23 13:47:44-05 $
+
 		include		"LCDMacs.inc"
 
 	; Provided Routines
