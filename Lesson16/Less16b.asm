@@ -4,8 +4,8 @@
 ;	into W, cal a routine to save it, then clear the W and
 ;	call the routine to restor it.
 ;
-;	WB8RCR - 29-Oct-04
-;	$Revision: 1.1 $ $Date: 2004-11-16 11:22:58-05 $
+;	WB8RCR - 16-Nov-04
+;	$Revision: 1.2 $ $Date: 2004-11-16 11:29:30-05 $
 ;===========================================================
 
 		processor	pic16f84a
