@@ -4,6 +4,9 @@ digraph CW_reader
     rankdir="LR"; ranksep=1.5;
     node [shape=record, fontname="Helvetica",fontsize=16,
 	style=filled, fillcolor=azure2];
+    CWreadr [shape=record, fontname="Helvetica-bold",fontsize=16,
+	style=filled, fillcolor=wheat];
+    edge [ weight=10 ];
 
     CWreadr -> Initialize;
     CWreadr -> inilcd;
