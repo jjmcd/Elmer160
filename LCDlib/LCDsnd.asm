@@ -1,4 +1,4 @@
-		include		"p16f84A.inc"
+		include		"p16f88.inc"
 		include		"LCDMacs.inc"
 
 	; Provided Routines
