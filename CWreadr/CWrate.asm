@@ -3,11 +3,15 @@
 		include		CWdefs.inc
 
 		global		cw_rate,agspeed
+		global		cntchar
 		extern		moltip,dividi
 		extern		w_num1,w_num2,w_num3,timchr1,timchr2,speed
-		extern		plval,cntchar
+		extern		plval
 
+		udata
+cntchar res 		1 				; received characters counter  
 		code
+
 ;	Speed rate calculation routine
 ;	
 ;	is applied the formula V = (600 x chrparm)/ timchr1  
