@@ -2,6 +2,14 @@
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
 
+;**
+;  DelWrk
+;
+;  Delay while doing someting else.  This routine is used
+;  by T-PICEL and is included here since all the other delays
+;  are also here.
+;
+;**
 	; Provided routines
 		global		DelWrk,DelWrkL
 	; Provided data
