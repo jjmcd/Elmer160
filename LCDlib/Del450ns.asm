@@ -15,7 +15,7 @@
 ;  W register are preserved.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.3 $ $Date: 2004-11-23 08:02:40-05 $
+;  $Revision: 1.7 $ $Date: 2004-11-23 08:04:56-05 $
 
 	; Provided Routines
 		global		Del450ns
