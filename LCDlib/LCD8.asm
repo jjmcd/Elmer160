@@ -30,12 +30,14 @@
 		extern		LCDsndI		; Send a command bybble to the LCD
 		extern		Del40us		; Delay 40 usec
 		extern		Del2ms		; Delay 1.8 msec
+		extern		LCDsend		; Send command to LCD
 
 		code
 ; ------------------------------------------------------------------------
 	; Set the LCD DDRAM address to eight
 LCD8:
-		LCD16	H'08',H'08'
+		movlw	LCD_SET_DDRAM | H'08'
+		call	LCDsend
 		return
 
 		end
