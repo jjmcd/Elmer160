@@ -16,6 +16,9 @@
 ;  exit.
 ;
 ;**
+;  WB8RCR - 26-Sep-04
+;  $Revision: 1.5 $ $Date: 2004-11-23 11:40:36-05 $
+
 			include		"LCDMacs.inc"
 
 	; Provided Routines
