@@ -74,7 +74,7 @@ LCDinit:
 						; 7, 1=2 lines; 6, 0=5x7; 5, 4, don't care 
 						;;; Note 0c0, 080 seems no diff on DMC20434
 		ELSE
-		LCD16		H'02',H'00'	; Set lines, font
+		LCD16		H'02',H'04'	; Set lines, font
 		ENDIF
 		LCD16		H'00',H'08'	; Display Off
 		LCD16		H'00',H'01'	; Display On
