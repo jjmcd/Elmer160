@@ -21,8 +21,8 @@ LED2	equ			2				; LED2 on PORTB
 LED3	equ			1				; LED3 on PORTB
 ENC1	equ			0				; Encoder 1 on PORTA
 ENC2	equ			1				; Encoder 2 on PORTA
-HZ325T	equ			D'3'			; Number of clock ticks for Hz325
-HZ195T	equ			D'5'			; Number of clock ticks for Hz195
+HZ325T	equ			D'1'			; Number of clock ticks for Hz325
+HZ195T	equ			D'100'			; Number of clock ticks for Hz195
 
 		cblock		H'20'
 			Input					; Store the debounced input
@@ -140,8 +140,8 @@ Start
 		bcf			OPTION_REG,T0CS	; Select timer
 		bcf			OPTION_REG,PSA	; Prescaler to timer
 		bcf			OPTION_REG,PS2	; \
-		bcf			OPTION_REG,PS1	;  >- 1:4 prescale
-		bsf			OPTION_REG,PS0	; /
+		bcf			OPTION_REG,PS1	;  >- 1:2 prescale
+		bcf			OPTION_REG,PS0	; /
 	; Set the LEDs to be outputs
 		banksel		TRISB			; Select bank 1
 		bcf			TRISB,LED1		; Clear the TRIS bits
