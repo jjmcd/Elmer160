@@ -1,3 +1,11 @@
+; Less16c1.asm
+;
+;	Delay subroutine with two loop counters.  Used to demonstrate
+;	linking with overlaid data.
+;
+;	WB8RCR - 18-Nov-04
+;	$Revision: 1.2 $ $Date: 2005-01-20 16:32:44-05 $
+;===========================================================
 			global		Sub1
 
 Counters	udata_ovr
