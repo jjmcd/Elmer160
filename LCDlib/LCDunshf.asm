@@ -20,7 +20,7 @@
 	; Provided Routines
 		global		LCDunshf
 	; Required routines
-		extern		LCDsndI
+		extern		LCDsend		; Send command to LCD
 		extern		Del40us
 		extern		Del2ms
 
@@ -28,7 +28,8 @@
 ; ------------------------------------------------------------------------
 	; Turn off LCD shift mode
 LCDunshf:
-		LCD16	H'00',H'04'
+		movlw	LCD_ENTRY_MODE | LCD_NO_SHIFT | LCD_DIS_DECR
+		call	LCDsend
 		call	Del40us		; Leave a little longer wait
 		return
 

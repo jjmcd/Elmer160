@@ -19,7 +19,7 @@
 	; Provided Routines
 		global		LCDzero
 	; Required routines
-		extern		LCDsndI
+		extern		LCDsend		; Send command to LCD
 		extern		Del40us
 		extern		Del2ms
 
@@ -27,7 +27,8 @@
 	; Set the LCD DDRAM address to zero
 		code
 LCDzero:
-		LCD16	H'08',H'00'
+		movlw	LCD_SET_DDRAM | H'00'
+		call	LCDsend
 		return
 
 		end

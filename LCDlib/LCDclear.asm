@@ -20,7 +20,7 @@
 	; Provided Routines
 		global		LCDclear
 	; Required routines
-		extern		LCDsndI
+		extern		LCDsend		; Send command to LCD
 		extern		Del40us
 		extern		Del2ms
 
@@ -28,7 +28,8 @@
 ; ------------------------------------------------------------------------
 	; Clear the LCD
 LCDclear:
-		LCD16		H'00',H'01'
+		movlw		LCD_DISP_CLEAR
+		call		LCDsend
 		call		Del2ms
 		return
 

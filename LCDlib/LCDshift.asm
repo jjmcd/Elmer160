@@ -1,9 +1,26 @@
+		title		'LCDshift - set the LCD into shift mode'
+		subtitle	'Part of the LCDlib library'
+		list		b=4,c=132,n=77,x=Off
+
+;**
+;  LCDshift
+;
+;  Set the LCD to shift mode.
+;
+;  This function delays for sets the LCD into shift mode.  In
+;  this mode, the display is shifted left each time a character
+;  is written to the display.  Successive characters are written
+;  to the same LCD location.
+;
+;  The contents of the W register are ignored.  The contents of
+;  the W register are destroyed.
+;**
 		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCDshift
 	; Required routines
-		extern		LCDsndI
+		extern		LCDsend		; Send command to LCD
 		extern		Del40us
 		extern		Del2ms
 
@@ -11,7 +28,8 @@
 ; ------------------------------------------------------------------------
 	; Set the LCD to shift mode
 LCDshift:
-		LCD16	H'00',H'07'
+		movlw	LCD_ENTRY_MODE | LCD_DISP_SHIFT | LCD_DIS_INCR
+		call	LCDsend
 		call	Del40us		; Leave a little longer wait
 		return
 
