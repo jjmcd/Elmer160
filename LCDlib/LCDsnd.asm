@@ -1,4 +1,13 @@
 		include		"LCDMacs.inc"
+;**
+;  LCDsnd
+;
+;  Sends a nybble to the LCD.  Two entry points are provided, LCDsndI to
+;  send a command nybble, LCDsndD to send a data nybble.
+;
+;**
+;  WB8RCR - 26-Sep-04
+;  $Revision: 1.4 $ $Date: 2004-11-23 13:56:32-05 $
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD
