@@ -1,0 +1,72 @@
+; Lesson 5a - PIC Elmer lesson 5
+; WB8RCR - 17 Nov 2003
+
+		processor	16f84a
+		include		<p16f84a.inc>
+		__config	_HS_OSC & _WDT_OFF & _PWRTE_ON
+
+; Variable Storage
+
+		cblock		H'20'
+			Spot1			; First program variable
+			Spot2			; Second program variable
+		endc
+
+; Program code
+
+Start
+	;	Clear the status bits so we know their state
+		bcf			STATUS,Z
+		bcf			STATUS,C
+		bcf			STATUS,DC
+
+	;	Show how clrf affects the Z flag
+		clrf		Spot1	; Clear out Spot1
+
+	;	Show how a carry out of bit 7 affects the C flag
+		movlw		H'f0'	; Store H'f0' in Spot2
+		movwf		Spot2	;
+
+		movlw		H'10'	; Add a H'10' to Spot2
+		addwf		Spot2,W	; 
+
+	;	Show how a carry out of bit 3 affects the DC flag
+		movlw		D'15'	; Store a 15 (H'0f') in Spot2
+		movwf		Spot2	;
+
+		movlw		D'3'	; Add a 3 to Spot2
+		addwf		Spot2,W	; 
+
+	;	Set up a subtraction
+		movlw		H'03'
+		bsf			STATUS,C
+		subwf		Spot2,F
+
+		movlw		H'0f'
+		subwf		Spot2,F
+
+		clrw				; Clear out W and Spot1
+		clrf		Spot1	;
+
+		incf		Spot1,F	; Bump up Spot1 twice
+		incf		Spot1,F	;
+
+		decf		Spot2,F	; And bump down Spot2
+		decf		Spot2,F	;
+
+		movlw		0xee
+		addlw		0x22
+		andlw		0xe0
+		iorlw		0xf8
+		andwf		STATUS,F
+
+		movwf		Spot1
+loop
+		incfsz		Spot1,F
+		goto		loop
+		
+
+alldud
+		goto		alldud	; Keep the simulator happy
+
+		end					; And we're done
