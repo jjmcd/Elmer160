@@ -1,5 +1,5 @@
 		title		"CW Decoding Program"
-		subtitle	"CWreadr.asm $Revision: 1.3 $ $Date: 2005-02-11 13:43:14-05 $"
+		subtitle	"CWreadr.asm $Revision: 1.4 $ $Date: 2005-02-11 15:15:30-05 $"
 ;**************************************************************
 ;                    CW decoding program                      *
 ;                for PIC16F628 microprocessor                 *
@@ -44,10 +44,15 @@
 		extern		inilcd,bytelcd,wrtlcd
 		extern		panel,displ,cw_rate,agspeed
 		extern		c_minof,c_minon,decod,ag_parm,dec_sg
+;	provided storage	
+		global		swinput
 ;	external storage
 		extern		timeon,timeoff
-		extern  	ctrsegn,swinput,tmed_of,tmax_of
+		extern  	ctrsegn,tmed_of,tmax_of
 		extern		cntchar
+
+		udata
+swinput res		 	1 				; input ON/OFF state indicator
 
 ;       Reset address
 STARTUP	code
