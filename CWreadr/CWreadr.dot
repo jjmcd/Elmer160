@@ -1,9 +1,9 @@
-digraph CWreadr
+digraph CW_reader
 {
      size="6,7";
     rankdir="LR"; ranksep=1.5;
-    node [shape=Mrecord, fontname="Helvetica",
-	style=filled, fillcolor=Wheat];
+    node [shape=record, fontname="Helvetica",fontsize=16,
+	style=filled, fillcolor=azure2];
 
     CWreadr -> Initialize;
     CWreadr -> inilcd;
