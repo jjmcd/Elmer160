@@ -7,13 +7,13 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.4 $ $Date: 2004-11-23 13:56:32-05 $
+;  $Revision: 1.10 $ $Date: 2005-01-23 11:08:52-05 $
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD
 		global	LCDsndD		; Send data to the LCD
 	; Required routines
-		extern	Del450ns	; Delay 450 nsec
+;		extern	Del450ns	; Delay 450 nsec
 
 LCDEN	equ			H'04'	; LCD enable bit number in PORTB
 LCDRS	equ			H'40'	; LCD register select bit in PORTB
@@ -36,8 +36,10 @@ LCDsndI:
 	; Actually move the data
 		movwf	PORTB		; Send data to PORTB
 		bsf		PORTB,LCDEN	; turn on enable bit
-		call	Del450ns	; 450ns
+;		call	Del450ns	; 450ns
+		nop
 		bcf		PORTB,LCDEN	; clear enable bit
-		call	Del450ns	; 450ns
+;		call	Del450ns	; 450ns
+		nop
 		return
 		end
