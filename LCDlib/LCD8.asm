@@ -1,11 +1,11 @@
-		include		"PickleMacs.inc"
+		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCD8		; Set the DDRAM address to eight
 	; Required routines
-		extern		SendI		; Send a command bybble to the LCD
-		extern		waste		; Delay 48 usec
-		extern		wastel		; Delay 1.7 msec
+		extern		LCDsndI		; Send a command bybble to the LCD
+		extern		Del40us		; Delay 40 usec
+		extern		Del2ms		; Delay 1.7 msec
 
 		code
 ; ------------------------------------------------------------------------
