@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.31 $ $Date: 2005-03-05 09:50:22-05 $
+;  $Revision: 1.32 $ $Date: 2005-03-18 13:15:38-04 $
 
 		include		"LCDMacs.inc"
 
@@ -80,10 +80,10 @@ LCDinit:
 
 		; Now set up the display the way we want it
 		IFDEF		LCD2LINE
-		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_2_LINE | LCD_5X10_FONT
+		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_2_LINE | LCD_5X7_FONT
 		call		LCDsend
 		ELSE
-		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_1_LINE | LCD_5X10_FONT
+		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_1_LINE | LCD_5X7_FONT
 		call		LCDsend
 		ENDIF
 

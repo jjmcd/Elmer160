@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.2 $ $Date: 2005-03-18 09:29:34-04 $
+;	$Revision: 1.32 $ $Date: 2005-03-18 13:14:34-04 $
 
 			include		Processor.inc
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON

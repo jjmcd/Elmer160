@@ -19,7 +19,7 @@
 ;
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 1.31 $ $Date: 2005-03-05 09:50:02-05 $
+;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:22-04 $
 
 		include		"LCDMacs.inc"
 

@@ -3,11 +3,11 @@
 ;  Macros and defines used in LCDlib
 ;
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.31 $ $Date: 2005-03-05 09:37:16-05 $
+;  $Revision: 1.32 $ $Date: 2005-03-18 13:15:28-04 $
 
 ;------------------------------------------------------------------
 ; Select processor include file depending on processor symbol
-			include		processor.inc
+			include		Processor.inc
 			nolist
 
 ;------------------------------------------------------------------
@@ -29,6 +29,7 @@ LCD_ENTRY_MODE	equ		H'04'	; Set data entry mode
 LCD_DISPLAY		equ		H'08'	; Control the display
 LCD_SHIFT		equ		H'10'	; Control display shifting
 LCD_FUN_SET		equ		H'20'	; Set display functions
+LCD_SET_CGRAM	equ		H'40'	; Set character generator addr
 LCD_SET_DDRAM	equ		H'80'	; Set display RAM address
 
 ; LCD Function Set Parameters
