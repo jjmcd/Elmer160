@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.7 $ $Date: 2004-11-23 17:19:02-05 $
+;  $Revision: 1.8 $ $Date: 2004-12-29 10:13:20-05 $
 
 		include		"LCDMacs.inc"
 
@@ -45,22 +45,18 @@ LCDinit:
 		; Initialize the LCD to 4 bits
 		;
 		; Set the ports in case the user has forgotten
-		IFDEF		__16F628
-		movlw		H'F8'
-		andwf		CMCON,F
-		ENDIF
-		IFDEF		__16F628A
+		IF			PROC == 627
 		movlw		H'F8'
 		andwf		CMCON,F
 		ENDIF
 		movlw		H'80'		; Turn off low 7 bits
-		IFDEF		__16F88		; For 16F88 only
+		IF			PROC == 88	; For 16F88 only
 		andwf		PORTA,F		; of PORTA
 		ENDIF
 		errorlevel	-302		; Suppress message
 		banksel		TRISB		; Now set the low 7 bits of
 		andwf		TRISB,F		; PORTB to outputs
-		IFDEF		__16F88		; For 16F88 only
+		IF			PROC == 88	; For 16F88 only
 		banksel		ANSEL		; Need to set the A/D converter
 		andwf		ANSEL,F		; pins to normal
 		ENDIF
