@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.8 $ $Date: 2004-12-29 10:13:20-05 $
+;  $Revision: 1.9 $ $Date: 2005-01-21 09:39:20-05 $
 
 		include		"LCDMacs.inc"
 
@@ -45,9 +45,9 @@ LCDinit:
 		; Initialize the LCD to 4 bits
 		;
 		; Set the ports in case the user has forgotten
-		IF			PROC == 627
-		movlw		H'F8'
-		andwf		CMCON,F
+		IF			PROC == 627	; For 16F627/628
+		movlw		H'F8'		; Turn off comparators
+		andwf		CMCON,F		; so they can be I/O
 		ENDIF
 		movlw		H'80'		; Turn off low 7 bits
 		IF			PROC == 88	; For 16F88 only
@@ -60,7 +60,7 @@ LCDinit:
 		banksel		ANSEL		; Need to set the A/D converter
 		andwf		ANSEL,F		; pins to normal
 		ENDIF
-		banksel		PORTB		; Backto bank zero and
+		banksel		PORTB		; Back to bank zero and
 		errorlevel	+302		; re-enable the error message
 
 		; First, need to wait a long time after power up to
