@@ -10,7 +10,7 @@
 ;   Lesson15b, but the inputs are debounced before use.
 ;
 ; WB8RCR - 19-Aug-04
-; $Revision: 1.5 $ $Date: 2004-10-22 09:59:20-04 $
+; $Revision: 1.6 $ $Date: 2004-10-25 08:31:14-04 $
 ;
 ;=====================================================================
 
@@ -63,8 +63,8 @@ Hz2000
 		movwf		LastRead		; next time
 		return						; Exit Hz2000
 	; We now have two successive readings that are identical.
-	; Add them into the input word after shifting the existing
-	; contents left two bits.
+	; Or them into the input word after shifting the existing
+	; contents left two bits and masking off any excess.
 NewReading
 		movf		ThisRead,W		; Remember for
 		movwf		LastRead		; next time
