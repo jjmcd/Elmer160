@@ -1,4 +1,5 @@
-; CWreadr.asm $Revision: 1.2 $ $Date: 2005-02-03 09:03:28-05 $
+		title		"CW Decoding Program"
+		subtitle	"CWreadr.asm $Revision: 1.3 $ $Date: 2005-02-11 13:43:14-05 $"
 ;**************************************************************
 ;                    CW decoding program                      *
 ;                for PIC16F628 microprocessor                 *
