@@ -11,7 +11,7 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:51:14-05 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
@@ -21,7 +21,7 @@
 _LCDOV1	udata_ovr
 Save	res			1
 
-		code
+LCDLIB	code
 LCDsend
 		movwf	Save
 	; High byte

@@ -3,7 +3,7 @@
 ;	This function simply initializes the two addresses
 ;	used by LCDsc16.
 ;
-;	$Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;	$Revision: 1.31 $ $Date: 2005-03-05 09:50:30-05 $
 
 ;	Provided routine
 		global		LCDinsc		; Initialize scrolling
@@ -22,7 +22,7 @@ LCDad2	res			1			; Addr to write line 2 char
 START	equ			H'40'+.8	; Rightmost char after scroll
 MID		equ			H'08'+.8	; Corresponding pos in line 1
 
-		code
+LCDLIB	code
 LCDinsc
 		movlw		START		; Address to start line 2
 		movwf		LCDad2		; Save it

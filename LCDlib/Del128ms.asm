@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:48:18-05 $
 
 		global		Del128ms
 
@@ -20,7 +20,7 @@
 _DELOV1	UDATA_OVR
 _DELV001	res		1
 _DELV002	res		1
-		code
+LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Delay 128 milliseconds
 Del128ms

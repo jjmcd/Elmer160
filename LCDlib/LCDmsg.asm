@@ -16,7 +16,7 @@
 ;  The contents of the W register are destroyed.
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:50:52-05 $
 
 		include		LCDmacs.inc
 
@@ -28,7 +28,7 @@ BufAddr	res			1
 Count	res			1
 Switch	res			1
 
-		code
+LCDLIB	code
 ; ------------------------------------------------------------------------
 ;**
 ;  Display a message on the LCD.

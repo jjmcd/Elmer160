@@ -16,7 +16,7 @@
 ;  the W register are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:51:40-05 $
 
 		include		"LCDMacs.inc"
 
@@ -27,7 +27,7 @@
 		extern		Del40us
 		extern		Del2ms
 
-		code
+LCDLIB	code
 ; ------------------------------------------------------------------------
 	; Turn off LCD shift mode
 LCDunshf:

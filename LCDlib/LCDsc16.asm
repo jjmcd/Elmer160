@@ -27,7 +27,7 @@
 ;	2 scrolls off the left of line 2, the second copy will
 ;	scroll into the right of line 1.
 ;
-;	$Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;	$Revision: 1.31 $ $Date: 2005-03-05 09:51:04-05 $
 
 		include		Processor.inc
 
@@ -47,7 +47,7 @@ L2END	equ			H'68'		; First char past end of line 2
 _LCDOV2	udata_ovr
 Char	res			1			; Temporary storage for char
 
-		code
+LCDLIB	code
 LCDsc16
 		movwf		Char		; Save off the character
 

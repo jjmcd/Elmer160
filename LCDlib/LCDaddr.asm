@@ -19,7 +19,7 @@
 ;
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:50:02-05 $
 
 		include		"LCDMacs.inc"
 
@@ -35,7 +35,7 @@
 _LCDOV1	udata_ovr
 Addr	res			1
 
-		code
+LCDLIB	code
 LCDaddr:
 		movwf		Addr		; Save off address
 		swapf		Addr,W		; Will send high byte first

@@ -15,12 +15,12 @@
 ;  W register are preserved.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.30 $ $Date: 2005-03-05 09:36:06-05 $
+;  $Revision: 1.31 $ $Date: 2005-03-05 09:49:12-05 $
 
 	; Provided Routines
 		global		Del450ns
 
-		code
+LCDLIB	code
 ; ------------------------------------------------------------------------
 	; Waste 450ns for the enable pulse width,  only
 	; need 4.5 clock cycles, so the call and return
