@@ -1,4 +1,4 @@
-; Lesson15c.asm - Encoder
+; Lesson15d.asm - Encoder
 ;
 ;	Determine which way we are turning the encoder
 ;
@@ -21,8 +21,8 @@ LED2	equ			2				; LED2 on PORTB
 LED3	equ			1				; LED3 on PORTB
 ENC1	equ			0				; Encoder 1 on PORTA
 ENC2	equ			1				; Encoder 2 on PORTA
-HZ325T	equ			D'1'			; Number of clock ticks for Hz325
-HZ195T	equ			D'100'			; Number of clock ticks for Hz195
+HZ2000T	equ			D'1'			; Number of clock ticks for Hz2000
+HZ10T	equ			D'200'			; Number of clock ticks for Hz10
 
 		cblock		H'20'
 			Input					; Store the debounced input
@@ -31,16 +31,47 @@ HZ195T	equ			D'100'			; Number of clock ticks for Hz195
 			LastRead				; Remember previous reading
 			HasChanged				; Remember if value changed
 			TestVal					; Storage of magic value
-			Hz325cnt				; Counter for 325x/sec
-			Hz195Cnt				; Counter for 195x/sec
+			Hz2000cnt				; Counter for 2000x/sec
+			Hz10Cnt					; Counter for 10x/sec
 		endc
 
 		goto		Start
 
 ;---------------------------------------------------------------------
-;	195 times per second code here
+;	2000 times per second code here
 ;---------------------------------------------------------------------
-Hz195
+
+	; In order to debounce the input, we won't accept a reading
+	; until we have seen the same input on two successive
+	; reads of the encoder spaced 3 ms apart.
+Hz2000
+	; Read the encoder bits
+		movf		PORTA,W			; Pick up the input word
+		andlw		H'03'			; Mask off all but encoder
+		movwf		ThisRead		; And save into current reading
+	; See if the same as last time
+		movf		ThisRead,W		; Pick up current
+		xorwf		LastRead,W		; Will be zero if same
+		btfsc		STATUS,Z		; Zero?
+		goto		NewReading		; Yes, will use reading
+		movf		ThisRead,W		; No, remember for
+		movwf		LastRead		; next time
+		return						; Exit Hz2000
+	; We now have two successive readings that are identical.
+	; Add them into the input word after shifting the existing
+	; contents left two bits.
+NewReading
+		movf		ThisRead,W		; Remember for
+		movwf		LastRead		; next time
+	; Move last reading over 2 and mask other bits
+		rlf			Input,F			; Rotate the input storage
+		rlf			Input,F			; over two bits
+		movlw		B'00001100'		; Keep 2 bits from last time
+		andwf		Input,F			; but clear all others
+	; Move current status into input word
+		movf		ThisRead,W		; Pick up current reading
+		iorwf		Input,F			; And OR it into the input
+
 	; Set LEDs
 		movlw		B'00001110'		; Initially set the outputs
 		movwf		Output			; to all LEDs off
@@ -59,67 +90,31 @@ Hz195
 
 	; Movement is clockwise, turn on LED1
 SetUp
-		bcf			Output,LED1		; Clear=ON
-		goto		Outputs
+		movlw		B'00001100'		; Initially set the outputs
+		movwf		Output			; to all LEDs off
+		return
 	; Movement is counterclockwise, turn on LED3
 SetDn
-		bcf			Output,LED3		; Clear=ON
-		goto		Outputs
+		movlw		B'00000110'		; Initially set the outputs
+		movwf		Output			; to all LEDs off
+		return
 	; Got a bad combination, turn on LED2
 SetErr
-		bcf			Output,LED2		; Clear=ON
-		goto		Outputs
+		movlw		B'00001010'		; Initially set the outputs
+		movwf		Output			; to all LEDs off
+		return
 	; No change, don't change LEDs
 SetNo
-		return						; Exit HZ195
+		return						; Exit HZ10
 
+;---------------------------------------------------------------------
+;	10 times per second code here
+;---------------------------------------------------------------------
 	; Send the outputs
-Outputs
+Hz10
 		movf		Output,W		; Pick up the output word
 		movwf		PORTB			; and send it to PORTB
-		return						; Exit HZ195
-
-;---------------------------------------------------------------------
-;	325 times per second code here
-;---------------------------------------------------------------------
-
-	; In order to debounce the input, we won't accept a reading
-	; until we have seen the same input on two successive
-	; reads of the encoder spaced 3 ms apart.
-Hz325
-	; Read the encoder bits
-		movf		PORTA,W			; Pick up the input word
-		andlw		H'03'			; Mask off all but encoder
-		movwf		ThisRead		; And save into current reading
-	; See if the same as last time
-		movf		ThisRead,W		; Pick up current
-		xorwf		LastRead,W		; Will be zero if same
-		btfsc		STATUS,Z		; Zero?
-		goto		NewReading		; Yes, will use reading
-		movf		ThisRead,W		; No, remember for
-		movwf		LastRead		; next time
-		return						; Exit Hz325
-	; We now have two successive readings that are identical.
-	; Add them into the input word after shifting the existing
-	; contents left two bits.  However, we would like to keep track
-	; of whether the bits changed.
-NewReading
-		movf		Input,W			; Pick up prev
-		andlw		H'03'			; Mask even older reading
-		xorwf		ThisRead,W		; XOR with Current
-		btfss		STATUS,Z		; Same?
-		bsf			HasChanged,0	; Remember that
-		movf		ThisRead,W		; Remember for
-		movwf		LastRead		; next time
-	; Move last reading over 2 and mask other bits
-		rlf			Input,F			; Rotate the input storage
-		rlf			Input,F			; over two bits
-		movlw		B'00001100'		; Keep 2 bits from last time
-		andwf		Input,F			; but clear all others
-	; Move current status into input word
-		movf		ThisRead,W		; Pick up current reading
-		iorwf		Input,F			; And OR it into the input
-		return
+		return						; Exit HZ10
 
 ;---------------------------------------------------------------------
 ;	Mainline begins here
@@ -128,10 +123,10 @@ Start
 	; Initialize GP register locations
 		clrf		Input			; Clear the input storage
 		clrf		Output			; and the output storage
-		movlw		HZ325T			; Initialize the Hz325
-		movwf		Hz325cnt		; counter
-		movlw		HZ195T			; and the HZ195 counter
-		movwf		Hz195Cnt		; 
+		movlw		HZ2000T			; Initialize the Hz2000
+		movwf		Hz2000cnt		; counter
+		movlw		HZ10T			; and the HZ10 counter
+		movwf		Hz10Cnt			; 
 	; Set up timer 
 		errorlevel	-302			; Yes, we know!
 		banksel		INTCON
@@ -159,21 +154,21 @@ main
 		bcf			INTCON,T0IF		; reset overflow flag
 
 ;---------------------------------------------------------------------
-;	Check for 325 times per second
+;	Check for 2000 times per second
 ;---------------------------------------------------------------------
-		decfsz		Hz325cnt,F		; Count down until Hz325
+		decfsz		Hz2000cnt,F		; Count down until Hz2000
 		goto		$+4				; Not time yet
-		movlw		HZ325T			; Reset the counter so
-		movwf		Hz325cnt		; it's available next time
-		call		Hz325			; Go do 325X per second code
+		movlw		HZ2000T			; Reset the counter so
+		movwf		Hz2000cnt		; it's available next time
+		call		Hz2000			; Go do 2000X per second code
 ;---------------------------------------------------------------------
-;	Check for 195 times per second
+;	Check for 10 times per second
 ;---------------------------------------------------------------------
-		decfsz		Hz195Cnt,F		; Count down until Hz195
+		decfsz		Hz10Cnt,F		; Count down until Hz10
 		goto		$+4				; Not time yet
-		movlw		HZ195T			; Reset the counter so
-		movwf		Hz195Cnt		; it's available next time
-		call		Hz195			; Go do 195X per second code
+		movlw		HZ10T			; Reset the counter so
+		movwf		Hz10Cnt			; it's available next time
+		call		Hz10			; Go do 10X per second code
 
 		goto		main
 		end
