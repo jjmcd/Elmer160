@@ -11,7 +11,7 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.2 $ $Date: 2004-11-23 13:41:52-05 $
+;  $Revision: 1.7 $ $Date: 2004-11-23 13:42:04-05 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
