@@ -1,5 +1,18 @@
-			global		Del256ms
+		title		'Del256ms - Delay 256 milliseconds (approximately)'
+		subtitle	'Part of the LCDlib library'
+		list		b=4,c=132,n=77,x=Off
 
+;**
+;  Del256ms
+;
+;  Delay 256 millisecond (approximately).
+;
+;  This function delays for 256 milliseconds.  The W
+;  register is ignored.  The contents of the W register
+;  are destroyed.
+;**
+
+			global		Del256ms
 			extern		Del2ms
 
 _DELOV1	UDATA_OVR
