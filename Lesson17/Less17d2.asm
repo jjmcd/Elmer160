@@ -1,7 +1,7 @@
 ;	Less17d2 - Replace LCDletr code in library
 ;
 ;	JJMCD - 2005-03-19
-;	$Revision: 1.1 $ $Date: 2005-03-19 11:13:34-04 $
+;	$Revision: 1.2 $ $Date: 2005-03-19 11:13:36-04 $
 
 			global		LCDletr
 			extern		LCDsndD,Del40us
