@@ -1,11 +1,11 @@
 ; Less16b.asm
 ;
 ;	Simple mainline to demonstrate linking.  Load something
-;	into W, cal a routine to save it, then clear the W and
-;	call the routine to restor it.
+;	into W, call a routine to save it, then clear the W and
+;	call the routine to restore it.
 ;
 ;	WB8RCR - 16-Nov-04
-;	$Revision: 1.2 $ $Date: 2004-11-16 11:29:30-05 $
+;	$Revision: 1.3 $ $Date: 2004-11-16 11:30:42-05 $
 ;===========================================================
 
 		processor	pic16f84a
