@@ -11,6 +11,8 @@
 ;  register is ignored.  The contents of the W register
 ;  are destroyed.
 ;**
+;  WB8RCR 26-Sep-04
+;  $Revision: 1.3 $ $Date: 2004-11-22 21:55:54-05 $
 
 		include		"LCDMacs.inc"
 
