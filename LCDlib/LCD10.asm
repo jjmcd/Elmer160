@@ -1,3 +1,27 @@
+		title		'LCD10 - Set the LCD DDRAM address to 10(hex)'
+		subtitle	'Part of the LCDlib library'
+		list		b=4,c=132,n=77,x=Off
+
+;**
+;  LCD10
+;
+;  Set the LCD DDRAM address to 10(hex).
+;
+;  This function sets the DDRAM address of the LCD
+;  to 16.  The DDRAM address determines where in the LCD
+;  memory the next character will be displayed.
+;
+;  Setting the DDRAM address to 8 causes the next
+;  character to appear at the right-hand side of
+;  an 16 character display.  This is useful for
+;  scrolling characters across the display from
+;  right to left.
+;
+;  The contents of the W register are ignored by
+;  this routine.  The contents of the W register
+;  are destroyed on exit.
+;
+;**
 		include		"LCDMacs.inc"
 
 	; Provided Routines
