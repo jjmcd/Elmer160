@@ -6,7 +6,7 @@
 ;	or LED 3.  Uses a simpler algorithm.
 ;
 ; WB8RCR - 21-Sep-04
-; $Revision: 1.7 $ $Date: 2004-10-20 10:16:27-04 $
+; $Revision: 1.8 $ $Date: 2004-10-20 11:22:07-04 $
 ;
 ;=====================================================================
 
@@ -29,8 +29,6 @@ HZ10T	equ			D'200'			; Number of clock ticks for Hz10
 			Output					; Store the outputs
 			ThisRead				; Current reading
 			LastRead				; Remember previous reading
-			HasChanged				; Remember if value changed
-			TestVal					; Storage of magic value
 			Hz2000cnt				; Counter for 2000x/sec
 			Hz10Cnt					; Counter for 10x/sec
 		endc
@@ -41,37 +39,30 @@ HZ10T	equ			D'200'			; Number of clock ticks for Hz10
 ;	2000 times per second code here
 ;---------------------------------------------------------------------
 
-	; In order to debounce the input, we won't accept a reading
-	; until we have seen the same input on two successive
-	; reads of the encoder spaced 500 us apart.
+	; Read the encoder.  If the reading has changed, go ahead
+	; and see what direction the change implies.
 Hz2000
 	; Read the encoder bits
 		movf		PORTA,W			; Pick up the input word
 		andlw		B'00000011'		; Mask off all but encoder
 		movwf		ThisRead		; And save into current reading
-	; See if the same as last time
-		xorwf		LastRead,W		; Will be zero if same
-		btfsc		STATUS,Z		; Zero?
-		goto		NewReading		; Yes, will use reading
-		movf		ThisRead,W		; No, remember for
-		movwf		LastRead		; next time
-		return						; Exit Hz2000
-	; We now have two successive readings that are identical.
-	; XOR them into the input word after shifting the existing
-	; contents left one bit.
-NewReading
+
 	; If the current reading is the same as the previous reading,
 	; we don't want to change the LEDs
-		movf		ThisRead,W		; Current reading
 		xorwf		LastRead,W		; Previous reading
 		btfsc		STATUS,Z		; Same?
 		return						; Yes, do nothing
+
+	; We now want to check the result or the right bit of the
+	; previous reading XORed with the left bit of the current
 		movf		ThisRead,W		; Remember for
 		movwf		LastRead		; next time
+
 	; Move last reading over 1 and mask other bits
 		rlf			Input,F			; Rotate the input storage
 		movlw		B'00000110'		; Keep 2 bits from last time
 		andwf		Input,F			; but clear all others
+
 	; XOR current status into input word
 		movf		ThisRead,W		; Pick up current reading
 		xorwf		Input,F			; And OR it into the input
