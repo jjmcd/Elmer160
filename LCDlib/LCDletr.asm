@@ -2,19 +2,6 @@
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
 
-		include		"LCDMacs.inc"
-
-	; Provided Routines
-		global		LCDdig,LCDletr
-	; Required routines
-		extern		LCDsndD
-		extern		Del40us
-
-_LCDOV1	udata_ovr
-_LCDV01	res			1			; Storage for letter
-_LCDV02	res			1			; Storage for high nybble of letter
-
-		code
 ; ------------------------------------------------------------------------
 ;**
 ;  Send a digit to the LCD.
@@ -29,6 +16,19 @@ _LCDV02	res			1			; Storage for high nybble of letter
 ;  exit.
 ;
 ;**
+		include		"LCDMacs.inc"
+
+	; Provided Routines
+		global		LCDdig,LCDletr
+	; Required routines
+		extern		LCDsndD
+		extern		Del40us
+
+_LCDOV1	udata_ovr
+_LCDV01	res			1			; Storage for letter
+_LCDV02	res			1			; Storage for high nybble of letter
+
+		code
 LCDdig:
 		andlw		00fh
 		iorlw		030h		; note falls thru
