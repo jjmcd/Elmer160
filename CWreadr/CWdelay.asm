@@ -1,5 +1,4 @@
 ;	Delay routines
-		include		p16f628.inc
 
 		global		del50,del05,delcd
 

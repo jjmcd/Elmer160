@@ -1,5 +1,4 @@
 ;	Welcome message
-		include	p16f628.inc
 
 		global	panel
 		extern	sendlcd
