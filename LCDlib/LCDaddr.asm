@@ -36,13 +36,13 @@ Addr	res			1
 LCDaddr:
 		movwf		Addr		; Save off address
 		swapf		Addr,W		; Will send high byte first
-		andlw		h'0f'		; Mask unneeded bits
+;		andlw		h'0f'		; Mask unneeded bits
 		iorlw		h'08'		; Set command bit on
 		call		LCDsndI		; Send high byte to LCD
 		call		Del40us		; 40us
 
-		movf		Addr,W		; Grab the mow byte
-		andlw		H'0f'		; Mask off high
+		movf		Addr,W		; Grab the low byte
+;		andlw		H'0f'		; Mask off high
 		call		LCDsndI		; Send to LCD
 		call		Del2ms		; 4.1ms
 		return
