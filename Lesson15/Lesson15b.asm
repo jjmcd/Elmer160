@@ -6,8 +6,13 @@
 ;	or LED 3.  If an impossible value is calculated, 
 ;	illuminate LED2.
 ;
+;   In this version, we combine the current and previous
+;   encoder readings and use the result as an index into
+;   a table which tells us which direction the shaft is
+;   being turned.
+;
 ; WB8RCR - 11-Aug-04
-; $Revision: 1.2 $ $Date: 2004-10-20 14:05:08-04 $
+; $Revision: 1.3 $ $Date: 2004-10-22 09:58:14-04 $
 ;
 ;=====================================================================
 

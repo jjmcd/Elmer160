@@ -4,10 +4,13 @@
 ;
 ;	Depending on the direction of rotation, illuminate LED 1
 ;	or LED 3.  If an impossible value is calculated, 
-;	illuminate LED2.  This version debounces the input.
+;	illuminate LED2.
+;
+;   This version uses the same table lookup algorithm as in
+;   Lesson15b, but the inputs are debounced before use.
 ;
 ; WB8RCR - 19-Aug-04
-; $Revision: 1.4 $ $Date: 2004-10-20 14:07:34-04 $
+; $Revision: 1.5 $ $Date: 2004-10-22 09:59:20-04 $
 ;
 ;=====================================================================
 

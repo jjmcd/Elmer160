@@ -5,8 +5,22 @@
 ;	Depending on the direction of rotation, illuminate LED 1
 ;	or LED 3.  Uses a simpler algorithm.
 ;
+;   In this example, the rightmost bit from the previous reading
+;   is XORed with the leftmost bit from the current reading.
+;   The result will tell us which way the shaft is turned.
+;
+;   Notice that given the sequence 00,01,11,10 etc.:
+;
+;             Forward        Backward
+;                /              \
+;      00                   1 xor 0 = 1
+;      01    0 xor 0 = 0    1 xor 0 = 1
+;      11    1 xor 1 = 0    0 xor 1 = 1
+;      10    1 xor 1 = 0    0 xor 1 = 1
+;      00    0 xor 0 = 0
+;
 ; WB8RCR - 21-Sep-04
-; $Revision: 1.9 $ $Date: 2004-10-20 11:23:54-04 $
+; $Revision: 1.10 $ $Date: 2004-10-22 10:05:24-04 $
 ;
 ;=====================================================================
 
