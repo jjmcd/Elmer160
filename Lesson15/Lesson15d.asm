@@ -6,7 +6,7 @@
 ;	or LED 3.  Uses a simpler algorithm.
 ;
 ; WB8RCR - 21-Sep-04
-; $Revision: 1.6 $ $Date: 2004-10-20 09:41:58-04 $
+; $Revision: 1.7 $ $Date: 2004-10-20 10:16:27-04 $
 ;
 ;=====================================================================
 
@@ -60,6 +60,12 @@ Hz2000
 	; XOR them into the input word after shifting the existing
 	; contents left one bit.
 NewReading
+	; If the current reading is the same as the previous reading,
+	; we don't want to change the LEDs
+		movf		ThisRead,W		; Current reading
+		xorwf		LastRead,W		; Previous reading
+		btfsc		STATUS,Z		; Same?
+		return						; Yes, do nothing
 		movf		ThisRead,W		; Remember for
 		movwf		LastRead		; next time
 	; Move last reading over 1 and mask other bits
