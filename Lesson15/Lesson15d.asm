@@ -6,7 +6,7 @@
 ;	or LED 3.  Uses a simpler algorithm.
 ;
 ; WB8RCR - 21-Sep-04
-; $Revision: 1.5 $ $Date: 2004-10-20 09:36:09-04 $
+; $Revision: 1.6 $ $Date: 2004-10-20 09:41:58-04 $
 ;
 ;=====================================================================
 
@@ -57,28 +57,24 @@ Hz2000
 		movwf		LastRead		; next time
 		return						; Exit Hz2000
 	; We now have two successive readings that are identical.
-	; Add them into the input word after shifting the existing
-	; contents left two bits.
+	; XOR them into the input word after shifting the existing
+	; contents left one bit.
 NewReading
 		movf		ThisRead,W		; Remember for
 		movwf		LastRead		; next time
-	; Move last reading over 2 and mask other bits
+	; Move last reading over 1 and mask other bits
 		rlf			Input,F			; Rotate the input storage
-		rlf			Input,F			; over two bits
-		movlw		B'00001100'		; Keep 2 bits from last time
+		movlw		B'00000110'		; Keep 2 bits from last time
 		andwf		Input,F			; but clear all others
-	; Move current status into input word
+	; XOR current status into input word
 		movf		ThisRead,W		; Pick up current reading
-		iorwf		Input,F			; And OR it into the input
+		xorwf		Input,F			; And OR it into the input
 
 	; Set LEDs
 		movlw		B'00001110'		; Initially set the outputs
 		movwf		Output			; to all LEDs off
 
-		movf		Input,W			; Pick up the input word
-		addlw		H'02'			; Add two (magic)
-		movwf		TestVal			; Save it off
-		btfss		TestVal,2		; Test bit 2
+		btfss		Input,1			; Test bit 1
 		goto		SetUp			; Move up
 		goto		SetDn			; Move Down
 
