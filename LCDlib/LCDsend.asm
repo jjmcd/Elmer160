@@ -11,7 +11,7 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:30-04 $
+;  $Revision: 1.33 $ $Date: 2005-03-21 21:53:44-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
@@ -31,6 +31,7 @@ LCDsend
 	; Low byte
 		movf	Save,W
 		call	LCDsndI
+		call	Del2ms		; 4.1ms
 		call	Del2ms		; 4.1ms
 		return
 		end
