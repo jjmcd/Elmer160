@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.1 $ $Date: 2005-03-18 09:09:52-04 $
+;	$Revision: 1.2 $ $Date: 2005-03-18 09:29:34-04 $
 
 			include		Processor.inc
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
@@ -42,7 +42,8 @@ Loop
 	;	Test LCDmsg
 			call		TstMsg
 			call		Del1s
-			call		TstMs6		; 16-character display
+	;	Test LCDmsg - 16 char
+			call		TstMs6
 			call		Del1s
 	;	Test scrolling - 16 char
 			call		TstSc6
@@ -192,8 +193,8 @@ TstA62		movf		IndInd,W	; Pick up position
 TstA63		movf		IndInd,W	; Get the position again
 			call		TabAd6		; and get the character
 			call		LCDletr		; Display it
-;			movlw		H'11'		; Move cursor out of the way
-;			call		LCDaddr		; for a nicer display
+			movlw		H'11'		; Move cursor out of the way
+			call		LCDaddr		; for a nicer display
 			call		Del256ms	; Slow it down
 			incf		Index,1		; Next character
 			movlw		.16			; Message length
