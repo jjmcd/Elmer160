@@ -1,7 +1,7 @@
 ;	Less17d1 - Replace send nybble code in library
 ;
 ;	JJMcD - 2005-03-19
-;	$Revision: 1.2 $ $Date: 2005-04-25 10:30:16-04 $
+;	$Revision: 1.3 $ $Date: 2005-04-25 10:30:22-04 $
 			include		p16f84a.inc
 
 	; Provided Routines
