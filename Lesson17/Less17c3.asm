@@ -1,7 +1,7 @@
-;	Less17c2 - Send command byte to LCD
+;	Less17c3 - Send command byte to LCD
 ;
 ;	JJMcD - 2005-03-19
-;	$Revision: 1.1 $ $Date: 2005-03-19 09:57:16-04 $
+;	$Revision: 1.2 $ $Date: 2005-04-25 10:28:20-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
@@ -14,7 +14,7 @@ SavCmd	res			1
 LCDsend
 		movwf	SavCmd		; Save off the command
 		swapf	SavCmd,W	; Swap nybbles
-		call	LCDsndI		; Send hugh nybble
+		call	LCDsndI		; Send high nybble
 		movf	SavCmd,W	; Grab it again
 		call	LCDsndI		; Send low nybble
 		call	Del2ms		; Wait for command
