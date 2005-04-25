@@ -1,7 +1,7 @@
 ;	Less17d4 - Initialize the LCD
 ;
 ;	JJMcD - 2005-03-19
-;	$Revision: 1.1 $ $Date: 2005-03-19 11:23:08-04 $
+;	$Revision: 1.2 $ $Date: 2005-04-25 10:31:02-04 $
 
 		include		"LCDMacs.inc"
 
@@ -30,7 +30,7 @@ LCDinit:
 
 	; First, need to wait a long time after power up to
 	; allow time for 44780 to get it's act together
-		movlw		020h		; Need >15.1ms after 4.5V
+		movlw		H'20'		; Need >15.1ms after 4.5V
 		movwf		Count		; we will wait 65ms (after 2V
 		call		Del2ms		; in the case of LF parts)
 		decfsz		Count,F		;
