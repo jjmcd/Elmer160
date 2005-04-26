@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:14-04 $
+;  $Revision: 1.33 $ $Date: 2005-04-26 11:46:08-04 $
 
 		global		Del128ms
 
@@ -24,7 +24,7 @@ LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Delay 128 milliseconds
 Del128ms
-        movlw   	D'167'		; Set up outer loop
+        movlw   	D'166'		; Set up outer loop
         movwf   	_DELV001	;   counter to 255
         goto    	outer_loop	; Go to wait loops
 outer_loop
