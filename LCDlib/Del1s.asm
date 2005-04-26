@@ -12,24 +12,18 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:16-04 $
+;  $Revision: 1.33 $ $Date: 2005-04-26 11:47:50-04 $
 
 			global		Del1s
-			extern		Del128ms
+			extern		Del512ms
 
 LCDLIB		code
 
 ; ------------------------------------------------------------------------
 ;  Delay 1 second
 Del1s
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
-		call		Del128ms
+		call		Del512ms
+		call		Del512ms
 		return
 
 			end
