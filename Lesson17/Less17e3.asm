@@ -1,7 +1,7 @@
 ;	Less17e3 - Send command byte to LCD
 ;
 ;	JJMcD - 2005-04-26
-;	$Revision: 1.1 $ $Date: 2005-04-26 10:21:46-04 $
+;	$Revision: 1.2 $ $Date: 2005-04-26 15:34:00-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD

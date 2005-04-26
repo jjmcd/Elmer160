@@ -1,7 +1,7 @@
 ;	Less17e1 - Replace send nybble code in library
 ;
 ;	JJMcD - 2005-04-26
-;	$Revision: 1.1 $ $Date: 2005-04-26 10:53:22-04 $
+;	$Revision: 1.2 $ $Date: 2005-04-26 15:34:00-04 $
 			include		Processor.inc
 
 	; Provided Routines

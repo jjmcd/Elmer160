@@ -1,7 +1,7 @@
 ;	Less17e4 - Initialize the LCD
 ;
 ;	JJMcD - 2005-04-26
-;	$Revision: 1.1 $ $Date: 2005-04-26 10:21:48-04 $
+;	$Revision: 1.2 $ $Date: 2005-04-26 15:34:00-04 $
 
 		include		"LCDMacs.inc"
 
