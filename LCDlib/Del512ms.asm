@@ -12,26 +12,18 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:20-04 $
+;  $Revision: 1.33 $ $Date: 2005-04-26 11:47:50-04 $
 
 			global		Del512ms
 
 			extern		Del256ms
 
-_DELOV1	UDATA_OVR
-_DELV001	res		1
-_DELV002	res		1
-
 LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Wait for 1/2 second
 Del512ms:
-		movlw		H'08'		; Now wait a while to allow it to
-		movwf		_DELV002	; be read.  wait is approx 64*4.1ms
-zzWait							; or about 1/2 second
 		call		Del256ms	; 
-		decfsz		_DELV002,F
-		goto		zzWait
+		call		Del256ms	; 
 		return
 
 		end
