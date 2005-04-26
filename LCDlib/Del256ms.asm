@@ -12,26 +12,18 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:16-04 $
+;  $Revision: 1.33 $ $Date: 2005-04-26 11:48:08-04 $
 
 			global		Del256ms
-			extern		Del2ms
-
-_DELOV1	UDATA_OVR
-_DELV001	res		1
-_DELV002	res		1
+			extern		Del128ms
 
 LCDLIB		code
 ; ------------------------------------------------------------------------
 	; Waste a lot of time
 
 Del256ms:
-		movlw		D'80'		; How much is a lot?
-		movwf		_DELV001
-LineLp:
-		call		Del2ms		; 
-		decfsz		_DELV001,F
-		goto		LineLp
+		call		Del128ms
+		call		Del128ms
 		return
 
 		end
