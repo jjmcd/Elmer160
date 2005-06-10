@@ -17,7 +17,7 @@
 ;	address the right 8 characters of that display.
 ;
 ;	JJMcD - 14-May-05
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2005-06-10 13:52:04-04 $
+;	$Revision: 1.4 $ $State: Stab $ $Date: 2005-06-10 13:52:10-04 $
 
 			list		b=4,c=156,n=58,x=Off
 			include		p16f84a.inc
