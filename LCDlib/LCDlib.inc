@@ -1,7 +1,7 @@
 ;  Include file for LCDlib
 ;
 ;  WB8RCR - 24-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:26-04 $
+;  $Revision: 1.37 $ $Date: 2005-06-23 13:23:00-04 $
 
 
 ;	Defines for LCDsubs

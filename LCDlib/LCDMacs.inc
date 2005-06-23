@@ -3,17 +3,39 @@
 ;  Macros and defines used in LCDlib
 ;
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:15:28-04 $
+;  $Revision: 1.33 $ $Date: 2005-06-23 13:26:50-04 $
 
 ;------------------------------------------------------------------
 ; Select processor include file depending on processor symbol
 			include		Processor.inc
 			nolist
 
+;==================================================================
+; The following define a number of implementation-specific
+; parameters.  Note that underlying all is the assumprion
+; that all the LCD lines will be attached to the same port, and
+; the LCD data lines will be on the low 4 bits of that port
+; in order.  There are a number of reasons why an implementor
+; may choose something different.
+
 ;------------------------------------------------------------------
 ; How many lines on the display
 ; Comment out for a single line display
 #define LCD2LINE
+
+;------------------------------------------------------------------
+; Connection specific defines
+LCDPORT			equ		PORTB	; Port LCD connected
+LCDTRIS			equ		TRISB	; Corresponding TRIS register
+LCDEN			equ		H'20'	; LCD enable mask in LCDPORT
+LCDRS			equ		H'10'	; LCD register select mask in LCDPORT
+
+;------------------------------------------------------------------
+; The processor speed should work over a reasonable range
+PROCSPEED=D'20'
+
+; End of implementation-specific defines
+;==================================================================
 
 ;------------------------------------------------------------------
 ; The following define the LCD display commands.  To send
@@ -58,5 +80,7 @@ LCD_BLINK_OFF	equ		H'00'	; Set cursor nonblinking
 
 LCDLINELEN		equ		H'08'	; Length of the LCD line
 LINE2OFFSET		equ		H'40'	; DDRAM start of line 2
+
+
 
 				list

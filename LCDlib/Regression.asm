@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.34 $ $Date: 2005-06-23 11:56:04-04 $
+;	$Revision: 1.37 $ $Date: 2005-06-23 14:56:20-04 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628
