@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:18-04 $
+;  $Revision: 1.33 $ $Date: 2005-06-23 11:38:34-04 $
 
 		include		"LCDMacs.inc"
 
@@ -27,19 +27,18 @@ _DELV002	res		1
 LCDLIB		code
 ; ------------------------------------------------------------------------
 	; Waste some time by executing nested loops
-	; 1us * 3 inst/loop * 4 * 4 = 48us (need 40)
 
-	; Because of the extra couple of instructions, this turns out to be
-	; 60 usec.  But a value of 3 ends up at 37 usec.  So we use 3 and
-	; add a few nops at the end.
+LOOPCNT=3+(4*PROCSPEED)/11
 
-	;	 4MHz		3	40us
-	;	10MHz		6	52us
-	;	20MHz		8	44us
+	; This calculation turns out to be a little fat for faster processors
+	; but it is pretty close:
+
+	;	 4MHz		3	44.0us
+	;	10MHz		6	53.6us
+	;	20MHz		10	67.6us
 
 Del40us:
-		movlw		D'3'		; w :=3 decimal
-;		movlw		D'6'		; w :=6 decimal
+		movlw		LOOPCNT
 		movwf		_DELV001	; _DELV001 := w
 jloop:	movwf		_DELV002	; _DELV002 := w
 kloop:	decfsz		_DELV002,F	; _DELV002 = _DELV002-1, skip next if zero
