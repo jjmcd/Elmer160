@@ -1,6 +1,7 @@
 		title		'Del128ms - Delay 128 milliseconds (approximately)'
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
+		include		LCDmacs.inc
 
 ;**
 ;  Del128ms
@@ -12,9 +13,17 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.33 $ $Date: 2005-04-26 11:46:08-04 $
+;  $Revision: 1.34 $ $Date: 2005-06-23 13:16:08-04 $
 
 		global		Del128ms
+;
+;	Loop counter:
+
+LOOPCNT=((D'104'*PROCSPEED)/D'10')+1
+
+;	 4MHz	 42	129.2 ms
+;	10MHz	105	129.2 ms
+;	20MHz	209	128.6 ms
 
 
 _DELOV1	UDATA_OVR
@@ -24,9 +33,13 @@ LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Delay 128 milliseconds
 Del128ms
-        movlw   	D'166'		; Set up outer loop
+		call		Go128
+		call		Go128
+		call		Go128
+Go128:
+        movlw   	LOOPCNT		; Set up outer loop 166=127.66
         movwf   	_DELV001	;   counter to 255
-        goto    	outer_loop	; Go to wait loops
+;        goto    	outer_loop	; Go to wait loops
 outer_loop
         movlw   	0xFF		; Set up inner loop counter
         movwf   	_DELV002	;   to 255
