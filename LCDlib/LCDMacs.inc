@@ -3,7 +3,7 @@
 ;  Macros and defines used in LCDlib
 ;
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.33 $ $Date: 2005-06-23 13:26:50-04 $
+;  $Revision: 1.34 $ $Date: 2005-06-23 15:14:56-04 $
 
 ;------------------------------------------------------------------
 ; Select processor include file depending on processor symbol
@@ -27,8 +27,8 @@
 ; Connection specific defines
 LCDPORT			equ		PORTB	; Port LCD connected
 LCDTRIS			equ		TRISB	; Corresponding TRIS register
-LCDEN			equ		H'20'	; LCD enable mask in LCDPORT
-LCDRS			equ		H'10'	; LCD register select mask in LCDPORT
+LCDEN			equ		H'10'	; LCD enable mask in LCDPORT
+LCDRS			equ		H'40'	; LCD register select mask in LCDPORT
 
 ;------------------------------------------------------------------
 ; The processor speed should work over a reasonable range
