@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:15:38-04 $
+;  $Revision: 1.33 $ $Date: 2005-06-23 09:55:50-04 $
 
 		include		"LCDMacs.inc"
 
@@ -54,13 +54,13 @@ LCDinit:
 		andwf		PORTA,F		; of PORTA
 		ENDIF
 		errorlevel	-302		; Suppress message
-		banksel		TRISB		; Now set the low 7 bits of
-		andwf		TRISB,F		; PORTB to outputs
+		banksel		LCDTRIS		; Now set the low 7 bits of
+		andwf		LCDTRIS,F		; LCDPORT to outputs
 		IF			PROC == 88	; For 16F88 only
 		banksel		ANSEL		; Need to set the A/D converter
 		andwf		ANSEL,F		; pins to normal
 		ENDIF
-		banksel		PORTB		; Back to bank zero and
+		banksel		LCDPORT		; Back to bank zero and
 		errorlevel	+302		; re-enable the error message
 
 		; First, need to wait a long time after power up to
