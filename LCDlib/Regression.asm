@@ -3,13 +3,16 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.33 $ $Date: 2005-03-29 10:11:08-04 $
+;	$Revision: 1.34 $ $Date: 2005-06-23 11:56:04-04 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
 			ELSE
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
+			ENDIF
+			IF			PROC == 84
+			errorlevel	-312
 			ENDIF
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
@@ -27,6 +30,7 @@ STARTUP		code
 			goto		Start
 			code
 Start
+			lcall		Del128ms
 	;	Initialize
 			lcall		LCDinit
 Loop
