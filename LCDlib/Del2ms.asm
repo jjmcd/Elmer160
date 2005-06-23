@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:18-04 $
+;  $Revision: 1.33 $ $Date: 2005-06-23 10:29:44-04 $
 
 		include		"LCDMacs.inc"
 
@@ -27,14 +27,14 @@ _DELV004	res		1
 LCDLIB		code
 ; ------------------------------------------------------------------------
 	; Waste a lot of time by executing nested loops
-	; 1us * 3 Inst/loop * 24 * 24 = 1.8 ms approx
+	; Calculate the loop count based on processor speed
+	; This calculation leads to slightly long times
+	; at higher speeds
 
-;	 4 MHz = 24
-;	10 MHz = 38
-;	20 MHz = 53
+LOOPCNT=D'21'+D'2'*PROCSPEED
 
 Del2ms:
-		movlw		D'24'			; w := 24 decimal for 4 MHz
+		movlw		LOOPCNT			; w := 24 decimal for 4 MHz
 		movwf		_DELV003		; _DELV003 := w
 lloop:	movwf		_DELV004		; _DELV004 := w
 mloop:	decfsz		_DELV004,f		; _DELV004 = _DELV004-1, skip next if zero
