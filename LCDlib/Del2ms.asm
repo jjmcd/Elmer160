@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.34 $ $Date: 2005-06-28 08:11:52-04 $
+;  $Revision: 1.37 $ $Date: 2005-06-28 08:12:26-04 $
 
 		include		"LCDMacs.inc"
 

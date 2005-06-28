@@ -13,7 +13,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.35 $ $Date: 2005-06-28 08:10:36-04 $
+;  $Revision: 1.37 $ $Date: 2005-06-28 08:12:22-04 $
 
 		global		Del128ms
 ;
