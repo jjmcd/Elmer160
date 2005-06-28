@@ -13,7 +13,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.34 $ $Date: 2005-06-23 13:16:08-04 $
+;  $Revision: 1.35 $ $Date: 2005-06-28 08:10:36-04 $
 
 		global		Del128ms
 ;
@@ -37,9 +37,8 @@ Del128ms
 		call		Go128
 		call		Go128
 Go128:
-        movlw   	LOOPCNT		; Set up outer loop 166=127.66
-        movwf   	_DELV001	;   counter to 255
-;        goto    	outer_loop	; Go to wait loops
+        movlw   	LOOPCNT		; Set up outer loop counter
+        movwf   	_DELV001	;   to calculated value
 outer_loop
         movlw   	0xFF		; Set up inner loop counter
         movwf   	_DELV002	;   to 255

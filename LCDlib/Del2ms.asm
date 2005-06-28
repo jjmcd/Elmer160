@@ -7,12 +7,12 @@
 ;
 ;  Delay 2 millisecond (approximately).
 ;
-;  This function delays for 1.8 milliseconds.  The W
+;  This function delays for about 2 milliseconds.  The W
 ;  register is ignored.  The contents of the W register
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.33 $ $Date: 2005-06-23 10:29:44-04 $
+;  $Revision: 1.34 $ $Date: 2005-06-28 08:11:52-04 $
 
 		include		"LCDMacs.inc"
 
@@ -34,7 +34,7 @@ LCDLIB		code
 LOOPCNT=D'21'+D'2'*PROCSPEED
 
 Del2ms:
-		movlw		LOOPCNT			; w := 24 decimal for 4 MHz
+		movlw		LOOPCNT			; Outer loop counter to calc valuee
 		movwf		_DELV003		; _DELV003 := w
 lloop:	movwf		_DELV004		; _DELV004 := w
 mloop:	decfsz		_DELV004,f		; _DELV004 = _DELV004-1, skip next if zero
