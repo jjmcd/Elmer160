@@ -1,0 +1,34 @@
+		include		"LCDmacs.inc"
+
+;**
+;  MySend
+;
+;  Send command to the LCD display
+;
+;  Sends the 8 bit command, 4 bits at a time
+;
+;**
+;  WB8RCR - 2-Aug-05
+;  $Revision: 1.1 $ $Date: 2005-08-02 17:20:24-04 $
+
+		global		LCDsend
+		extern		LCDsndI		; Send a command nybble to the LCD
+		extern		Del40us		; Delay 40 usec
+		extern		Del2ms		; Delay 1.8 msec
+
+		udata
+Save	res			1
+
+MYLIB	code
+LCDsend
+		movwf	Save		; Save off the incoming byte
+	; High byte
+		swapf	Save,W		; Get high nybble into low nybble of W
+		call	LCDsndI		; LCDsndI takes care of masking
+		call	Del40us		; 40us
+	; Low byte
+		movf	Save,W		; Grab the original value
+		call	LCDsndI		; And again, LCDsndI masks
+		call	Del2ms		; Wait 2ms
+		return
+		end
