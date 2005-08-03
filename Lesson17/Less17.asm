@@ -1,3 +1,9 @@
+			title		'Less17, Test program for LCD routines'
+			subtitle	'Part of the Lesson 17 regression test'
+			list		b=4,c=132,n=77,x=Off
+
+; ------------------------------------------------------------------------
+;**
 ;	Less17 - Test program for Lesson 17 on LCDs
 ;
 ;	Program to exercise routines in the LCD library.  Program will
@@ -16,10 +22,10 @@
 ;	some PIC-ELs had a 16 character display.  This program does not
 ;	address the right 8 characters of that display.
 ;
+;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.4 $ $State: Stab $ $Date: 2005-06-10 13:52:10-04 $
+;	$Revision: 1.5 $ $State: Exp $ $Date: 2005-08-03 08:05:34-04 $
 
-			list		b=4,c=156,n=58,x=Off
 			include		p16f84a.inc
 			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
 
@@ -33,21 +39,19 @@ STARTUP		code
 			code
 Start
 			call		LCDinit			; Initialize the LCD
+
 Loop
 			call		Msg1			; Display the 'Pig' message
 			call		Del1s			; Wait a second to see it
 			call		LCDclear		; Clear the LCD
-			call		Del1s			; Wait a second to see it
 
 			call		Msg2			; Display the 'Elecraft' message
 			call		Del1s			; Wait a second to see it
 			call		LCDclear		; Clear the LCD
-			call		Del1s			; Wait a second to see it
 
 			call		Msg3			; Display the 'Watson' message
 			call		Del1s			; Wait a second to see it
 			call		LCDclear		; Clear the LCD
-			call		Del1s			; Wait a second to see it
 
 			goto		Loop			; Do it again
 
