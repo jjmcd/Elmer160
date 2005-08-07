@@ -1,12 +1,18 @@
+			title		'L17msg3 - Display Watson message on the LCD'
+			subtitle	'Part of the Lesson 17 regression test'
+			list		b=4,c=132,n=77,x=Off
+
+; ------------------------------------------------------------------------
+;**
 ;	L17msg3 - Display a scrolling message on the LCD
 ;
 ;	This subroutine scrolls the message 'Watson, come here please.'
 ;	across the left 8 characters of the display.
 ;
+;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2005-07-01 14:47:34-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2005-08-07 10:58:26-04 $
 
-			list		b=4,c=156,n=58,x=Off
 			include		p16f84a.inc
 
 			global		Msg3

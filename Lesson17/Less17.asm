@@ -1,4 +1,4 @@
-			title		'Less17, Test program for LCD routines'
+			title		'Less17 - Test program for LCD routines'
 			subtitle	'Part of the Lesson 17 regression test'
 			list		b=4,c=132,n=77,x=Off
 
@@ -19,12 +19,12 @@
 ;
 ;	All the tests are performed on the first 8 characters of the
 ;	display.  On older PIC-ELs this is the entire display.  However
-;	some PIC-ELs had a 16 character display.  This program does not
+;	some PIC-ELs have a 16 character display.  This program does not
 ;	address the right 8 characters of that display.
 ;
 ;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2005-08-03 08:05:34-04 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2005-08-07 10:57:38-04 $
 
 			include		p16f84a.inc
 			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON

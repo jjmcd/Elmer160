@@ -1,3 +1,9 @@
+			title		'L17msg2 - Display Elecraft on the LCD'
+			subtitle	'Part of the Lesson 17 regression test'
+			list		b=4,c=132,n=77,x=Off
+
+; ------------------------------------------------------------------------
+;**
 ;	L17msg2 - Display a message on the LCD
 ;
 ;	In this example, we will write the letters out of order,
@@ -15,10 +21,10 @@
 ;       Ele raft
 ;       Elecraft
 ;
+;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2005-07-01 14:47:34-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2005-08-07 10:56:52-04 $
 
-			list		b=4,c=156,n=58,x=Off
 			include		p16f84a.inc
 
 			global		Msg2
