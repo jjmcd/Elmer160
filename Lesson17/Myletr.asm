@@ -1,5 +1,5 @@
 			title		'LCDletr, LCDdig - Display letter or digit'
-			subtitle	'Part of the LCDlib library'
+			subtitle	'Part of the Lesson 17 replacement LCDlib library'
 			list		b=4,c=132,n=77,x=Off
 
 ; ------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 ;
 ;**
 ;  WB8RCR - 2-Aug-05
-;  $Revision: 1.1 $ $Date: 2005-08-03 08:05:48-04 $
+;  $Revision: 1.2 $ $Date: 2005-08-07 13:34:44-04 $
 
 			include		"LCDMacs.inc"
 

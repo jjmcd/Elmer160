@@ -1,5 +1,8 @@
-		include		"LCDmacs.inc"
+		title		'LCDsend - Send a command to the LCD'
+		subtitle	'Part of the Lesson 17 replacement LCDlib library'
+		list		b=4,c=132,n=77,x=Off
 
+; ------------------------------------------------------------------------
 ;**
 ;  MySend
 ;
@@ -9,7 +12,9 @@
 ;
 ;**
 ;  WB8RCR - 2-Aug-05
-;  $Revision: 1.1 $ $Date: 2005-08-02 17:20:24-04 $
+;  $Revision: 1.2 $ $Date: 2005-08-07 13:36:52-04 $
+
+		include		"LCDmacs.inc"
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command nybble to the LCD
