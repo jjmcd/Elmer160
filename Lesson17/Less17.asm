@@ -24,7 +24,7 @@
 ;
 ;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2005-08-07 10:57:38-04 $
+;	$Revision: 1.7 $ $State: Stab $ $Date: 2005-08-07 13:28:28-04 $
 
 			include		p16f84a.inc
 			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
