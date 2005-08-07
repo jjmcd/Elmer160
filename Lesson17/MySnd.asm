@@ -1,4 +1,8 @@
-		include		"LCDMacs.inc"
+		title		'LCDsnd - Send a nybble to the LCD'
+		subtitle	'Part of the Lesson 17 replacement LCDlib library'
+		list		b=4,c=132,n=77,x=Off
+
+; ------------------------------------------------------------------------
 ;**
 ;  MySnd
 ;
@@ -7,7 +11,9 @@
 ;
 ;**
 ;  WB8RCR - 6-Jul-05
-;  $Revision: 1.1 $ $Date: 2005-07-06 13:26:42-04 $
+;  $Revision: 1.2 $ $Date: 2005-08-07 13:40:08-04 $
+
+		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD

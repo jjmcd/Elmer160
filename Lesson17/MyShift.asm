@@ -1,7 +1,8 @@
 		title		'LCDshift - set the LCD into shift mode'
-		subtitle	'Part of the LCDlib library'
+		subtitle	'Part of the Lesson 17 replacement LCDlib library'
 		list		b=4,c=132,n=77,x=Off
 
+; ------------------------------------------------------------------------
 ;**
 ;  MyShift
 ;
@@ -16,7 +17,7 @@
 ;  the W register are destroyed.
 ;**
 ;  WB8RCR - 3-Aug-05
-;  $Revision: 1.1 $ $Date: 2005-08-03 07:58:30-04 $
+;  $Revision: 1.2 $ $Date: 2005-08-07 13:38:22-04 $
 
 		include		"LCDMacs.inc"
 
