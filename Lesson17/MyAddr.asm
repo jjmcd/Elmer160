@@ -20,33 +20,23 @@
 ;
 ;**
 ;  WB8RCR - 3-Aug-05
-;  $Revision: 1.2 $ $Date: 2005-08-07 13:30:14-04 $
+;  $Revision: 1.3 $ $Date: 2005-08-08 10:58:20-04 $
 
 		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCDaddr
 	; Required routines
-		extern		LCDsndI
-		extern		Del40us
+		extern		LCDsend
 		extern		Del2ms
 
 ; ------------------------------------------------------------------------
 	; Set the LCD DDRAM address
-		udata
-Addr	res			1
-
 MYLIB	code
 LCDaddr:
-		movwf		Addr		; Save off address
-		swapf		Addr,W		; Will send high byte first
-		iorlw		h'08'		; Set command bit on
-		call		LCDsndI		; Send high byte to LCD
-		call		Del40us		; 40us
-
-		movf		Addr,W		; Grab the low byte
-		call		LCDsndI		; Send to LCD
-		call		Del2ms		; 4.1ms
+		iorlw		LCD_SET_DDRAM ; OR in command byte
+		call		LCDsend		; Send to LCD
+		call		Del2ms		; Delay for processing
 		return
 
 		end
