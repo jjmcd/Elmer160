@@ -17,7 +17,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.33 $ $Date: 2005-03-21 21:58:10-04 $
+;  $Revision: 1.37 $ $Date: 2005-08-09 15:34:36-04 $
 
 			include		"LCDMacs.inc"
 
@@ -44,8 +44,6 @@ LCDletr:
 			call		LCDsndD
 
 			call		Del40us		; delay a while
-			call		Del40us		; delay a while
-									; Note: Doesn't work without this
 			return
 
 			end

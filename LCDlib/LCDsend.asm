@@ -1,6 +1,7 @@
 		title		'LCDsend - Send data to the LCD display'
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
+		include		LCDmacs.inc
 
 ;**
 ;  LCDsend
@@ -11,7 +12,7 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.33 $ $Date: 2005-03-21 21:53:44-04 $
+;  $Revision: 1.37 $ $Date: 2005-08-09 15:29:38-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
@@ -31,7 +32,6 @@ LCDsend
 	; Low byte
 		movf	Save,W
 		call	LCDsndI
-		call	Del2ms		; 4.1ms
-		call	Del2ms		; 4.1ms
+		call	Del2ms		; Wait 2ms
 		return
 		end

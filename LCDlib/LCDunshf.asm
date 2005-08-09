@@ -16,7 +16,7 @@
 ;  the W register are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.32 $ $Date: 2005-03-18 13:14:32-04 $
+;  $Revision: 1.37 $ $Date: 2005-08-09 15:32:52-04 $
 
 		include		"LCDMacs.inc"
 
@@ -25,7 +25,6 @@
 	; Required routines
 		extern		LCDsend		; Send command to LCD
 		extern		Del40us
-		extern		Del2ms
 
 LCDLIB	code
 ; ------------------------------------------------------------------------
