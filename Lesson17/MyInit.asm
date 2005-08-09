@@ -24,7 +24,7 @@
 ;
 ;**
 ;  WB8RCR - 07-Aug-05
-;  $Revision: 1.2 $ $Date: 2005-08-07 15:03:48-04 $
+;  $Revision: 1.7 $ $Date: 2005-08-09 15:58:36-04 $
 
 		include		"LCDMacs.inc"
 
@@ -69,7 +69,7 @@ LCDinit:
 		call		LCDsend
 
 		; Now set up the display the way we want it
-		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_1_LINE | LCD_5X7_FONT
+		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_2_LINE | LCD_5X7_FONT
 		call		LCDsend
 
 		; It seems to help to turn off the display and clear it before

@@ -1,12 +1,18 @@
+			title		'L17msg1 - Display MultiPig on the LCD'
+			subtitle	'Part of the Lesson 17 regression test'
+			list		b=4,c=132,n=77,x=Off
+
+; ------------------------------------------------------------------------
+;**
 ;	L17msg1 - Display a message on the LCD
 ;
 ;	This subroutine displays the text 'MultiPig' on the LCD,
 ;	beginning at the current cursor position.
 ;
+;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2005-07-03 14:33:32-04 $
+;	$Revision: 1.7 $ $State: Stab $ $Date: 2005-08-09 15:57:48-04 $
 
-			list		b=4,c=103,n=77,x=Off,st=on
 			include		p16f84a.inc
 
 			global		Msg1
@@ -22,26 +28,21 @@ Msg1T		movlw		high Msg1Ts		; Pick up high byte of table address
 			movwf		PCLATH			; And save into PCLATH
 			movf		MsgIdx,W		; Pick up index
 			addwf		PCL,F			; And look up in table
-	IFDEF	CHAR16
-Msg1Ts		dt			"0123456789ABCDEF",0
-	ELSE
-Msg1Ts		dt			"MultiPig",0	; Message, terminated with a zero
-	ENDIF
+Msg1Ts		dt			"*Spartan Sprint*",0	; Message, terminated with a zero
 
 ;	Subroutine to display the message
 
 			code
-Msg1		clrf		MsgIdx			; Clear out the message index
+Msg1
+			clrf		MsgIdx			; Clear out the message index
 Msg1L
-	IFDEF	CHAR16
-			movf		MsgIdx,W
-			xorlw		H'08'
+			movlw		D'8'
+			subwf		MsgIdx,W
 			btfss		STATUS,Z
-			goto		Left
-			movlw		H'38'
+			goto		Msg1M
+			movlw		H'40'
 			call		LCDaddr
-Left
-	ENDIF
+Msg1M
 			call		Msg1T			; Go get the character
 			xorlw		H'00'			; Test to see if it was a zero
 			btfsc		STATUS,Z		; Was it?

@@ -17,7 +17,7 @@
 ;
 ;**
 ;  WB8RCR - 2-Aug-05
-;  $Revision: 1.2 $ $Date: 2005-08-07 13:34:44-04 $
+;  $Revision: 1.7 $ $Date: 2005-08-09 15:34:42-04 $
 
 			include		"LCDMacs.inc"
 
@@ -34,7 +34,7 @@ MYLIB		code
 LCDdig:
 			andlw		00fh
 			iorlw		030h		; note falls thru
-
+ 
 LCDletr:
 			movwf		SaveLetr	; save off the letter
 			swapf		SaveLetr,W	; Swap bytes
