@@ -3,7 +3,7 @@
 ;	This function simply initializes the two addresses
 ;	used by LCDsc16.
 ;
-;	$Revision: 1.37 $ $Date: 2005-06-23 13:22:18-04 $
+;	$Revision: 1.38 $ $Date: 2005-08-09 21:11:18-04 $
 
 ;	Provided routine
 		global		LCDinsc		; Initialize scrolling
