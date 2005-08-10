@@ -23,7 +23,7 @@
 ;
 ;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.7 $ $State: Stab $ $Date: 2005-08-07 13:28:38-04 $
+;	$Revision: 1.8 $ $State: Rel $ $Date: 2005-08-09 21:03:56-04 $
 
 			include		p16f84a.inc
 
