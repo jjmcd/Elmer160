@@ -15,7 +15,7 @@
 ;
 ;**
 ;  WB8RCR - 10-Aug-05
-;  $Revision: 1.1 $
+;  $Revision: 1.2 $ $State: Exp $ $Date: 2005-08-12 09:30:14-04 $
 
 			include		p16f84a.inc
 			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
