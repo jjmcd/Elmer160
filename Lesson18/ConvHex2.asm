@@ -11,7 +11,7 @@
 ;
 ;**
 ;  WB8RCR - 11-Aug-05
-;  $Revision: 1.1 $
+;  $Revision: 1.2 $ $State: Exp $ $Date: 2005-08-12 09:31:32-04 $
 
 		include		p16f84a.inc
 
