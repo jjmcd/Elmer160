@@ -6,29 +6,29 @@
 ;**
 ;	L19b
 ;
-;	This program reads the voltage on AN4, and turns off RC2 if
+;	This program reads the voltage on AN0, and turns off RC2 if
 ;	the voltage exceeds half-scale. It is expected that
-;	a pot allows adjusting the voltage on AN4 and an LED is 
+;	a pot allows adjusting the voltage on AN0 and an LED is 
 ;	connected to RC2 so that turning the pot results in turning
 ;	the LED on and off.
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-02-08 19:51:04-05 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-03-21 19:48:20-04 $
 
-			include		p16f876.inc
+			include		p16f873.inc
 
 			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
-			errorlevel	-302
 
 #define LED 2						; Bit for the LED
 #define PORTCMASK B'11111011'		; TRIS mask for port C
 
 #define ADCOSC		B'11000000'		; ADC use internal RC
+#define CHANNEL0	B'00000000'		; ADC channel 0 (RA0/AN0)
 #define CHANNEL4	B'00100000'		; ADC channel 4 (RA5/AN4)
 #define ADCON		B'00000001'		; ADC power on
 
-			udata
+			udata_shr
 c1			res			1	; Counter for ADC delay
 LEDstate	res			1	; Current LED state
 ADCval		res			1	; Pot position
@@ -41,17 +41,18 @@ Start
 	; Initialize the A/D converter
 	; ------------------------------------------------------
 	; Set the A/D to left justified, use Vdd, Vss as refs
-			banksel		ADCON1
-			clrf		ADCON1
+			errorlevel	-302
+			banksel		ADCON1		; Set all to analog since
+			clrf		ADCON1		; AN1-4 all disconnected
 			bcf			ADCON1,ADFM
-			banksel		ADCON0
 	; Select channel etc.
 	;	7-6 = 11 Frc
 	;	5-3 = 100 channel 4
 	;	2 = 0 conversion not started
 	;	1 = don't care
 	;	0 = 1 A/D converter turned on
-			movlw		ADCOSC | CHANNEL4 | ADCON
+			banksel		ADCON0
+			movlw		ADCOSC | CHANNEL0 | ADCON
 			movwf		ADCON0
 
 	; ------------------------------------------------------
@@ -61,6 +62,7 @@ Start
 			movlw		PORTCMASK
 			movwf		TRISC
 			banksel		PORTC
+			errorlevel	+302
 			clrf		LEDstate
 
 Loop
