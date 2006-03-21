@@ -14,19 +14,20 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-02-08 19:46:02-05 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-03-21 17:25:40-04 $
 
-			include		p16f876.inc
+			include		p16f873.inc
 
 			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
 			errorlevel	-302
 
 #define PORTCMASK B'11111011'		; TRIS mask for port C
 #define ADCOSC		B'11000000'		; ADC use internal RC
+#define CHANNEL0	B'00000000'		; ADC channel 0 (RA0/AN0)
 #define CHANNEL4	B'00100000'		; ADC channel 4 (RA5/AN4)
 #define ADCON		B'00000001'		; ADC power on
 
-			udata
+			udata_shr
 c1			res			1	; Counter for ADC delay
 ADCval		res			1	; Pot position
 DSH			res			1
@@ -41,8 +42,9 @@ Start
 	; ------------------------------------------------------
 	; Set the A/D to left justified, use Vdd, Vss as refs
 			banksel		ADCON1
-			clrf		ADCON1
-			bcf			ADCON1,ADFM
+			movlw		B'00000000'	; All analog
+;			movlw		B'00001110'	; RA0 analog, others digital
+			movwf		ADCON1
 			banksel		ADCON0
 	; Select channel etc.
 	;	7-6 = 11 Frc
@@ -50,7 +52,7 @@ Start
 	;	2 = 0 conversion not started
 	;	1 = don't care
 	;	0 = 1 A/D converter turned on
-			movlw		ADCOSC | CHANNEL4 | ADCON
+			movlw		ADCOSC | CHANNEL0 | ADCON
 			movwf		ADCON0
 
 
