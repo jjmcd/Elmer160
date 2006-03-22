@@ -6,20 +6,18 @@
 ;**
 ;	L19c
 ;
-;	This program reads the voltage on AN4, and uses that voltage
+;	This program reads the voltage on AN0, and uses that voltage
 ;	to set the duty cycle for the PWM output.  It is expected that
-;	a pot allows adjusting the voltage on AN4 and an LED is 
+;	a pot allows adjusting the voltage on AN0 and an LED is 
 ;	connected to CCP1 so that turning the pot results in changing
 ;	the brightness of the LED.
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-03-21 17:25:40-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-03-22 10:43:58-04 $
 
 			include		p16f873.inc
-
 			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
-			errorlevel	-302
 
 #define PORTCMASK B'11111011'		; TRIS mask for port C
 #define ADCOSC		B'11000000'		; ADC use internal RC
@@ -42,19 +40,20 @@ Start
 	; ------------------------------------------------------
 	; Set the A/D to left justified, use Vdd, Vss as refs
 			banksel		ADCON1
+			errorlevel	-302
 			movlw		B'00000000'	; All analog
 ;			movlw		B'00001110'	; RA0 analog, others digital
 			movwf		ADCON1
-			banksel		ADCON0
+			errorlevel	+302
 	; Select channel etc.
 	;	7-6 = 11 Frc
 	;	5-3 = 100 channel 4
 	;	2 = 0 conversion not started
 	;	1 = don't care
 	;	0 = 1 A/D converter turned on
+			banksel		ADCON0
 			movlw		ADCOSC | CHANNEL0 | ADCON
 			movwf		ADCON0
-
 
 	; ------------------------------------------------------
 	; Set the PWM period
