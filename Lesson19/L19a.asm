@@ -12,11 +12,10 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-03-14 15:49:20-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-03-22 12:35:30-04 $
 
 			include		p16f873.inc
-
-			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
+			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
 
 #define PORTCMASK B'11111011'		; TRIS mask for port C
 #define DELAY H'fc'					; Delay counter - higher=shorter
@@ -34,13 +33,13 @@ Start
 	; ------------------------------------------------------
 	; Set the LED pin to output
 	; ------------------------------------------------------
-			errorlevel	-302
-			banksel		TRISC
-			movlw		PORTCMASK
-			movwf		TRISC
-			banksel		PORTC
-			errorlevel	+302
-			clrf		LEDstate
+			errorlevel	-302		; Turn off message
+			banksel		TRISC		; Select TRIS bank
+			movlw		PORTCMASK	; Pick up port mask
+			movwf		TRISC		; and send it to TRISC
+			banksel		PORTC		; Back to bank 0
+			errorlevel	+302		; Message back on
+			clrf		LEDstate	; Clear out shadow register
 
 	; ------------------------------------------------------
 	; Main program loop
@@ -62,16 +61,16 @@ SetLED		movf		LEDstate,W	; Pick up the LED state
 	; Routine to hang around a while (~2 s @ 1.4 MHz)
 	; ------------------------------------------------------
 Snore
-			movlw		DELAY
-			movwf		c3
-			clrf		c1
-			clrf		c2
-Snore1		incfsz		c1,F
-			goto		Snore1
-			incfsz		c2,F
-			goto		Snore1
-			incfsz		c3,F
-			goto		Snore1
-			return
+			movlw		DELAY		; Initialize outer
+			movwf		c3			; loop counter
+			clrf		c1			; Middle and inner loops
+			clrf		c2			; will go full 256
+Snore1		incfsz		c1,F		; Increment inner loop counter
+			goto		Snore1		; No wrap? Do it again
+			incfsz		c2,F		; Inner wrapped, incr middle
+			goto		Snore1		; and do it again
+			incfsz		c3,F		; Finally, the outer
+			goto		Snore1		; Do it again unless
+			return					; it expired, then quit.
 
 			end
