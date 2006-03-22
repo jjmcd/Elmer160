@@ -12,11 +12,12 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-03-22 12:35:30-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-03-22 12:42:20-04 $
 
 			include		p16f873.inc
 			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
 
+#define LEDBIT LEDstate,2			; LED bit in shadow register
 #define PORTCMASK B'11111011'		; TRIS mask for port C
 #define DELAY H'fc'					; Delay counter - higher=shorter
 
@@ -45,13 +46,11 @@ Start
 	; Main program loop
 	; ------------------------------------------------------
 Loop
-			movf		LEDstate,W	; Check and see if the
-			btfsc		STATUS,Z	; LEDstate is zero
-			goto		SetHi		; Yes, set it
-			clrf		LEDstate	; No, clear it
+			btfss		LEDBIT		; Is LED bit zero?
+			goto		SetHi		; No, go set it
+			bcf			LEDBIT		; Yes, clear it
 			goto		SetLED		; skip over set
-SetHi		movlw		D'4'		; Set the LED bit
-			movwf		LEDstate	; to turn LED off
+SetHi		bsf			LEDBIT		; Set the LED bit
 SetLED		movf		LEDstate,W	; Pick up the LED state
 			movwf		PORTC		; and send it to PORTC
 			call		Snore		; Wait a long while
