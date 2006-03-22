@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-03-22 10:43:58-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-03-22 10:46:20-04 $
 
 			include		p16f873.inc
 			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
@@ -59,6 +59,7 @@ Start
 	; Set the PWM period
 	; ------------------------------------------------------
 		; PR2 sets the period
+			errorlevel	-302
 			banksel		PR2
 			movlw		H'80'
 			movwf		PR2
@@ -75,6 +76,7 @@ Start
 			movlw		H'0f'
 			movwf		CCP1CON
 			banksel		PORTA
+			errorlevel	+302
 
 Loop
 	; ------------------------------------------------------
