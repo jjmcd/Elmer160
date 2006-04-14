@@ -14,15 +14,14 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-04-14 14:27:10-04 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-04-14 15:16:26-04 $
 
 			include		p16f873.inc
-			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
+			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
 
 #define PORTCMASK	B'11111011'		; TRIS mask for port C
 #define ADCOSC		B'11000000'		; ADC use internal RC
 #define CHANNEL0	B'00000000'		; ADC channel 0 (RA0/AN0)
-#define CHANNEL4	B'00100000'		; ADC channel 4 (RA5/AN4)
 #define ADCON		B'00000001'		; ADC power on
 
 			udata_shr
@@ -46,7 +45,7 @@ Start
 			errorlevel	+302
 	; Select channel etc.
 	;	7-6 = 11 Frc
-	;	5-3 = 100 channel 4
+	;	5-3 = 000 channel 0
 	;	2 = 0 conversion not started
 	;	1 = don't care
 	;	0 = 1 A/D converter turned on
