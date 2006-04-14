@@ -14,12 +14,12 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-03-22 10:46:20-04 $
+;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-04-14 14:27:10-04 $
 
 			include		p16f873.inc
 			__config	_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
 
-#define PORTCMASK B'11111011'		; TRIS mask for port C
+#define PORTCMASK	B'11111011'		; TRIS mask for port C
 #define ADCOSC		B'11000000'		; ADC use internal RC
 #define CHANNEL0	B'00000000'		; ADC channel 0 (RA0/AN0)
 #define CHANNEL4	B'00100000'		; ADC channel 4 (RA5/AN4)
@@ -42,7 +42,6 @@ Start
 			banksel		ADCON1
 			errorlevel	-302
 			movlw		B'00000000'	; All analog
-;			movlw		B'00001110'	; RA0 analog, others digital
 			movwf		ADCON1
 			errorlevel	+302
 	; Select channel etc.
