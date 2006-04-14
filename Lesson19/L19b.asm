@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-03-21 19:48:20-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-04-14 13:11:34-04 $
 
 			include		p16f873.inc
 
@@ -44,7 +44,7 @@ Start
 			errorlevel	-302
 			banksel		ADCON1		; Set all to analog since
 			clrf		ADCON1		; AN1-4 all disconnected
-			bcf			ADCON1,ADFM
+;			bcf			ADCON1,ADFM	; Redundant
 	; Select channel etc.
 	;	7-6 = 11 Frc
 	;	5-3 = 100 channel 4
