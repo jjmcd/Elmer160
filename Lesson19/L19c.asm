@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.7 $ $State: Exp $ $Date: 2006-04-19 16:23:08-04 $
+;	$Revision: 1.8 $ $State: Exp $ $Date: 2006-04-19 19:17:08-04 $
 
 			include		p16f873.inc
 			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
@@ -100,7 +100,7 @@ Conv
 	; Now set the duty cycle depending on the ADC result
 	; ------------------------------------------------------
 
-		; Move the high two bits of AnaH to bits <5:4>
+		; Move the high two bits of AnaL to bits <5:4>
 			movlw		H'c0'			; First mask off low
 			andwf		AnaL,F			; bits of AnaL
 			bcf			STATUS,C		; Rotate high one bit
