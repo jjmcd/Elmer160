@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-04-14 15:16:26-04 $
+;	$Revision: 1.7 $ $State: Exp $ $Date: 2006-04-19 16:23:08-04 $
 
 			include		p16f873.inc
 			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
@@ -24,11 +24,11 @@
 #define CHANNEL0	B'00000000'		; ADC channel 0 (RA0/AN0)
 #define ADCON		B'00000001'		; ADC power on
 
-			udata_shr
+RAM0		udata_shr
 c1			res			1	; Counter for ADC delay
-ADCval		res			1	; Pot position
-DSH			res			1
-DSL			res			1
+c2			res			1
+AnaH		res			1	
+AnaL		res			1
 
 STARTUP		code
 			goto		Start
@@ -59,20 +59,20 @@ Start
 		; PR2 sets the period
 			errorlevel	-302
 			banksel		PR2
-			movlw		H'80'
-			movwf		PR2
-		; Clear TRISC<2>
-			banksel		TRISC
-			movlw		PORTCMASK
-			movwf		TRISC
+			movlw		H'fe'			; Setting period to max
+			movwf		PR2				; gives max resolution
+		; Set PWM pin to be an output
+			banksel		TRISC	
+			movlw		PORTCMASK		; Clear TRISC<2>
+			movwf		TRISC			;
 		; TMR2 prescaler scales the period and duty cycle
 			banksel		T2CON
-			movlw		B'00000111'
-			movwf		T2CON
+			movlw		B'00000101'		; TMR2 on <2>, prescale
+			movwf		T2CON			; to 1:4 <0:1>
 		; Configure CCP1 for PWM
 			banksel		CCP1CON
-			movlw		H'0f'
-			movwf		CCP1CON
+			movlw		H'0f'			; <3:0> all 1's for PWM
+			movwf		CCP1CON			; <5:4> is duty cycle LSB
 			banksel		PORTA
 			errorlevel	+302
 
@@ -91,32 +91,39 @@ Conv
 			btfsc		ADCON0,GO		; Hardware clears GO
 			goto		Conv			; when A/D complete
 	; Pick up the value
-			movf		ADRESH,W		; Only using 8 MSBs
-			movwf		ADCval			; of analog value
+			movf		ADRESH,W		; Get top 8 bits
+			movwf		AnaH			; Save into hi 8 bits
+			movf		ADRESL,W		; Grab low 2 bits and
+			movwf		AnaL			; save into low
 
 	; ------------------------------------------------------
 	; Now set the duty cycle depending on the ADC result
 	; ------------------------------------------------------
 
-		; ADC value in W already
-			movwf		DSH				; Save into hi 8 bits
-			movwf		DSL				; and also into low
+		; Move the high two bits of AnaH to bits <5:4>
+			movlw		H'c0'			; First mask off low
+			andwf		AnaL,F			; bits of AnaL
 			bcf			STATUS,C		; Rotate high one bit
-			rrf			DSH,F			; making sure <7> clear
-			swapf		DSL,F			; Move bit <1> into
-			rlf			DSL,F			; <5>
-			movlw		H'20'			; and mask unneeded bits
-			andwf		DSL,F			;
-			movlw		H'0c'			; Maintain PWM mode in
-			iorwf		DSL,F			; CCP1M
-			banksel		CCPR1L			; 
-			movf		DSH,W			; Set high 8 bits of
+			rrf			AnaL,F			; making sure <7> clear
+			rrf			AnaL,F			; Here we know <7> clear
+		; Set the high 8 bits of the duty cycle
+			movf		AnaH,W			; Set high 8 bits of
 			movwf		CCPR1L			; duty cycle
-			banksel		CCP1CON			;
-			movf		DSL,W			; And low 2 bits
-			movwf		CCP1CON			;
-;			banksel		PORTA			; CCP1CON in bank0 
+		; and now the low 8 bits
+			movlw		H'0f'			; Need to keep PWM mode
+			iorwf		AnaL,W			; OR in low analog bits
+			movwf		CCP1CON			; and send to CCP1CON
 
-			goto		Loop
+		; Spend some time so that PWM actually has a chance
+		; to happen before we go changing it
+			movlw		.39				; About a ms
+			movwf		c2
+L1
+			decfsz		c1,F			; Give PWM a shot
+			goto		L1				; 
+			decfsz		c2,F			; Yeah, its a long wait
+			goto		L1				;
+
+			goto		Loop			; Play it again, Sam
 
 			end
