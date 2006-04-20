@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 8-Feb-06
-;	$Revision: 1.8 $ $State: Exp $ $Date: 2006-04-19 19:17:08-04 $
+;	$Revision: 1.9 $ $State: Exp $ $Date: 2006-04-20 13:52:44-04 $
 
 			include		p16f873.inc
 			__config	_RC_OSC&_WDT_OFF&_PWRTE_ON&_BODEN_OFF&_LVP_OFF&_DEBUG_OFF
@@ -113,16 +113,6 @@ Conv
 			movlw		H'0f'			; Need to keep PWM mode
 			iorwf		AnaL,W			; OR in low analog bits
 			movwf		CCP1CON			; and send to CCP1CON
-
-		; Spend some time so that PWM actually has a chance
-		; to happen before we go changing it
-			movlw		.39				; About a ms
-			movwf		c2
-L1
-			decfsz		c1,F			; Give PWM a shot
-			goto		L1				; 
-			decfsz		c2,F			; Yeah, its a long wait
-			goto		L1				;
 
 			goto		Loop			; Play it again, Sam
 
