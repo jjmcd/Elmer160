@@ -1,0 +1,37 @@
+			title		'InitTMR0 - Initialize timer 0'
+			subtitle	'Part of Lesson 20 on interrupts'
+			list		b=4,c=132,n=77,x=Off
+
+			include		p16f84a.inc
+
+;------------------------------------------------------------------------
+;**
+;	InitTmr0
+;
+;	This function initializes the timer for use by the Lesson 20
+;	exercises.
+;
+;**
+;	WB8RCR - 19-May-06
+;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-05-20 09:20:01-04 $
+
+			global		InitTMR0
+
+			code
+InitTMR0:
+			errorlevel	-302
+			banksel		INTCON
+			bcf			INTCON,T0IE		; Mask timer interrupt
+
+	; IRL, we would have simply loaded a constant, but the
+	; code below makes it explicit what we are doing
+			banksel		OPTION_REG
+			bcf			OPTION_REG,T0CS	; Enable timer
+			bcf			OPTION_REG,T0SE	; Use rising edge
+			bcf			OPTION_REG,PSA	; Prescaler to timer
+			bsf			OPTION_REG,PS2	; \
+			bsf			OPTION_REG,PS1	;  >- 1:256 prescale
+			bsf			OPTION_REG,PS0	; /
+			banksel		PORTA
+			return
+			end
