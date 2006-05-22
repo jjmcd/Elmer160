@@ -17,41 +17,33 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-05-01 07:41:21-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 12:47:07-04 $
 
-			global		binary,digits	; Needed by ConvBCD2
-			extern		ConvBCD2, LCDinit, LCDclear, LCDzero, LCDletr, Del128ms
-
-			udata
-binary		res			2				; Storage for input value
-digits		res			5				; Storage for resulting
-w_temp		res			1				; Save area for W
-status_temp	res			1				; Save area for status
+			extern		binary
+			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0
 
 STARTUP		code
 			nop
 			goto		Start
 
 PROG		code
-Start
-	; enable timer mode
-			errorlevel	-302
-			banksel		INTCON
-			bcf			INTCON,T0IE		; Mask timer interrupt
+Start:
+	; Initialization
 
-	; IRL, we would have simply loaded a constant, but the
-	; code below makes it explicit what we are doing
-			banksel		OPTION_REG
-			bcf			OPTION_REG,T0CS	; Enable timer
-			bcf			OPTION_REG,T0SE	; Use rising edge
-			bcf			OPTION_REG,PSA	; Prescaler to timer
-			bsf			OPTION_REG,PS2	; \
-			bsf			OPTION_REG,PS1	;  >- 1:256 prescale
-			bsf			OPTION_REG,PS0	; /
-			banksel		PORTA
+			call		InitTMR0		; Initialize the timer
 
 			call		LCDinit			; Initialize the LCD
-			call		LCDclear		; and clear it
+
+	; The next two lines suppress the cursor.  Rather than including
+	; LCDmacs.inc, we simply use the values for
+	; LCD_DISPLAY | LCD_DISP_ON | LCD_CURS_OFF | LCD_BLINK_OFF
+	; We could have just used H'0c' but that would have been even 
+	; more cryptic.  This isn't very important but it makes for
+	; a little nicer display.
+			movlw		H'08' | H'04' | H'00' | H'00'
+			call		LCDsend
+
+			call		LCDclear		; Clear the display
 			clrf		binary			; Start the counter off
 			clrf		binary+1		; at zero
 
@@ -67,45 +59,8 @@ Start
 
 	;	Main program loop here
 Loop
-			call		showValue		; Display the value in memory
+			call		Disp16			; Display the value in memory
 			call		Del128ms		; Wait a little while
 			goto		Loop			; Do it again
-
-	;	Sub to display value
-showValue
-			call		ConvBCD2		; Convert the value to BCD
-			call		LCDzero			; Cursor to left of LCD
-			movf		digits,W		; Grab most significant digit
-			call		LCDletr			; and display it
-			movf		digits+1,W		; Then the next
-			call		LCDletr			;
-			movf		digits+2,W		; and the next
-			call		LCDletr			;
-			movf		digits+3,W		;   .
-			call		LCDletr			;   .
-			movf		digits+4,W		;   .
-			call		LCDletr			;
-			return
-
-	; Interrupt service routine
-IRQSVC		code
-			movwf		w_temp			; Save off the W register
-			swapf		STATUS,W		; And the STATUS
-			movwf		status_temp		;
-
-			; Bump up the two-byte value we will display
-			incf		binary+1,F		; Increment low byte
-			btfsc		STATUS,Z		; Overflow? (incf doesn't affect C)
-			incf		binary,F		; Increment high byte
-
-			; Note that if we do not clear T0IF, we will be interrupted again
-			; as soon as we do the retfie, so we will get nothing else done.
-			bcf			INTCON,T0IF		; Clear the old interrupt
-
-			swapf		status_temp,W	; Restore the status
-			movwf		STATUS			; register
-			swapf		w_temp,F		; Restore W without disturbing
-			swapf		w_temp,W		; the STATUS register
-			retfie
 
 			end
