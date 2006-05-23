@@ -6,14 +6,14 @@
 
 ;------------------------------------------------------------------------
 ;**
-;	InitTmr0
+;	ISRa
 ;
 ;	This function provides the interrupt service routine for use by 
 ;	exercise L20a.
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-05-20 09:25:11-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 20:05:05-04 $
 
 			extern		binary
 
