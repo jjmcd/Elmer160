@@ -13,11 +13,11 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-05-20 09:20:01-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 20:15:05-04 $
 
 			global		InitTMR0
 
-			code
+MYLIB		code
 InitTMR0:
 			errorlevel	-302
 			banksel		INTCON
