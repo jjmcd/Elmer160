@@ -17,7 +17,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-05-23 13:53:49-04 $
+;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-05-23 14:03:16-04 $
 
 			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0
