@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-05-22 20:10:27-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-05-23 13:53:35-04 $
 
 			global		Disp16,binary,digits,dirty
 			extern		ConvBCD2, LCDzero, LCDletr
@@ -41,9 +41,6 @@ Disp16L
 			goto		Disp16L			; Done? No, do it again
 
 			clrf		dirty			; Value is now current
-
-			movlw		H'0f'			; Turn off LEDs so their
-			movwf		PORTB			; flashing not so annoying
 
 			return
 
