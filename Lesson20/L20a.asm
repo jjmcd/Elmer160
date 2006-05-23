@@ -17,9 +17,9 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 12:47:07-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-05-22 20:12:15-04 $
 
-			extern		binary
+			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0
 
 STARTUP		code
@@ -60,7 +60,10 @@ Start:
 	;	Main program loop here
 Loop
 			call		Disp16			; Display the value in memory
-			call		Del128ms		; Wait a little while
+Loop1
+			movf		dirty,W			; Test whether a new value
+			btfss		STATUS,Z
+			goto		Loop1
 			goto		Loop			; Do it again
 
 			end

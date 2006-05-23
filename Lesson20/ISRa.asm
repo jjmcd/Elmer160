@@ -13,9 +13,9 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 20:05:05-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-05-22 20:10:29-04 $
 
-			extern		binary
+			extern		binary,dirty
 
 			udata
 w_temp		res			1				; Save area for W
@@ -31,6 +31,7 @@ IRQSVC		code
 			incf		binary+1,F		; Increment low byte
 			btfsc		STATUS,Z		; Overflow? (incf doesn't affect C)
 			incf		binary,F		; Increment high byte
+			incf		dirty,F			; Note that value changed
 
 			; Note that if we do not clear T0IF, we will be interrupted again
 			; as soon as we do the retfie, so we will get nothing else done.
