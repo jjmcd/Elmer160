@@ -9,7 +9,7 @@
 ;**
 ;	L20a
 ;
-;	This program loops and displays a value on the LCD eight times
+;	This program loops and displays a value on the LCD fifteen times
 ;	a second.  The timer interrupt is used to initiate the incementing
 ;	of that value in the interrupt context.
 ;
@@ -17,7 +17,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-05-23 14:03:16-04 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-05-23 14:46:10-04 $
 
 			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0

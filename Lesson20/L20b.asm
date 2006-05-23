@@ -9,7 +9,7 @@
 ;**
 ;	L20a
 ;
-;	This program loops and displays a value on the LCD eight times
+;	This program loops and displays a value on the LCD fifteen times
 ;	a second.  The timer interrupt is used to initiate the incementing
 ;	of that value in the interrupt context.  In this version, pressing
 ;	PB1 saves the count in EEPROM and PB2 restores the count from EEPROM.
@@ -18,7 +18,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2006-05-23 14:24:05-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-05-23 14:45:15-04 $
 
 			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Del128ms
@@ -63,6 +63,10 @@ Start:
 Loop
 			call		Disp16			; Display the value in memory
 Loop1
+		; Check the pushbuttons.  Note that it would be better
+		; to debounce the buttons.  We could restore several times
+		; in a row.  That isn't much of a problem, but storing
+		; could be.
 			movlw		H'08'			; Check whether PB2 pressed
 			andwf		PORTA,W			;
 			btfsc		STATUS,Z		;
