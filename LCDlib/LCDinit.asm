@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:16-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-01 12:56:16-04 $
 
 		include		"LCDMacs.inc"
 
@@ -46,8 +46,8 @@ LCDinit:
 		;
 		; Set the ports in case the user has forgotten
 		IF			PROC == 627	; For 16F627/628
-		movlw		H'F8'		; Turn off comparators
-		andwf		CMCON,F		; so they can be I/O
+		movlw		H'07'		; Turn off comparators
+		iorwf		CMCON,F		; so they can be I/O
 		ENDIF
 		movlw		H'80'		; Turn off low 7 bits
 		IF			PROC == 88	; For 16F88 only
