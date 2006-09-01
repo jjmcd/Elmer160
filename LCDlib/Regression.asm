@@ -3,15 +3,23 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.37 $ $Date: 2005-06-23 14:56:20-04 $
+;	$Revision: 1.38 $ $Date: 2006-09-01 17:00:51-04 $
 
 			include		Processor.inc
-			IF			PROC == 627	; For 16F627/628
+			IF			PROC == 627	; For 16F627/628/648A
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
-			ELSE
+            ENDIF
+            IF          PROC == 84
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
 			ENDIF
-			IF			PROC == 84
+            IF          PROC == 819
+			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
+            ENDIF
+            IF          PROC == 88
+			__config	_CONFIG1, _XT_OSC & _LVP_OFF & _WDT_OFF & _DEBUG_OFF
+            ENDIF
+
+			IF			PROC == 84 || PROC == 819
 			errorlevel	-312
 			ENDIF
 
@@ -78,7 +86,7 @@ TstSc61		movf		Index,W		; Pick up the index
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			lgoto		TstSc61		; No, do it again
+			goto		TstSc61		; No, do it again
 			return					;
 
 ;	Test the message function - 16-character (2x8) display
@@ -147,7 +155,7 @@ TstScr1		movf		Index,W		; Pick up the index
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			lgoto		TstScr1		; No, do it again
+			goto		TstScr1		; No, do it again
 			lcall		LCDunshf	; Get out of shift mode
 			return					;
 
@@ -158,11 +166,11 @@ TstDig
 TstDig1		movf		Index,W		; Pick up the index
 			lcall		TabDig		; Look up the desired character
 			lcall		LCDdig		; Display it
-			incf		Index,1		; Next character
+			incf		Index,F		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			lgoto		TstDig1		; No, do it again
+			goto		TstDig1		; No, do it again
 			return					; Yes, all done
 ;	Test address ... will send "Elecraft" slowly, from the ends in
 TstAdr
@@ -181,7 +189,7 @@ TstAd1		movf		Index,W		; Pick up the index
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
-			lgoto		TstAd1		; No, do it again
+			goto		TstAd1		; No, do it again
 			return					; Yes, all done
 
 ;	Test address - 16 char display ... will send "Wilderness Radio" slowly, from the ends in
