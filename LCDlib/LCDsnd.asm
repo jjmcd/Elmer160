@@ -7,7 +7,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:22-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-01 17:06:24-04 $
 
 	; Provided Routines
 		global	LCDsndI		; Send a command nybble to the LCD
@@ -39,5 +39,7 @@ LCDsndI:
 		xorlw	LCDEN
 		movwf	LCDPORT
 		call	Del450ns	; 450ns
+        movlw   H'0f'       ; Set data lines high
+        movwf   LCDPORT     ;
 		return
 		end
