@@ -1,5 +1,5 @@
 // Linker command file for Lesson 20 (16F84A)
-// $Id: Less20.lkr,v 1.1 2006-04-30 17:25:42-04 jjmcd Exp $
+// $Id: Less20.lkr,v 1.10 2006-09-02 08:47:15-04 jjmcd Stab $
 
 LIBPATH  .
 
