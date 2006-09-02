@@ -2,7 +2,7 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
+			include		Processor.inc
 
 ;------------------------------------------------------------------------
 ;**
@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-05-22 20:15:05-04 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-09-02 08:40:44-04 $
 
 			global		InitTMR0
 
@@ -21,7 +21,11 @@ MYLIB		code
 InitTMR0:
 			errorlevel	-302
 			banksel		INTCON
+		IF (PROC == 819) || (PROC == 88)
+			bcf			INTCON,TMR0IE
+		ELSE
 			bcf			INTCON,T0IE		; Mask timer interrupt
+		ENDIF
 
 	; IRL, we would have simply loaded a constant, but the
 	; code below makes it explicit what we are doing
