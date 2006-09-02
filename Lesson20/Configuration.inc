@@ -15,7 +15,7 @@
 ;	have not been tested.
 ;
 ;  WB8RCR - 1-Sep-06
-;  $Revision: 1.1 $  $State: Exp $ $Date: 2006-09-02 12:15:57-04 $
+;  $Revision: 1.10 $  $State: Stab $ $Date: 2006-09-02 17:48:24-04 $
 ;
 	IF PROC == 627
 		IFDEF __16F648A
