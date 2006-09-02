@@ -2,8 +2,8 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
-			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
+			include		Processor.inc
+			include		Configuration.inc
 
 ;------------------------------------------------------------------------
 ;**
@@ -17,10 +17,10 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-05-23 14:46:10-04 $
+;	$Revision: 1.7 $ $State: Exp $ $Date: 2006-09-02 12:13:04-04 $
 
 			extern		binary,dirty
-			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0
+			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0, LEDflg
 
 STARTUP		code
 			nop
@@ -54,7 +54,12 @@ Start:
 	;
 	; NOTE: INTCON is in all banks, so we need not concern
 	; ourselves with banksel.  
+
+	IF (PROC == 819) || (PROC == 88)	; 16F88 and 819 have a
+			bsf			INTCON,TMR0IE	; different name for T0IE
+	ELSE
 			bsf			INTCON,T0IE		; Allow timer interrupt
+	ENDIF
 			bsf			INTCON,GIE		; Enable interrupts
 
 	;	Main program loop here
