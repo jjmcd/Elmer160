@@ -2,7 +2,7 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
+			include		Processor.inc
 
 ;------------------------------------------------------------------------
 ;**
@@ -14,9 +14,9 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-05-23 13:53:35-04 $
+;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-09-02 11:42:48-04 $
 
-			global		Disp16,binary,digits,dirty
+			global		Disp16,binary,digits,dirty,LEDflg
 			extern		ConvBCD2, LCDzero, LCDletr
 
 			udata
@@ -24,6 +24,7 @@ count		res			1				; Which digit to display
 binary		res			2				; Storage for input value
 digits		res			5				; Storage for digits
 dirty		res			1				; Remember we changed value
+LEDflg		res			1
 
 MYLIB		code
 Disp16:
@@ -39,7 +40,8 @@ Disp16L
 			incf		FSR,F			; Point to next digit
 			decfsz		count,F			; Count down one we just did
 			goto		Disp16L			; Done? No, do it again
-
+;			movf		LEDflg,W
+;			movwf		PORTB
 			clrf		dirty			; Value is now current
 
 			return
