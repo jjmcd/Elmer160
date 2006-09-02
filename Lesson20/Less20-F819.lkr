@@ -1,4 +1,5 @@
 // Sample linker command file for 16F819.lkr
+// $Id: Less20-F819.lkr,v 1.2 2006-09-02 17:43:32-04 jjmcd Exp $
 
 LIBPATH  .
 
