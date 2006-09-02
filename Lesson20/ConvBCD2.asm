@@ -17,10 +17,10 @@
 ;
 ;**
 ;  WB8RCR - 31-Jan-06
-;  $Revision: 1.1 $ $Date: 2006-05-19 17:31:36-04 $
+;  $Revision: 1.2 $ $Date: 2006-09-02 09:51:45-04 $
 
 
-			include		p16f84a.inc
+			include		Processor.inc
 
 			global		ConvBCD2	; Entry point
 			extern		binary		; Input 16 bit value
@@ -39,7 +39,9 @@ inter		res			2			; Stores remainder
 ;	Table of decades - note that each dt will generate two
 ;	retlw instructions, one for each byte of the two byte value.
 TABLES		code
-t1			movf		dindex,W
+t1			movlw		HIGH t1
+			movwf		PCLATH
+			movf		dindex,W
 			addwf		PCL,F
 			dt			high D'10000',low D'10000'
 			dt			high D'1000',low D'1000'
