@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-09-02 11:42:48-04 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-09-03 10:52:15-04 $
 
 			global		Disp16,binary,digits,dirty,LEDflg
 			extern		ConvBCD2, LCDzero, LCDletr
@@ -40,8 +40,8 @@ Disp16L
 			incf		FSR,F			; Point to next digit
 			decfsz		count,F			; Count down one we just did
 			goto		Disp16L			; Done? No, do it again
-;			movf		LEDflg,W
-;			movwf		PORTB
+			movf		LEDflg,W
+			movwf		PORTB
 			clrf		dirty			; Value is now current
 
 			return
