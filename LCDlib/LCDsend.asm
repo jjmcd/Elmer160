@@ -12,7 +12,7 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:20-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-25 16:38:56-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
@@ -28,7 +28,6 @@ LCDsend
 	; High byte
 		swapf	Save,W
 		call	LCDsndI	; LCDsndI takes care of masking
-		call	Del40us	; 40us
 	; Low byte
 		movf	Save,W
 		call	LCDsndI
