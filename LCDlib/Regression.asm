@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.38 $ $Date: 2006-09-01 17:00:51-04 $
+;	$Revision: 1.39 $ $Date: 2006-09-25 20:50:48-04 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -41,6 +41,7 @@ Start
 			lcall		Del128ms
 	;	Initialize
 			lcall		LCDinit
+            lcall       Del1s
 Loop
 	;	Test LCDdig, also uses LCDletr
 			lcall		TstDig
