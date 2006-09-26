@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:12-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-25 20:38:04-04 $
 
 		include		"LCDMacs.inc"
 
@@ -27,8 +27,11 @@ _DELV002	res		1
 LCDLIB		code
 ; ------------------------------------------------------------------------
 	; Waste some time by executing nested loops
-
-LOOPCNT=3+(4*PROCSPEED)/11
+; The first (commented out) line represents the time that should
+; be required according to the datasheet.  The second line
+; represents the time actually needed by some slower LCDs
+;LOOPCNT=3+(4*PROCSPEED)/11
+LOOPCNT=4+(4*PROCSPEED)/11
 
 	; This calculation turns out to be a little fat for faster processors
 	; but it is pretty close:
