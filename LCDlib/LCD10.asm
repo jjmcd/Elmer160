@@ -23,24 +23,23 @@
 ;
 ;**
 ;  WB8RCR - 24-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:14-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-25 20:25:24-04 $
 
 		include		"LCDMacs.inc"
 
 	; Provided Routines
 		global		LCD10		; Set the DDRAM address to sixteen
 	; Required routines
-		extern		LCDsndI		; Send a command bybble to the LCD
-		extern		Del40us		; Delay 40 usec
-		extern		Del2ms		; Delay 1.7 msec
 		extern		LCDsend		; Send command to LCD
+		extern		Del40us
 
 LCDLIB	code
 ; ------------------------------------------------------------------------
 	; Set the LCD DDRAM address to sixteen
 LCD10:
-		movlw	LCD_SET_DDRAM | H'10'
-		call	LCDsend
+		movlw	    LCD_SET_DDRAM | H'10'
+		call	    LCDsend
+		call		Del40us
 		return
 
 		end
