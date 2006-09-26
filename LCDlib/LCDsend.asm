@@ -12,12 +12,11 @@
 ;
 ;**
 ;  WB8RCR - 20-Nov-04
-;  $Revision: 1.39 $ $Date: 2006-09-25 16:38:56-04 $
+;  $Revision: 1.40 $ $Date: 2006-09-25 17:14:40-04 $
 
 		global		LCDsend
 		extern		LCDsndI		; Send a command bybble to the LCD
 		extern		Del40us		; Delay 40 usec
-		extern		Del2ms		; Delay 1.8 msec
 
 _LCDOV1	udata_ovr
 Save	res			1
@@ -31,6 +30,6 @@ LCDsend
 	; Low byte
 		movf	Save,W
 		call	LCDsndI
-		call	Del2ms		; Wait 2ms
+		call	Del40us		; Wait 40 us
 		return
 		end

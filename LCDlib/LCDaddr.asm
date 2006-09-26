@@ -19,7 +19,7 @@
 ;
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:16-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-25 20:24:26-04 $
 
 		include		"LCDMacs.inc"
 
@@ -27,7 +27,7 @@
 		global		LCDaddr
 	; Required routines
 		extern		LCDsend
-		extern		Del2ms
+		extern		Del40us
 
 ; ------------------------------------------------------------------------
 	; Set the LCD DDRAM address
@@ -36,9 +36,9 @@ Addr	res			1
 
 LCDLIB	code
 LCDaddr:
-		iorlw		LCD_SET_DDRAM ;  OR in command byte
-		call		LCDsend	;  Send to LCD
-		call		Del2ms
+		iorlw		LCD_SET_DDRAM   ;  OR in command byte
+		call		LCDsend	        ;  Send to LCD
+		call		Del40us
 		return
 
 		end
