@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:12-04 $
+;  $Revision: 1.39 $ $Date: 2006-09-25 20:46:24-04 $
 
 		include		"LCDMacs.inc"
 
@@ -31,7 +31,11 @@ LCDLIB		code
 	; This calculation leads to slightly long times
 	; at higher speeds
 
-LOOPCNT=D'21'+D'2'*PROCSPEED
+; The first (commented out) line represents the time that should
+; be required according to the datasheet.  The second line
+; represents the time actually needed by some slower LCDs
+;LOOPCNT=D'21'+D'2'*PROCSPEED
+LOOPCNT=D'25'+D'2'*PROCSPEED
 
 Del2ms:
 		movlw		LOOPCNT			; Outer loop counter to calc valuee
