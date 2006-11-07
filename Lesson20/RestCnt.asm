@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.10 $ $State: Stab $ $Date: 2006-11-07 08:37:03-05 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-11-07 08:37:03-05 $
 
 			errorlevel	-302
 			global		RestCnt
