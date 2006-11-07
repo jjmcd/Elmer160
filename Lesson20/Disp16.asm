@@ -14,7 +14,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-09-03 10:52:15-04 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2006-11-07 08:39:31-05 $
 
 			global		Disp16,binary,digits,dirty,LEDflg
 			extern		ConvBCD2, LCDzero, LCDletr
