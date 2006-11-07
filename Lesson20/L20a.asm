@@ -17,7 +17,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.7 $ $State: Exp $ $Date: 2006-09-02 12:13:04-04 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2006-11-07 08:37:57-05 $
 
 			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Del128ms, Disp16, InitTMR0, LEDflg
@@ -46,6 +46,8 @@ Start:
 			call		LCDclear		; Clear the display
 			clrf		binary			; Start the counter off
 			clrf		binary+1		; at zero
+			movlw		H'0e'			; Initialize the LED
+			movwf		LEDflg			; settings
 
 	; Now that we have the initialization done, it is safe to enable
 	; interrupts.  We need to separately enable the TMR0 interrupt as
