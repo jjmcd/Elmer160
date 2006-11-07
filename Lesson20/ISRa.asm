@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-09-02 12:38:16-04 $
+;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-11-07 08:39:06-05 $
 
 			extern		binary,dirty
 
@@ -30,10 +30,13 @@ IRQSVC		code
 			movwf		w_temp			; Save off the W register
 			swapf		STATUS,W		; And the STATUS
 			movwf		status_temp		;
-
+	IF PROC != 84
 			banksel		binary			; Don't know bank settings on
 										; entry, restoring STATUS will
 										; restore original bank
+										; Note that binary and dirty are
+										; assumed to be in the same bank
+	ENDIF
 
 			; Bump up the two-byte value we will display
 			incf		binary+1,F		; Increment low byte
