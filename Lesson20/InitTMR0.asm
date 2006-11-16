@@ -13,14 +13,13 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2006-09-02 08:40:44-04 $
+;	$Revision: 1.4 $ $State: Exp $ $Date: 2006-11-16 09:07:34-05 $
 
 			global		InitTMR0
 
 MYLIB		code
 InitTMR0:
 			errorlevel	-302
-			banksel		INTCON
 		IF (PROC == 819) || (PROC == 88)
 			bcf			INTCON,TMR0IE
 		ELSE
