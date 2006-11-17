@@ -18,7 +18,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-11-16 10:24:18-05 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-11-17 09:07:11-05 $
 
 			extern		binary,dirty,LEDflg
 			extern		LCDinit, LCDclear, LCDsend, Del128ms
@@ -35,10 +35,12 @@ Start:
 			call		InitTMR0		; Initialize the timer
 
 		IF ( PROC == 819 )
+			errorlevel	-302
 			banksel		ADCON1			; For 819, need to turn
 			movlw		H'07'			; off A/D converter pins
 			movwf		ADCON1			; in ADCON1.  Handled in
 			banksel		0				; LCDinit for F88.
+			errorlevel	+302
 		ENDIF
 			call		LCDinit			; Initialize the LCD
 
