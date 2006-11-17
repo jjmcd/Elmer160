@@ -18,7 +18,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-11-17 09:07:11-05 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2006-11-17 09:08:08-05 $
 
 			extern		binary,dirty,LEDflg
 			extern		LCDinit, LCDclear, LCDsend, Del128ms
