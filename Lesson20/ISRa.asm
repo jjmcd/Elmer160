@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.5 $ $State: Exp $ $Date: 2006-11-07 08:39:06-05 $
+;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-11-18 09:41:59-05 $
 
 			extern		binary,dirty
 
@@ -28,8 +28,8 @@ status_temp	res			1				; Save area for status
 	; Interrupt service routine
 IRQSVC		code
 			movwf		w_temp			; Save off the W register
-			swapf		STATUS,W		; And the STATUS
-			movwf		status_temp		;
+			swapf		STATUS,W		; And the STATUS (use swapf
+			movwf		status_temp		; so as not to change STATUS)
 	IF PROC != 84
 			banksel		binary			; Don't know bank settings on
 										; entry, restoring STATUS will
