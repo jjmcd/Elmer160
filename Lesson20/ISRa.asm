@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.6 $ $State: Exp $ $Date: 2006-11-18 09:41:59-05 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2006-12-25 14:25:33-05 $
 
 			extern		binary,dirty
 
