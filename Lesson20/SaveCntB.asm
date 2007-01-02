@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2006-11-07 08:36:15-05 $
+;	$Revision: 1.3 $ $State: Exp $ $Date: 2007-01-02 08:45:11-05 $
 
 			global		SaveCnt
 			extern		binary,LEDflg
@@ -23,9 +23,12 @@ SaveCnt:
 			movlw		H'06'			; Upper LED on
 			movwf		PORTB
 			movwf		LEDflg
-			bcf			INTCON,GIE		; Turn off interrupts
 
 			errorlevel	-302
+			banksel		EECON1
+Wait0		btfsc		EECON1,WR		; Be sure no write in progress
+			goto		Wait0
+
 			banksel		EEADR
 
 			movlw		SAVADR			; Set address in EEPROM
@@ -39,12 +42,14 @@ SaveCnt:
 		IFDEF EEPGD						; For processors that support
 			bcf			EECON1,EEPGD	; it, ensure EEPROM not FLASH
 		ENDIF
+			bcf			INTCON,GIE		; Turn off interrupts
 			bsf			EECON1,WREN		; Enable write
 			movlw		H'55'			; This sequence is
 			movwf		EECON2			; required before the
 			movlw		H'AA'			; EEPROM may be written
 			movwf		EECON2			;
 			bsf			EECON1,WR		; Start write
+			bsf			INTCON,GIE		; Turn interrupts back on
 Wait1		btfsc		EECON1,WR		; Wait for write complete
 			goto		Wait1
 
@@ -57,18 +62,19 @@ Wait1		btfsc		EECON1,WR		; Wait for write complete
 			movwf		EEDATA			;
 
 			banksel		EECON1			; Bank 1
+			bcf			INTCON,GIE		; Turn off interrupts
 			movlw		H'55'			; This sequence is
 			movwf		EECON2			; required before the
 			movlw		H'AA'			; EEPROM may be written
 			movwf		EECON2			;
 			bsf			EECON1,WR		; Start write
+			bsf			INTCON,GIE		; Turn interrupts back on
 Wait2		btfsc		EECON1,WR		; Wait for write complete
 			goto		Wait2
 
 			bcf			EECON1,WREN		; Disable write
 			errorlevel	+302
 			banksel		0				; Back to bank 0
-			bsf			INTCON,GIE		; Turn interrupts back on
 
 			movlw		H'0e'			; All LEDs off
 			movwf		LEDflg
