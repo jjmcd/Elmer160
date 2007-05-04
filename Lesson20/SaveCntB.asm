@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.3 $ $State: Exp $ $Date: 2007-01-02 08:45:11-05 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2007-05-04 15:36:54-04 $
 
 			global		SaveCnt
 			extern		binary,LEDflg
