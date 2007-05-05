@@ -2,8 +2,8 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
-			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
+			include		Processor.inc
+			include		Configuration.inc
 
 ;------------------------------------------------------------------------
 ;**
@@ -20,7 +20,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2007-05-04 11:46:38-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2007-05-05 12:29:19-04 $
 
 			global		eestate
 			extern		binary, dirty, LEDflg
@@ -40,6 +40,15 @@ Start:
 
 			call		InitTMR0		; Initialize the timer
 
+
+		IF ( PROC == 819 )
+			errorlevel	-302
+			banksel		ADCON1			; For 819, need to turn
+			movlw		H'07'			; off A/D converter pins
+			movwf		ADCON1			; in ADCON1.  Handled in
+			banksel		0				; LCDinit for F88.
+			errorlevel	+302
+		ENDIF
 			call		LCDinit			; Initialize the LCD
 
 	; The next two lines suppress the cursor.  Rather than including
@@ -64,8 +73,12 @@ Start:
 	; are disabled by default.
 	;
 	; NOTE: INTCON is in all banks, so we need not concern
-	; ourselves with banksel.  
+	; ourselves with banksel.
+		IF (PROC == 819) || (PROC == 88)
+			bsf			INTCON,TMR0IE
+		ELSE
 			bsf			INTCON,T0IE		; Allow timer interrupt
+		ENDIF
 			bsf			INTCON,GIE		; Enable interrupts
 
 	;	Main program loop here

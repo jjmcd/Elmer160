@@ -2,7 +2,7 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
+			include		Processor.inc
 			include		EEPROM.inc
 
 ;------------------------------------------------------------------------
@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2007-05-04 11:43:49-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2007-05-05 12:33:52-04 $
 
 			global		SaveCnt
 			extern		binary, eestate, LEDflg
@@ -37,7 +37,11 @@ SaveCnt:
 			goto		NextByte		; 3 (1)=Second byte
 			goto		Clearit			; 5 (2)=Done
 Clearit
-			bcf			INTCON,EEIE		; Disable EEPROM Interrupt
+			errorlevel	-302
+			banksel		IEREG
+			bcf			IEREG,EEIE		; Disable EEPROM Interrupt
+			banksel		eestate
+			errorlevel	+302
 			clrf		eestate			; Return to state 0
 			movlw		H'0e'			; All LEDs off
 			movwf		PORTB
@@ -48,6 +52,7 @@ FirstByte
 			movlw		H'06'			; Top LED on
 			movwf		PORTB			; to indicate write in 
 			movwf		LEDflg			; progress
+			errorlevel	-302
 			banksel		EECON1			; Check to be sure a write
 			btfsc		EECON1,WR		; is not already in progress
 			return						; Yes, we'll be back
@@ -55,7 +60,9 @@ FirstByte
 			movlw		SAVADR			; Set address in EEPROM
 			banksel		EEADR
 			movwf		EEADR			; to be written
+			banksel		binary
 			movf		binary,W		; Set data to be written
+			banksel		EEDATA
 			movwf		EEDATA			;
 			goto		ContWrite
 
@@ -67,11 +74,13 @@ NextByte
 			movlw		SAVADR+1		; Set address in EEPROM
 			banksel		EEADR
 			movwf		EEADR			; to be written
+			banksel		binary
 			movf		binary+1,W		; Set data to be written
+			banksel		EEDATA
 			movwf		EEDATA			;
 
 ContWrite
-			errorlevel	-302
+			;errorlevel	-302
 			banksel		EECON1			; Bank 1
 			bsf			EECON1,WREN		; Enable write
 			movlw		H'55'			; This sequence is
@@ -79,7 +88,7 @@ ContWrite
 			movlw		H'AA'			; EEPROM may be written
 			movwf		EECON2			;
 			bsf			EECON1,WR		; Start write
-			bsf			INTCON,EEIE		; Enable EEPROM Interrupt
+			bsf			IEREG,EEIE		; Enable EEPROM Interrupt
 			bsf			INTCON, GIE		; Re-enable interrupts
 			errorlevel	+302
 

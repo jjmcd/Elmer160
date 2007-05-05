@@ -2,7 +2,8 @@
 			subtitle	'Part of Lesson 20 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
-			include		p16f84a.inc
+			include		Processor.inc
+			include		EEPROM.inc
 
 ;------------------------------------------------------------------------
 ;**
@@ -20,7 +21,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.1 $ $State: Exp $ $Date: 2007-05-04 12:06:45-04 $
+;	$Revision: 1.2 $ $State: Exp $ $Date: 2007-05-05 12:32:59-04 $
 
 			extern		binary,dirty,eestate
 
@@ -53,14 +54,14 @@ IRQSVC		code
 
 			; Check the EEPROM completion interrupt flag
 IRQEEPROM
-			banksel		EECON1
+			banksel		IFREG
 			errorlevel	-302
-			btfss		EECON1,EEIF		; EEPROM completion interrupt
+			btfss		IFREG,EEIF		; EEPROM completion interrupt
 			goto		IRQEXIT
 
 			; Handle the EEPROM completion interrupt
 IRQEEDONE
-			bcf			EECON1,EEIF		; Clear the interrupt flag
+			bcf			IFREG,EEIF		; Clear the interrupt flag
 			banksel		eestate
 			incf		eestate,F		; Remember we handled it
 
