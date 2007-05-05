@@ -21,11 +21,15 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2007-05-05 12:32:59-04 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2007-05-05 14:44:54-04 $
 
 			extern		binary,dirty,eestate
 
+	IF		PROC==84
 			udata
+	ELSE
+			udata_shr
+	ENDIF
 w_temp		res			1				; Save area for W
 status_temp	res			1				; Save area for status
 
@@ -38,11 +42,17 @@ IRQSVC		code
 
 			; Now that the status is safely saved, test whether it was a timer
 			; interrupt that got us here
-
+	IF 		(PROC == 819) || (PROC == 88)
+			btfss		INTCON,TMR0IF
+	ELSE
 			btfss		INTCON,T0IF		; Timer interrupt flag
+	ENDIF
 			goto		IRQEEPROM		; No, go check EEPROM
 
 			; Bump up the two-byte value we will display
+	IF PROC != 84
+			banksel		binary
+	ENDIF
 			incf		binary+1,F		; Increment low byte
 			btfsc		STATUS,Z		; Overflow? (incf doesn't affect C)
 			incf		binary,F		; Increment high byte
@@ -50,7 +60,11 @@ IRQSVC		code
 
 			; Note that if we do not clear T0IF, we will be interrupted again
 			; as soon as we do the retfie, so we will get nothing else done.
+	IF 		(PROC == 819) || (PROC == 88)
+			bcf			INTCON,TMR0IF
+	ELSE
 			bcf			INTCON,T0IF		; Clear the old interrupt
+	ENDIF
 
 			; Check the EEPROM completion interrupt flag
 IRQEEPROM

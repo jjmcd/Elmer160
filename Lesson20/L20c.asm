@@ -20,7 +20,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.2 $ $State: Exp $ $Date: 2007-05-05 12:29:19-04 $
+;	$Revision: 1.10 $ $State: Stab $ $Date: 2007-05-05 14:10:25-04 $
 
 			global		eestate
 			extern		binary, dirty, LEDflg
