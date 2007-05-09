@@ -1,7 +1,7 @@
 		title		'Del128ms - Delay 128 milliseconds (approximately)'
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
-		include		LCDmacs.inc
+		include		LCDMacs.inc
 
 ;**
 ;  Del128ms
@@ -13,7 +13,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:10-04 $
+;  $Revision: 2.0 $ $Date: 2007-05-09 11:26:23-04 $
 
 		global		Del128ms
 ;

@@ -1,7 +1,7 @@
 		title		'Del450ns - Delay 450 nanoseconds (approximately)'
 		subtitle	'Part of the LCDlib library'
 		list		b=4,c=132,n=77,x=Off
-		include		LCDmacs.inc
+		include		LCDMacs.inc
 
 ;**
 ;  Del40us
@@ -16,7 +16,7 @@
 ;  W register are preserved.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:12-04 $
+;  $Revision: 2.0 $ $Date: 2007-05-09 11:24:48-04 $
 
 	; Provided Routines
 		global		Del450ns

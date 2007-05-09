@@ -11,7 +11,7 @@
 ;
 ;**
 ;  WB8RCR 26-Sep-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:14-04 $
+;  $Revision: 2.0 $ $Date: 2007-05-09 11:17:48-04 $
 
 	; Provided routines
 		global		DelWrk,DelWrkL
