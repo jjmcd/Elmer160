@@ -1,0 +1,16 @@
+p7 ph2 to ph3 transition
+ph2 redundant?
+
+p8 55 AA  not value but wreitre
+
+p9 clr wren
+
+p10 dirty bit
+
+p11 table down 1 paragraph
+!=0 fix comment
+
+p14 same set dirty
+
+
+p16 
