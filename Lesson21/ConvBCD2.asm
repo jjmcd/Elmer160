@@ -1,0 +1,120 @@
+			title		'ConvBCD2 - Convert a 2-byte value to BCD'
+			subtitle	'Part of Lesson 18 on BCD conversion'
+			list		b=4,c=132,n=77,x=Off
+
+; ----------------------------------------------------------------------
+;**
+;	ConvBCD2
+;
+;	Takes a 16-bit binary value stored in 'binary' and converts it to
+;	decial ASCII storing the result in the five character buffer
+;	'digits'.  binary and digits are to be provided by the calling
+;	program.
+;
+;	The binary value is divided by powers of ten to identify
+;	each digit of the result.  The divisions are performed by
+;	successive subtraction.
+;
+;**
+;  WB8RCR - 31-Jan-06
+;  $Revision: 1.13 $ $Date: 2007-06-13 10:21:20-04 $
+
+
+			include		Processor.inc
+
+			global		ConvBCD2	; Entry point
+			extern		binary		; Input 16 bit value
+			extern		digits		; Output 5 byte buffer
+
+;	Set aside storage for local variables.  All of these are only
+;	used during the execution of the subroutine, so they could all
+;	be in a udata_shr segment.
+;	dindex is an 8-bit counter, the rest 16-bit work areas.
+			udata
+dindex		res 		1			; Index into decades table
+divisor		res			2			; Storage for divisor
+work		res			2			; Work area
+inter		res			2			; Stores remainder
+
+;	Table of decades - note that each dt will generate two
+;	retlw instructions, one for each byte of the two byte value.
+TABLES		code
+t1			movlw		HIGH t1
+			movwf		PCLATH
+			movf		dindex,W
+			addwf		PCL,F
+			dt			high D'10000',low D'10000'
+			dt			high D'1000',low D'1000'
+			dt			high D'100',low D'100'
+			dt			high D'10',low D'10'
+			dt			high D'1',low D'1'
+
+;	Entry point for conversion routine
+MYLIB		code
+ConvBCD2
+			clrf		digits		; Clear out the result area
+			clrf		digits+1	;
+			clrf		digits+2	; all
+			clrf		digits+3	; five
+			clrf		digits+4	; digits
+
+			clrf		dindex		; Index into decades table
+
+			movf		binary,W	; Move binary into intermediate
+			movwf		inter		;
+			movf		binary+1,W	;
+			movwf		inter+1		;
+
+			movlw		digits		; Get address of result area
+			movwf		FSR			; and point to it
+
+;	Convert a digit by dividing by divisor from table
+ConvL1
+			call		t1			; Pick up divisor high
+			movwf		divisor		; store in divisor
+			incf		dindex,F	; Point to next byte
+			call		t1			; Divisor low
+			movwf		divisor+1	; Store it
+			incf		dindex,F	; Next byte
+
+			movf		inter,W		; Pick up intermediate high
+			movwf		work		; Move it to work
+			movf		inter+1,W	; Now the low
+			movwf		work+1		;
+
+;	Divide by successive subtraction
+ConvL2
+			movf		divisor+1,W	; Pick up low part of divisor
+			subwf		work+1,F	; Subtract low divisor
+			btfsc		STATUS,C	; Borrow?
+			goto		noBorrow	; No
+			movf		work,W		; Check whether borrow will
+			btfsc		STATUS,Z	; cause negative
+			goto		doneDig		; Yes, we're done
+			decf		work,F		; No, do the borrow
+noBorrow
+			movf		divisor,W	; Now high part
+			subwf		work,F		;
+			btfss		STATUS,C	; Did it go negative?
+			goto		doneDig		; Yep
+	; We didn't go negative, so save the remainder
+			movf		work+1,W	; Pick up the low byte
+			movwf		inter+1		; save it
+			movf		work,W		; Now the high
+			movwf		inter		;
+			incf		INDF,F		; Count up this subtract
+			goto		ConvL2		; and go do it again
+
+;	Now have one digit done, convert to ASCII
+;	and go do the next
+doneDig
+			movlw		A'0'		; Convert digit to ASCII by
+			iorwf		INDF,F		; ORing with ASCII zero
+			incf		FSR,F		; Point to next digit
+			movf		dindex,W	; Pick up the current digit #
+			sublw		D'8'		; and see if we are done
+			btfsc		STATUS,C	;
+			goto		ConvL1		; Nope, go do next digit
+			return
+
+			end
