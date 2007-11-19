@@ -1,4 +1,4 @@
-			title		'ISRa - interrupt service routine for L20a'
+			title		'ISRa - interrupt service routine for L21a'
 			subtitle	'Part of Lesson 21 on multiple processors'
 			list		b=4,c=132,n=77,x=Off
 
@@ -9,11 +9,11 @@
 ;	ISRa
 ;
 ;	This function provides the interrupt service routine for use by 
-;	exercise L20a.
+;	exercise L21a.
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:37:02-05 $
+;	$Revision: 1.15 $ $State: Exp $ $Date: 2007-11-19 15:14:31-05 $
 
 			extern		binary,dirty
 

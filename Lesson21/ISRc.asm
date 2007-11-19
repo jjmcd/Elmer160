@@ -10,7 +10,7 @@
 ;	ISRc
 ;
 ;	This function provides the interrupt service routine for use by 
-;	exercise L20c.
+;	exercise L21c.
 ;
 ;	The function must first save state.  Then, it checks to see whether the
 ;	interrupt was caused by the timer.  If so, the value binary is incremented.
@@ -21,7 +21,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:37:58-05 $
+;	$Revision: 1.15 $ $State: Exp $ $Date: 2007-11-19 15:19:36-05 $
 
 			extern		binary,dirty,eestate
 

@@ -1,5 +1,5 @@
 			title		'InitTMR0 - Initialize timer 0'
-			subtitle	'Part of Lesson 20 on interrupts'
+			subtitle	'Part of Lesson 21 on multiple processors'
 			list		b=4,c=132,n=77,x=Off
 
 			include		Processor.inc
@@ -8,12 +8,12 @@
 ;**
 ;	InitTmr0
 ;
-;	This function initializes the timer for use by the Lesson 20
+;	This function initializes the timer for use by the Lesson 21
 ;	exercises.
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.13 $ $State: Exp $ $Date: 2007-06-13 10:21:20-04 $
+;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 15:20:51-05 $
 
 			global		InitTMR0
 
