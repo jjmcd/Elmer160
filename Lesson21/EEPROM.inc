@@ -1,3 +1,7 @@
+			title		'EEPROM.inc - EEPROM Constants'
+			subtitle	'Part of Lesson 21 on multiple processors'
+			list		b=4,c=132,n=77,x=Off
+
 ;	EEPROM.inc
 ;
 ;	This include file holds the address we want to
@@ -11,6 +15,8 @@ SAVADR		equ		H'04'
 ;	a number of places, we will establich two new manifest constants,
 ;	IEREG and IFREG, to point to the appropriate registers for
 ;	the EEIE and EEIF flags, respectively.
+;
+;    $Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:35:53-05 $
 
 	IF		PROC==84
 IEREG		equ		INTCON

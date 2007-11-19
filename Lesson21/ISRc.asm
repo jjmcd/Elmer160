@@ -1,5 +1,5 @@
-			title		'ISRc - interrupt service routine for L20c'
-			subtitle	'Part of Lesson 20 on interrupts'
+			title		'ISRc - interrupt service routine for L21c'
+			subtitle	'Part of Lesson 21 on interrupts'
 			list		b=4,c=132,n=77,x=Off
 
 			include		Processor.inc
@@ -21,7 +21,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.13 $ $State: Exp $ $Date: 2007-06-13 10:21:20-04 $
+;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:37:58-05 $
 
 			extern		binary,dirty,eestate
 

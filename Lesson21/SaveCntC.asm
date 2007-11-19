@@ -1,5 +1,5 @@
 			title		'SaveCntC - Save counter in EEPROM'
-			subtitle	'Part of Lesson 20 on interrupts'
+			subtitle	'Part of Lesson 21 on multiple processors'
 			list		b=4,c=132,n=77,x=Off
 
 			include		Processor.inc
@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.13 $ $State: Exp $ $Date: 2007-06-13 10:21:20-04 $
+;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:45:03-05 $
 
 			global		SaveCnt
 			extern		binary, eestate, LEDflg

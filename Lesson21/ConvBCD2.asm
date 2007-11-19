@@ -1,5 +1,5 @@
 			title		'ConvBCD2 - Convert a 2-byte value to BCD'
-			subtitle	'Part of Lesson 18 on BCD conversion'
+			subtitle	'Part of Lesson 21 on multiple processors'
 			list		b=4,c=132,n=77,x=Off
 
 ; ----------------------------------------------------------------------
@@ -17,7 +17,7 @@
 ;
 ;**
 ;  WB8RCR - 31-Jan-06
-;  $Revision: 1.13 $ $Date: 2007-06-13 10:21:20-04 $
+;  $Revision: 1.14 $ $Date: 2007-11-19 10:31:19-05 $
 
 
 			include		Processor.inc

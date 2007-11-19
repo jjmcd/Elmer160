@@ -1,4 +1,7 @@
-; Processor.inc - Select include based on processor symbol
+			title		'Processor.inc - select include based on processor symbol'
+			subtitle	'Part of Lesson 21 on multiple processors'
+			list		b=4,c=132,n=77,x=Off
+
 		nolist
 ;**
 ;  This file includes the appropriate procesor include file
@@ -7,7 +10,7 @@
 ;  NOTE - 18-pin parts >=1K appropriate for PIC-EL only
 ;**
 ;  WB8RCR - 23-Nov-04
-;  $Revision: 1.13 $ $Date: 2007-06-13 10:21:20-04 $
+;  $Revision: 1.14 $ $Date: 2007-11-19 10:42:56-05 $
 
 		IFDEF		__16F83
 		include		p16f83.inc
