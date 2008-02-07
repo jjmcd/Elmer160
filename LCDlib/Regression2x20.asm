@@ -3,11 +3,12 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.1 $ $Date: 2005-06-23 21:49:54-04 $
+;	$Revision: 1.2 $ $Date: 2008-02-06 21:18:19-05 $
 
 			include		Processor.inc
 ;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON
-			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF
+;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF ;
+			include		Configuration.inc
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
 			extern		LCDshift,LCDunshf,LCD8,LCDzero,LCDmsg
@@ -18,8 +19,11 @@ lcallx		MACRO		Target
 			pagesel		Target
 			call		Target
 			ENDM
-
+IF PROC==88 || PROC==84
+DATA0		udata
+ELSE
 DATA0		udata_shr
+ENDIF
 LoopCnt		res			2
 Index		res			1		; Index into message
 IndInd		res			1		; Index into Index
@@ -27,7 +31,6 @@ SaveChr		res			1		; Storage for character
 Buffer		res			17		; Buffer to test LCDmsg
 
 STARTUP		code
-			nop
 			nop
 			lgoto		Start
 PROG1		code
