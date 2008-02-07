@@ -16,9 +16,9 @@
 ;  The contents of the W register are destroyed.
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:11:18-04 $
+;  $Revision: 1.39 $ $Date: 2008-02-06 20:59:49-05 $
 
-		include		LCDmacs.inc
+		include		LCDMacs.inc
 
 		global		LCDmsg
 		extern		LCDletr,LCDaddr
