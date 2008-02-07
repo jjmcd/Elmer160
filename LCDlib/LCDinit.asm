@@ -7,7 +7,7 @@
 ;
 ;  Initialize the LCD display.
 ;
-;  LCDinit intializes the LCD.  This routine must be
+;  LCDinit intializes the LCD.	This routine must be
 ;  called before any other LCD routines.  The LCD
 ;  requires significant time between power up and
 ;  initialization; LCDinit waits this amount of time.
@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 1.40 $ $Date: 2006-09-25 17:14:14-04 $
+;  $Revision: 1.41 $ $Date: 2008-02-07 07:57:09-05 $
 
 		include		"LCDMacs.inc"
 
@@ -33,7 +33,7 @@
 		extern		LCDsend
 		extern		Del2ms		; Delay 1.8 msec
 
-_LCDOV1	udata_ovr
+_LCDOV1 udata_ovr
 Count	res			1			; Storage for loop counter
 
 LCDLIB	code
@@ -43,21 +43,21 @@ LCDinit:
 		; Initialize the LCD to 4 bits
 		;
 		; Set the ports in case the user has forgotten
-		IF			PROC == 627	; For 16F627/628
-		movlw		H'07'		; Turn off comparators
-		iorwf		CMCON,F		; so they can be I/O
-		ENDIF
+;		 IF			 PROC == 627 ; For 16F627/628
+;		 movlw		 H'07'		 ; Turn off comparators
+;		 iorwf		 CMCON,F	 ; so they can be I/O
+;		 ENDIF			; 
 		movlw		H'80'		; Turn off low 7 bits
-		IF			PROC == 88	; For 16F88 only
-		andwf		PORTA,F		; of PORTA
-		ENDIF
+;		 IF			 PROC == 88  ; For 16F88 only
+;		 andwf		 PORTA,F	 ; of PORTA
+;		 ENDIF			; 
 		errorlevel	-302		; Suppress message
 		banksel		LCDTRIS		; Now set the low 7 bits of
 		andwf		LCDTRIS,F		; LCDPORT to outputs
-		IF			PROC == 88	; For 16F88 only
-		banksel		ANSEL		; Need to set the A/D converter
-		andwf		ANSEL,F		; pins to normal
-		ENDIF
+;		 IF			 PROC == 88  ; For 16F88 only
+;		 banksel	 ANSEL		 ; Need to set the A/D converter
+;		 andwf		 ANSEL,F	 ; pins to normal
+;		 ENDIF			; 
 		banksel		LCDPORT		; Back to bank zero and
 		errorlevel	+302		; re-enable the error message
 
@@ -75,7 +75,7 @@ LCDinit:
 		call		LCDsend
 		movlw		H'32'
 		call		LCDsend
-        call        Del2ms
+		call		Del2ms
 
 		; Now set up the display the way we want it
 		IFDEF		LCD2LINE
@@ -85,26 +85,26 @@ LCDinit:
 		movlw		LCD_FUN_SET | LCD_DL_4 | LCD_1_LINE | LCD_5X7_FONT
 		call		LCDsend
 		ENDIF
-        call        Del2ms
+		call		Del2ms
 
 		; It seems to help to turn off the display and clear it before
 		; setting the entry mode
 		movlw		LCD_DISPLAY | LCD_DISP_OFF	; Display Off
 		call		LCDsend
-        call        Del2ms
+		call		Del2ms
 		movlw		LCD_DISP_CLEAR	; Display clear
 		call		LCDsend
-        call        Del2ms
+		call		Del2ms
 
 		; Set display to no shift
 		movlw		LCD_ENTRY_MODE | LCD_NO_SHIFT | LCD_DIS_INCR
 		call		LCDsend
-        call        Del2ms
+		call		Del2ms
 
 		; Turn on display, cursor, and cursor blinking
 		movlw		LCD_DISPLAY | LCD_DISP_ON | LCD_CURS_ON | LCD_BLINK_ON
 		call		LCDsend
-        call        Del2ms
+		call		Del2ms
 
 		return
 		end
