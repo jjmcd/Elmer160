@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.2 $ $Date: 2008-02-06 21:18:19-05 $
+;	$Revision: 1.3 $ $Date: 2008-02-07 13:56:46-05 $
 
 			include		Processor.inc
 ;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON
@@ -18,13 +18,14 @@
 lcallx		MACRO		Target
 			pagesel		Target
 			call		Target
+			pagesel		Start
 			ENDM
-IF PROC==88 || PROC==84
+IF PROC==88 || PROC==84 || PROC==627
 DATA0		udata
 ELSE
 DATA0		udata_shr
 ENDIF
-LoopCnt		res			2
+LoopCnt		res			2 ; 
 Index		res			1		; Index into message
 IndInd		res			1		; Index into Index
 SaveChr		res			1		; Storage for character
@@ -36,8 +37,8 @@ STARTUP		code
 PROG1		code
 Start
 	;	Initialize
-			clrf		LoopCnt
-			clrf		LoopCnt+1
+; 			clrf		LoopCnt
+; 			clrf		LoopCnt+1
 
 			errorlevel	-302
 		IF PROC == 872
@@ -46,6 +47,16 @@ Start
 			movwf		ADCON1		; digital
 			banksel		PORTA
 		ENDIF
+		IF PROC == 88 || PROC == 627
+			movlw		H'07'
+			iorwf		CMCON,F
+		ENDIF
+; 		IFDEF	__16F88
+; 			movlw		H'80'
+; 			andwf		PORTA,F
+; 			banksel		ANSEL
+; 			andwf		ANSEL,F
+; 		ENDIF
 			banksel		TRISA		; Set RA0-3 as outputs
 			movlw		H'f8'		; so we can blink activity
 			movwf		TRISA		; LEDs
@@ -53,6 +64,8 @@ Start
 			errorlevel	+302
 			movlw		H'07'		; Start with all LEDs off
 			movwf		PORTA
+
+			lcallx		Del128ms
 
 			lcallx		LCDinit
 
@@ -87,14 +100,9 @@ Loop
 			lcallx		LCDclear	; Move cursor to the start
 			lcallx		LCDzero		; for the next guy
 
-			movlw		H'07'		; Invert the last bit of the
-			xorwf		LoopCnt,W	; loop counter
-			andlw		H'07'		; Mask off unneeded
-			movwf		PORTA		; And send it out to the LEDs
-
-			incfsz		LoopCnt,F
-			goto		Loop
-			incf		LoopCnt+1,F
+; 			incfsz		LoopCnt,F
+; 			goto		Loop
+; 			incf		LoopCnt+1,F
 			goto		Loop
 
 ;	Test scrolling - 16 character display
@@ -103,7 +111,7 @@ TstSc6
 			lcallx		LCDinsc		; Initialize scrolling
 			clrf		Index		; Start with zeroth character
 TstSc61		movf		Index,W		; Pick up the index
-			call		TabSc6		; Look up the desired character
+			lcallx		TabSc6		; Look up the desired character
 			lcallx		LCDsc16		; Display it
 			lcallx		Del256ms	; Slow it down
 			incf		Index,1		; Next character
@@ -120,7 +128,7 @@ TstMs6
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
 TstMs61		movf		Index,W		; Pick up the index
-			call		TabM6g		; Look up the desired character
+			lcallx		TabM6g		; Look up the desired character
 			movwf		SaveChr		; Save off the character
 			incf		IndInd,F	; Need to add one to index
 			movf		IndInd,W	; Pick up storage location
@@ -145,7 +153,7 @@ TstMsg
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
 TstMsg1		movf		Index,W		; Pick up the index
-			call		TabMsg		; Look up the desired character
+			lcallx		TabMsg		; Look up the desired character
 			movwf		SaveChr		; Save off the character
 			incf		IndInd,F	; Need to add one to index
 			movf		IndInd,W	; Pick up storage location
@@ -174,7 +182,7 @@ TstScr
 ;			lcallx		LCDaddr
 			clrf		Index		; Start with zeroth character
 TstScr1		movf		Index,W		; Pick up the index
-			call		TabScr		; Look up the desired character
+			lcallx		TabScr		; Look up the desired character
 			lcallx		LCDletr		; Display it
 			lcallx		Del256ms	; Slow it down
 			incf		Index,1		; Next character
@@ -190,7 +198,7 @@ TstDig
 			lcallx		LCDclear	; Clear out old stuff
 			clrf		Index		; Start with zeroth character
 TstDig1		movf		Index,W		; Pick up the index
-			call		TabDig		; Look up the desired character
+			lcallx		TabDig		; Look up the desired character
 			lcallx		LCDdig		; Display it
 			incf		Index,1		; Next character
 			movlw		.8			; Message length
@@ -202,12 +210,12 @@ TstDig1		movf		Index,W		; Pick up the index
 TstAdr
 			clrf		Index		; Start with zeroth
 TstAd1		movf		Index,W		; Pick up the index
-			call		TabAd1		; And get the char position
+			lcallx		TabAd1		; And get the char position
 			movwf		IndInd		; Save it
 			addlw		D'6'		; Move display toward center
 			lcallx		LCDaddr		; and position cursor
 			movf		IndInd,W	; Get the position again
-			call		TabAdr		; and get the character
+			lcallx		TabAdr		; and get the character
 			lcallx		LCDletr		; Display it
 			movlw		H'18'		; Move cursor out of the way
 			lcallx		LCDaddr		; for a nicer display
@@ -224,7 +232,7 @@ TstA6r
 			lcallx		LCDclear	; Clear out prev message
 			clrf		Index		; Start with zeroth
 TstA61		movf		Index,W		; Pick up the index
-			call		TabA61		; And get the char position
+			lcallx		TabA61		; And get the char position
 			movwf		IndInd		; Save it
 			sublw		.20			; Check if second part of LCD
 			btfss		STATUS,C	; Borrow?
@@ -236,7 +244,7 @@ TstA62		movf		IndInd,W	; Pick up position
 			addlw		H'38'		; Move to right half
 			lcallx		LCDaddr		; of LCD (add 64-8)
 TstA63		movf		IndInd,W	; Get the position again
-			call		TabAd6		; and get the character
+			lcallx		TabAd6		; and get the character
 			lcallx		LCDletr		; Display it
 			movlw		H'18'		; Move cursor out of the way
 			lcallx		LCDaddr		; for a nicer display
