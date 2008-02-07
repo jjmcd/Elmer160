@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.3 $ $Date: 2008-02-07 13:56:46-05 $
+;	$Revision: 1.4 $ $Date: 2008-02-07 14:20:44-05 $
 
 			include		Processor.inc
 ;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON
@@ -20,7 +20,7 @@ lcallx		MACRO		Target
 			call		Target
 			pagesel		Start
 			ENDM
-IF PROC==88 || PROC==84 || PROC==627
+IF PROC==88 || PROC==84 || PROC==627 || PROC==819
 DATA0		udata
 ELSE
 DATA0		udata_shr
