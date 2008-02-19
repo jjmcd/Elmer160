@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.41 $ $Date: 2008-02-19 09:05:33-05 $
+;	$Revision: 1.42 $ $Date: 2008-02-19 10:49:12-05 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -27,7 +27,7 @@
 			ENDIF
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
-			extern		LCDshift,LCDunshf,LCD8,LCDzero;,LCDmsg
+			extern		LCDshift,LCDunshf,LCD8,LCDzero,LCDmsg
 			extern		LCDinsc,LCDsc16
 			extern		Del1s,Del128ms,Del256ms
 
@@ -35,9 +35,9 @@
 Index		res			1		; Index into message
 IndInd		res			1		; Index into Index
 SaveChr		res			1		; Storage for character
-;Buffer		res			17		; Buffer to test LCDmsg
-;TABSTOR		udata
-;SavIdx		res			1			; Temporary storage for index
+Buffer		res			17		; Buffer to test LCDmsg
+TABSTOR		udata
+SavIdx		res			1			; Temporary storage for index
 #define SavIdx SaveChr
 
 STARTUP		code
@@ -52,6 +52,7 @@ TstSc61		movf		Index,W		; Pick up the index
 			lcall		TabSc6		; Look up the desired character
 			lcall		LCDsc16		; Display it
 			lcall		Del256ms	; Slow it down
+			pagesel		TstSc6
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -60,56 +61,58 @@ TstSc61		movf		Index,W		; Pick up the index
 			return					;
 
 ;	Test the message function - 16-character (2x8) display
-;TstMs6
-;			lcall		LCDclear	; Clear out the display
-;			pagesel		TstMs6
-;			clrf		Index		; Start with zeroth character
-;			movlw		Buffer		; Pick up address of buffer
-;			movwf		IndInd		; And save it
-;TstMs61		movf		Index,W		; Pick up the index
-;			call		TabM6g		; Look up the desired character
-;			movwf		SaveChr		; Save off the character
-;			incf		IndInd,F	; Need to add one to index
-;			movf		IndInd,W	; Pick up storage location
-;			movwf		FSR			; Place it in FSR
-;			movf		SaveChr,W	; Get letter back
-;			movwf		INDF		; And store it in the buffer
-;			incf		Index,1		; Next character
-;			movlw		.16			; Message length
-;			subwf		Index,W		; WIll be zero when done
-;			btfss		STATUS,Z	; Zero?
-;			goto		TstMs61		; No, do it again
-;			movlw		.16			; Message length
-;			movwf		Buffer		; Stuff it in buffer
-;			movlw		Buffer		; Message in buffer, can
-;			lcall		LCDmsg		; display it with LCDmsg
-;			return					; All done
+TstMs6
+			lcall		LCDclear	; Clear out the display
+			pagesel		TstMs6
+			clrf		Index		; Start with zeroth character
+			movlw		Buffer		; Pick up address of buffer
+			movwf		IndInd		; And save it
+TstMs61		movf		Index,W		; Pick up the index
+			lcall		TabM6g		; Look up the desired character
+			pagesel		TstMs61
+			movwf		SaveChr		; Save off the character
+			incf		IndInd,F	; Need to add one to index
+			movf		IndInd,W	; Pick up storage location
+			movwf		FSR			; Place it in FSR
+			movf		SaveChr,W	; Get letter back
+			movwf		INDF		; And store it in the buffer
+			incf		Index,1		; Next character
+			movlw		.16			; Message length
+			subwf		Index,W		; WIll be zero when done
+			btfss		STATUS,Z	; Zero?
+			goto		TstMs61		; No, do it again
+			movlw		.16			; Message length
+			movwf		Buffer		; Stuff it in buffer
+			movlw		Buffer		; Message in buffer, can
+			lcall		LCDmsg		; display it with LCDmsg
+			return					; All done
 ;
 ;;	Test the message function
-;TstMsg
-;			lcall		LCDclear	; Clear out the display
-;			pagesel		TstMsg
-;			clrf		Index		; Start with zeroth character
-;			movlw		Buffer		; Pick up address of buffer
-;			movwf		IndInd		; And save it
-;TstMsg1		movf		Index,W		; Pick up the index
-;			call		TabMsg		; Look up the desired character
-;			movwf		SaveChr		; Save off the character
-;			incf		IndInd,F	; Need to add one to index
-;			movf		IndInd,W	; Pick up storage location
-;			movwf		FSR			; Place it in FSR
-;			movf		SaveChr,W	; Get letter back
-;			movwf		INDF		; And store it in the buffer
-;			incf		Index,1		; Next character
-;			movlw		.8			; Message length
-;			subwf		Index,W		; WIll be zero when done
-;			btfss		STATUS,Z	; Zero?
-;			goto		TstMsg1		; No, do it again
-;			movlw		.8			; Message length
-;			movwf		Buffer		; Stuff it in buffer
-;			movlw		Buffer		; Message in buffer, can
-;			lcall		LCDmsg		; display it with LCDmsg
-;			return					; All done
+TstMsg
+			lcall		LCDclear	; Clear out the display
+			pagesel		TstMsg
+			clrf		Index		; Start with zeroth character
+			movlw		Buffer		; Pick up address of buffer
+			movwf		IndInd		; And save it
+TstMsg1		movf		Index,W		; Pick up the index
+			lcall		TabMsg		; Look up the desired character
+			pagesel		TstMsg1
+			movwf		SaveChr		; Save off the character
+			incf		IndInd,F	; Need to add one to index
+			movf		IndInd,W	; Pick up storage location
+			movwf		FSR			; Place it in FSR
+			movf		SaveChr,W	; Get letter back
+			movwf		INDF		; And store it in the buffer
+			incf		Index,1		; Next character
+			movlw		.8			; Message length
+			subwf		Index,W		; WIll be zero when done
+			btfss		STATUS,Z	; Zero?
+			goto		TstMsg1		; No, do it again
+			movlw		.8			; Message length
+			movwf		Buffer		; Stuff it in buffer
+			movlw		Buffer		; Message in buffer, can
+			lcall		LCDmsg		; display it with LCDmsg
+			return					; All done
 ;
 ;	Test scrolling - 8 character only
 TstScr
@@ -121,6 +124,7 @@ TstScr1		movf		Index,W		; Pick up the index
 			lcall		TabScr		; Look up the desired character
 			lcall		LCDletr		; Display it
 			lcall		Del256ms	; Slow it down
+			pagesel		TstScr1
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -136,6 +140,7 @@ TstDig
 TstDig1		movf		Index,W		; Pick up the index
 			lcall		TabDig		; Look up the desired character
 			lcall		LCDdig		; Display it
+			pagesel		TstDig
 			incf		Index,F		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -155,6 +160,7 @@ TstAd1		movf		Index,W		; Pick up the index
 			movlw		H'11'		; Move cursor out of the way
 			lcall		LCDaddr		; for a nicer display
 			lcall		Del256ms	; Slow it down
+			pagesel		TstAdr
 			incf		Index,1		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -169,6 +175,7 @@ TstA6r
 			clrf		Index		; Start with zeroth
 TstA61		movf		Index,W		; Pick up the index
 			lcall		TabA61		; And get the char position
+			pagesel		TstA6r
 			movwf		IndInd		; Save it
 			sublw		.7			; Check if second part of LCD
 			btfss		STATUS,C	; Borrow?
@@ -183,7 +190,7 @@ TstA62
 			lcall		LCDaddr		; of LCD (add 64-8)
 			pagesel		TstA6r
 TstA63		movf		IndInd,W	; Get the position again
-			call		TabAd6		; and get the character
+			lcall		TabAd6		; and get the character
 			lcall		LCDletr		; Display it
 			movlw		H'11'		; Move cursor out of the way
 			lcall		LCDaddr		; for a nicer display
@@ -212,20 +219,20 @@ Loop
 	;	Test LCDaddr
 			lcall		TstAdr
 			lcall		Del1s
+	;	Test LCDaddr - 16 char
+			lcall		TstA6r
+			lcall		Del1s
+	;	Test LCDmsg
+			lcall		TstMsg
+			lcall		Del1s
+	;	Test LCDmsg - 16 char
+			lcall		TstMs6
+			lcall		Del1s
 	;	Test scrolling
 			lcall		TstScr
 			lcall		Del1s
-	;	Test LCDmsg
-;			lcall		TstMsg
-;			lcall		Del1s
-	;	Test LCDmsg - 16 char
-;			lcall		TstMs6
-;			lcall		Del1s
 	;	Test scrolling - 16 char
 			lcall		TstSc6
-			lcall		Del1s
-	;	Test LCDaddr - 16 char
-			lcall		TstA6r
 			lcall		Del1s
 
 	; Get ready to start over
@@ -236,7 +243,7 @@ Loop
 
 ;	Lookup tables - moved up here to avoid page crossings
 
-TABLES      code        H'300'
+TABLES      code
 
 ;	Table of digits to display
 TabDig
@@ -295,20 +302,20 @@ TabSc6
 			addwf		PCL,F		; And look it up
 			dt			"Small Wonder Labs ...          "
 ;	Table with message for TstMsg
-;TabMsg
-;    		movwf		SavIdx		; Save off the index
-;			movlw		HIGH(TabMsg); Get this page's high byte
-;			movwf		PCLATH		; and store it into PCLATH
-;			movf		SavIdx,W	; Pick up index
-;			addwf		PCL,F		; And look it up
-;			dt			"QRP Labs"
-;;	Table with message for TstMsg (16 character message)
-;TabM6g
-;    		movwf		SavIdx		; Save off the index
-;			movlw		HIGH(TabM6g); Get this page's high byte
-;			movwf		PCLATH		; and store it into PCLATH
-;			movf		SavIdx,W	; Pick up index
-;			addwf		PCL,F		; And look it up
-;			dt			"*Morse Express* "
-;
+TabMsg
+    		movwf		SavIdx		; Save off the index
+			movlw		HIGH(TabMsg); Get this page's high byte
+			movwf		PCLATH		; and store it into PCLATH
+			movf		SavIdx,W	; Pick up index
+			addwf		PCL,F		; And look it up
+			dt			"QRP Labs"
+;	Table with message for TstMsg (16 character message)
+TabM6g
+    		movwf		SavIdx		; Save off the index
+			movlw		HIGH(TabM6g); Get this page's high byte
+			movwf		PCLATH		; and store it into PCLATH
+			movf		SavIdx,W	; Pick up index
+			addwf		PCL,F		; And look it up
+			dt			"*Morse Express* "
+
 			end
