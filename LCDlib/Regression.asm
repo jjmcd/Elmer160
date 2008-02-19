@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.40 $ $Date: 2007-02-04 17:46:42-05 $
+;	$Revision: 1.41 $ $Date: 2008-02-19 09:05:33-05 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -11,9 +11,6 @@
             ENDIF
             IF          PROC == 84
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
-			ENDIF
-            IF          PROC == 54
-;			__config	_WDT_OFF & _XT_OSC
 			ENDIF
             IF          PROC == 819
 			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
@@ -43,11 +40,7 @@ SaveChr		res			1		; Storage for character
 ;SavIdx		res			1			; Temporary storage for index
 #define SavIdx SaveChr
 
-    IF PROC == 54
-STARTUP     code        H'1ff'
-    ELSE
 STARTUP		code
-    ENDIF
 			goto		Start
 			code
 ;	Test scrolling - 16 character display
@@ -177,12 +170,7 @@ TstA6r
 TstA61		movf		Index,W		; Pick up the index
 			lcall		TabA61		; And get the char position
 			movwf		IndInd		; Save it
-    IF PROC ==54
-            movlw       -.7
-            addwf       IndInd,W
-    ELSE
 			sublw		.7			; Check if second part of LCD
-    ENDIF
 			btfss		STATUS,C	; Borrow?
 			goto		TstA62		; No
 			movf		IndInd,W	; Yes
@@ -190,13 +178,8 @@ TstA61		movf		Index,W		; Pick up the index
 			pagesel		TstA6r
 			goto		TstA63		; Skip over right half
 TstA62
-    IF PROC==54
-            movlw       H'38'
-            addwf       IndInd,W
-    ELSE
     		movf		IndInd,W	; Pick up position
 			addlw		H'38'		; Move to right half
-    ENDIF
 			lcall		LCDaddr		; of LCD (add 64-8)
 			pagesel		TstA6r
 TstA63		movf		IndInd,W	; Get the position again
@@ -253,99 +236,78 @@ Loop
 
 ;	Lookup tables - moved up here to avoid page crossings
 
-    IF PROC != 54
-TABLES		code		H'300'		; Start on a page boundary
-    ELSE
-TABLES      code        H'5'
-    ENDIF
+TABLES      code        H'300'
+
 ;	Table of digits to display
 TabDig
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabDig); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			.1,.2,.3,.4,.5,.6,.7,.8
 ;	Table with message for TstAdr
 TabAdr
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabAdr); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			"Elecraft"
 ;	Table with char numbers for TstAdr
 TabAd1
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabAd1); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			.7,.0,.6,.1,.5,.2,.4,.3
 ;	Table with message for TstAdr 16-character
 TabAd6
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabAd6); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			"Wilderness Radio"
 ;	Table with char numbers for TstAdr 16-char
 TabA61
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabA61); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			.15,.0,.14,.1,.13,.2,.12,.3,.11,.4,.10,.5,.9,.6,.8,.7
 ;	Table with message for TstScr
 TabScr
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabScr); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			"Oak Hills Research ...         "
 ;	Table with message for TstScr - 16 char
 TabSc6
-    IF PROC != 54
     		movwf		SavIdx		; Save off the index
 			movlw		HIGH(TabSc6); Get this page's high byte
 			movwf		PCLATH		; and store it into PCLATH
 			movf		SavIdx,W	; Pick up index
-    ENDIF
 			addwf		PCL,F		; And look it up
 			dt			"Small Wonder Labs ...          "
 ;	Table with message for TstMsg
 ;TabMsg
-;    IF PROC != 54
 ;    		movwf		SavIdx		; Save off the index
 ;			movlw		HIGH(TabMsg); Get this page's high byte
 ;			movwf		PCLATH		; and store it into PCLATH
 ;			movf		SavIdx,W	; Pick up index
-;    ENDIF
 ;			addwf		PCL,F		; And look it up
 ;			dt			"QRP Labs"
 ;;	Table with message for TstMsg (16 character message)
 ;TabM6g
-;    IF PROC != 54
 ;    		movwf		SavIdx		; Save off the index
 ;			movlw		HIGH(TabM6g); Get this page's high byte
 ;			movwf		PCLATH		; and store it into PCLATH
 ;			movf		SavIdx,W	; Pick up index
-;    ENDIF
 ;			addwf		PCL,F		; And look it up
 ;			dt			"*Morse Express* "
 ;
