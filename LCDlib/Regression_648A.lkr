@@ -1,5 +1,5 @@
 // Linker command file for Lesson 21 (16F648A)
-// $Id: Regression_648A.lkr,v 1.1 2008-02-07 14:17:00-05 jjmcd Exp $
+// $Id: Regression_648A.lkr,v 2.0 2008-02-20 12:42:38-05 jjmcd Exp $
 
 LIBPATH  .
 
