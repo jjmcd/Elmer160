@@ -1,0 +1,209 @@
+# Makefile for Lesson 21
+#
+# This makefile is intended for use with gputils
+#
+# $Revision: 1.1 $ $State: Exp $ $Date: 2008-02-20 09:35:11-05 $
+#
+# Set symbols for a few commands
+ASM=gpasm
+LINK=gplink
+RM=rm -f
+LIB=gplib
+#
+# Define switches for PIC16F88
+ASM88=--deps --processor 16F88
+LNK88=--map --script Regression_88.lkr
+#
+# Define dependencies for PIC16F88
+LIBS88=LCDlib_88.lib
+R188DEPS=Regression_88.o $(LIBS88)
+R288DEPS=Regression2x20_88.o $(LIBS88)
+R388DEPS=Regression-Seiko_88.o $(LIBS88)
+R488DEPS=Regression-44100_88.o $(LIBS88)
+#
+# Define switches for PIC16F84A
+ASM84A=--deps --processor 16F84A
+LNK84A=--map --script Regression_84A.lkr
+#
+# Define dependencies for PIC16F84A
+LIBS84A=LCDlib_84A.lib
+R184DEPS=Regression_84A.o $(LIBS84A)
+R284DEPS=Regression2x20_84A.o $(LIBS84A)
+R384DEPS=Regression-Seiko_84A.o $(LIBS84A)
+R484DEPS=Regression-44100_84A.o $(LIBS84A)
+#
+# Define switches for PIC16F628
+ASM628=--deps --processor 16F628
+LNK628=--map --script Regression_628.lkr
+#
+# Define dependencies for PIC16F628
+LIBS628=LCDlib_628.lib
+R1628DEPS=Regression_628.o $(LIBS628)
+R2628DEPS=Regression2x20_628.o $(LIBS628)
+R3628DEPS=Regression-Seiko_628.o $(LIBS628)
+R4628DEPS=Regression-44100_628.o $(LIBS628)
+#
+# Define switches for PIC16F648A
+ASM648A=--deps --processor 16F648A
+LNK648A=--map --script Regression_648A.lkr
+#
+# Define dependencies for PIC16F648A
+LIBS648A=LCDlib_648A.lib
+R1648ADEPS=Regression_648A.o $(LIBS648A)
+R2648ADEPS=Regression2x20_648A.o $(LIBS648A)
+R3648ADEPS=Regression-Seiko_648A.o $(LIBS648A)
+R4648ADEPS=Regression-44100_648A.o $(LIBS648A)
+#
+# Define switches for PIC16F819
+ASM819=--deps --processor 16F819
+LNK819=--map --script Regression_819.lkr
+#
+# Define dependencies for PIC16F819
+LIBS819=LCDlib_819.lib
+R1819DEPS=Regression_819.o $(LIBS819)
+R2819DEPS=Regression2x20_819.o $(LIBS819)
+R3819DEPS=Regression-Seiko_819.o $(LIBS819)
+R4819DEPS=Regression-44100_819.o $(LIBS819)
+
+.SUFFIXES: .asm .o .hex
+
+# For a complete make, 4 hex files per processor
+all: Regression_88.hex Regression2x20_88.hex Regression-Seiko_88.hex \
+	Regression-44100_88.hex Regression-44100_84A.hex \
+	Regression_84A.hex Regression2x20_84A.hex Regression-Seiko_84A.hex \
+	Regression_628.hex Regression2x20_628.hex Regression-Seiko_628.hex \
+	Regression_648A.hex Regression2x20_648A.hex Regression-Seiko_648A.hex \
+	Regression_819.hex Regression2x20_819.hex Regression-Seiko_819.hex 
+
+# Remove everything that is built
+clean:
+	$(RM) *.o *.hex *.map *.d *.lst *.cod
+
+# Remove all built artifacts except hex and map
+tidy:
+	$(RM) *.o *.d *.cod *.lst
+
+#
+#  For each processor, we build a MyLib containing those functions
+#  that are the same across the three programs, and then link the
+#  programs.  Since the names of the .o are different than the names
+#  of the .asm, we cannot rely on default rules for the assembly.
+#
+#  For the PIC16F88
+#
+Regression_88.hex: $(R188DEPS)
+	$(LINK) $(LNK88) -o $@ $^
+
+Regression2x20_88.hex: $(R288DEPS)
+	$(LINK) $(LNK88) -o $@ $^
+
+Regression-Seiko_88.hex: $(R388DEPS)
+	$(LINK) $(LNK88) -o $@ $^
+
+Regression-44100_88.hex: $(R488DEPS)
+	$(LINK) $(LNK88) -o $@ $^
+
+Regression_88.o     : Regression.asm
+	$(ASM) $(ASM88) -c $< -o $@
+
+Regression2x20_88.o     : Regression2x20.asm
+	$(ASM) $(ASM88) -c $< -o $@
+
+Regression-Seiko_88.o     : Regression-Seiko.asm
+	$(ASM) $(ASM88) -c $< -o $@
+
+Regression-44100_88.o     : Regression-44100.asm
+	$(ASM) $(ASM88) -c $< -o $@
+
+#
+#  For the PIC16F84A
+#
+Regression_84A.hex: $(R184DEPS)
+	$(LINK) $(LNK84A) -o $@ $^
+
+Regression2x20_84A.hex: $(R284DEPS)
+	$(LINK) $(LNK84A) -o $@ $^
+
+Regression-Seiko_84A.hex: $(R384DEPS)
+	$(LINK) $(LNK84A) -o $@ $^
+
+Regression-44100_84A.hex: $(R484DEPS)
+	$(LINK) $(LNK84A) -o $@ $^
+
+Regression_84A.o     : Regression.asm
+	$(ASM) $(ASM84A) -c $< -o $@
+
+Regression2x20_84A.o     : Regression2x20.asm
+	$(ASM) $(ASM84A) -c $< -o $@
+
+Regression-Seiko_84A.o     : Regression-Seiko.asm
+	$(ASM) $(ASM84A) -c $< -o $@
+
+Regression-44100_84A.o     : Regression-44100.asm
+	$(ASM) $(ASM84A) -c $< -o $@
+
+#
+#  For the PIC16F628
+#
+Regression_628.hex: $(R1628DEPS)
+	$(LINK) $(LNK628) -o $@ $^
+
+Regression2x20_628.hex: $(R2628DEPS)
+	$(LINK) $(LNK628) -o $@ $^
+
+Regression-Seiko_628.hex: $(R3628DEPS)
+	$(LINK) $(LNK628) -o $@ $^
+
+Regression_628.o     : Regression.asm
+	$(ASM) $(ASM628) -c $< -o $@
+
+Regression2x20_628.o     : Regression2x20.asm
+	$(ASM) $(ASM628) -c $< -o $@
+
+Regression-Seiko_628.o     : Regression-Seiko.asm
+	$(ASM) $(ASM628) -c $< -o $@
+
+#
+#  For the PIC16F648A
+#
+Regression_648A.hex: $(R1648ADEPS)
+	$(LINK) $(LNK648A) -o $@ $^
+
+Regression2x20_648A.hex: $(R2648ADEPS)
+	$(LINK) $(LNK648A) -o $@ $^
+
+Regression-Seiko_648A.hex: $(R3648ADEPS)
+	$(LINK) $(LNK648A) -o $@ $^
+
+Regression_648A.o     : Regression.asm
+	$(ASM) $(ASM648A) -c $< -o $@
+
+Regression2x20_648A.o     : Regression2x20.asm
+	$(ASM) $(ASM648A) -c $< -o $@
+
+Regression-Seiko_648A.o     : Regression-Seiko.asm
+	$(ASM) $(ASM648A) -c $< -o $@
+
+
+
+#
+#  For the PIC16F819
+#
+Regression_819.hex: $(R1819DEPS)
+	$(LINK) $(LNK819) -o $@ $^
+
+Regression2x20_819.hex: $(R2819DEPS)
+	$(LINK) $(LNK819) -o $@ $^
+
+Regression-Seiko_819.hex: $(R3819DEPS)
+	$(LINK) $(LNK819) -o $@ $^
+
+Regression_819.o     : Regression.asm
+	$(ASM) $(ASM819) -c $< -o $@
+
+Regression2x20_819.o     : Regression2x20.asm
+	$(ASM) $(ASM819) -c $< -o $@
+
+Regression-Seiko_819.o     : Regression-Seiko.asm
+	$(ASM) $(ASM819) -c $< -o $@
+

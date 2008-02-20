@@ -1,0 +1,117 @@
+# Makefile_1 - Make LCD library for a single processor
+#
+# Invoke with processor number like:
+#
+#    make -f Makefile_1 P=84A
+#
+# (for the PIC16F84A)
+#
+# To prevent objects for other processors from being mistaken for
+# the current processor, creates a temporary .asm file which includes
+# the processor name.  Deletes that file, as well as listing and
+# .d files after each assembly. Also deletes objects after the
+# library is created.
+#
+# $Revision: 1.1 $
+# $Date: 2008-02-20 09:38:31-05 $
+#
+ASM=gpasm
+CC=sdcc
+LINK=gplink
+LIB=gplib
+RM=rm -f
+P=84A
+ASMOPTS=--deps --processor 16F$(P)
+LNKOPTS=--map --script LCD-F$(P).lkr -I"/usr/local/share/sdcc/lib/pic"
+PR=_$(P)
+DELDEPS=Del450ns$(PR).o Del2ms$(PR).o Del40us$(PR).o Del1s$(PR).o \
+  Del512ms$(PR).o Del256ms$(PR).o Del128ms$(PR).o
+LCD2DEPS=LCDaddr$(PR).o LCDinsc$(PR).o LCDshift$(PR).o LCDsc16$(PR).o \
+  LCD8$(PR).o LCDunshf$(PR).o LCDmsg$(PR).o
+LCDDEPS=LCDinit$(PR).o LCDletr$(PR).o LCDsend$(PR).o LCDsnd$(PR).o \
+  LCDclear$(PR).o LCDzero$(PR).o $(LCD2DEPS) $(DELDEPS)
+
+.SUFFIXES: .c .asm .o .hex
+
+.c.o:
+	$(CC) $(CCOPTS) -S $<
+	$(ASM) $(ASMOPTS) -c $*.asm
+
+.c.asm:
+	$(CC) $(CCOPTS) -S $<
+
+.asm.o:
+	$(ASM) $(ASMOPTS) -c $<
+	$(RM) $< $*.d $*.lst
+
+all: LCDlib$(PR).lib
+
+clean:
+	$(RM) *.o *.hex *.map *.d *.lst *.cod
+
+
+LCDlib$(PR).lib: $(LCDDEPS)
+	$(LIB) -c $@ $^
+	$(RM) $^
+
+Del450ns$(PR).asm : Del450ns.asm
+	cp $< $@
+
+Del2ms$(PR).asm : Del2ms.asm
+	cp $< $@
+
+Del40us$(PR).asm : Del40us.asm
+	cp $< $@
+
+Del1s$(PR).asm : Del1s.asm
+	cp $< $@
+
+Del512ms$(PR).asm : Del512ms.asm
+	cp $< $@
+
+Del256ms$(PR).asm : Del256ms.asm
+	cp $< $@
+
+Del128ms$(PR).asm : Del128ms.asm
+	cp $< $@
+
+LCDinit$(PR).asm  : LCDinit.asm 
+	cp $< $@
+
+LCDletr$(PR).asm  : LCDletr.asm 
+	cp $< $@
+
+LCDsend$(PR).asm  : LCDsend.asm 
+	cp $< $@
+
+LCDsnd$(PR).asm   : LCDsnd.asm  
+	cp $< $@
+
+LCDclear$(PR).asm : LCDclear.asm
+	cp $< $@
+
+LCDzero$(PR).asm : LCDzero.asm
+	cp $< $@
+
+LCDaddr$(PR).asm : LCDaddr.asm
+	cp $< $@
+
+LCDinsc$(PR).asm : LCDinsc.asm
+	cp $< $@
+
+LCDshift$(PR).asm : LCDshift.asm
+	cp $< $@
+
+LCDsc16$(PR).asm : LCDsc16.asm
+	cp $< $@
+
+LCD8$(PR).asm : LCD8.asm
+	cp $< $@
+
+LCDunshf$(PR).asm : LCDunshf.asm
+	cp $< $@
+
+LCDmsg$(PR).asm : LCDmsg.asm
+	cp $< $@
+
+
