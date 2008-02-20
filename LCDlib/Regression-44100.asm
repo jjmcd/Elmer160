@@ -4,7 +4,7 @@
 ;	This version for 16x1 LCDs containing a HD44100 in addition to the 44780
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.1 $ $Date: 2008-02-20 08:14:07-05 $
+;	$Revision: 2.0 $ $Date: 2008-02-20 08:16:15-05 $
 
 			include		Processor.inc
 			IF			PROC == 627 ; For 16F627/628/648A
