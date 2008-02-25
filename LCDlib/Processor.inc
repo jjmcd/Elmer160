@@ -7,7 +7,7 @@
 ;  NOTE - 18-pin parts >=1K appropriate for PIC-EL only
 ;**
 ;  WB8RCR - 23-Nov-04
-;  $Revision: 1.38 $ $Date: 2005-08-09 21:12:20-04 $
+;  $Revision: 1.39 $ $Date: 2008-02-25 15:25:01-05 $
 
 		IFDEF		__16F83
 		include		p16f83.inc
@@ -34,6 +34,8 @@ PROC=627
 		ENDIF
 
 		IFDEF		__16F627A
+		include		p16f627a.inc
+		nolist
 PROC=627
 		ENDIF
 
@@ -53,6 +55,12 @@ PROC=627
 		include		p16f648a.inc
 		nolist
 PROC=627
+		ENDIF
+
+		IFDEF		__16F87
+		include		p16f87.inc
+		nolist
+PROC=88
 		ENDIF
 
 		IFDEF		__16F88
