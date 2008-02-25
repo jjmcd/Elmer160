@@ -1,7 +1,7 @@
 # Makefile to build LCDlibb for each of the five
 # processors used in Lesson 21
 #
-# $Revision: 2.0 $
+# $Revision: 1.2 $
 # $Date: 2008-02-25 15:25:32-05 $
 #
 RM=rm -f
