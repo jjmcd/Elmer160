@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 2.0 $ $Date: 2008-02-26 14:10:46-05 $
+;	$Revision: 2.1 $ $Date: 2008-02-26 14:31:22-05 $
 
 			include		Processor.inc
 ;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON

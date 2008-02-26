@@ -7,7 +7,7 @@
 ;  NOTE - 18-pin parts >=1K appropriate for PIC-EL only
 ;**
 ;  WB8RCR - 23-Nov-04
-;  $Revision: 2.0 $ $Date: 2008-02-26 14:27:46-05 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 14:31:20-05 $
 
 		IFDEF		__16F83
 		include		p16f83.inc

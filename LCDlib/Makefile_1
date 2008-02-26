@@ -12,8 +12,8 @@
 # .d files after each assembly. Also deletes objects after the
 # library is created.
 #
-# $Revision: 2.0 $
-# $Date: 2008-02-20 09:38:48-05 $
+# $Revision: 2.1 $
+# $Date: 2008-02-26 14:31:19-05 $
 #
 ASM=gpasm
 CC=sdcc
