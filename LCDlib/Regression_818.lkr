@@ -1,0 +1,39 @@
+// Linker command file for LCDlib regression tests (16F818)
+// $Id: Regression_818.lkr,v 1.1 2008-02-25 20:17:05-05 jjmcd Exp $
+
+LIBPATH  .
+
+CODEPAGE   NAME=vectors    START=0x0000   END=0x0003   PROTECTED
+CODEPAGE   NAME=isr        START=0x0004   END=0x002f   PROTECTED
+CODEPAGE   NAME=tables     START=0x0300   END=0x03ff   PROTECTED
+CODEPAGE   NAME=page       START=0x0030   END=0x023F
+CODEPAGE   NAME=lcdlib     START=0x0240   END=0x02ff   PROTECTED
+CODEPAGE   NAME=.idlocs    START=0x2000   END=0x2003   PROTECTED
+CODEPAGE   NAME=.device_id START=0x2006   END=0x2006   PROTECTED
+CODEPAGE   NAME=.config    START=0x2007   END=0x2009   PROTECTED
+CODEPAGE   NAME=eedata     START=0x2100   END=0x217F   PROTECTED
+
+DATABANK   NAME=sfr0     START=0x0      END=0x1F     PROTECTED
+DATABANK   NAME=sfr1     START=0x80     END=0x9F     PROTECTED
+DATABANK   NAME=sfr2     START=0x100    END=0x11F    PROTECTED
+DATABANK   NAME=sfr3     START=0x180    END=0x19F    PROTECTED
+
+DATABANK   NAME=gpr0     START=0xA0     END=0xBF
+
+SHAREBANK  NAME=gprnobnk0 START=0x20     END=0x3F
+SHAREBANK  NAME=gprnobnk0 START=0x120    END=0x13F
+SHAREBANK  NAME=gprnobnk0 START=0x1A0    END=0x1BF
+
+SHAREBANK  NAME=gprnobnk1 START=0x40     END=0x7F
+SHAREBANK  NAME=gprnobnk1 START=0xC0     END=0xFF
+SHAREBANK  NAME=gprnobnk1 START=0x140    END=0x17F
+SHAREBANK  NAME=gprnobnk1 START=0x1C0    END=0x1FF
+
+SECTION    NAME=STARTUP     ROM=vectors    // Reset and interrupt vectors
+SECTION    NAME=PROG        ROM=page       // ROM code space - page0
+SECTION    NAME=IRQSVC      ROM=isr        // Interrupt service routine
+SECTION    NAME=TABLES      ROM=tables     // Message tables
+SECTION    NAME=LCDLIB      ROM=lcdlib     // LCD Library
+SECTION	   NAME=IDLOCS      ROM=.idlocs    // ID locations
+SECTION	   NAME=DEVICEID    ROM=.device_id // ID locations
+SECTION    NAME=DEEPROM     ROM=eedata     // Data EEPROM
