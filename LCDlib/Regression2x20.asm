@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.4 $ $Date: 2008-02-07 14:20:44-05 $
+;	$Revision: 1.5 $ $Date: 2008-02-26 09:46:49-05 $
 
 			include		Processor.inc
 ;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON
@@ -20,11 +20,8 @@ lcallx		MACRO		Target
 			call		Target
 			pagesel		Start
 			ENDM
-IF PROC==88 || PROC==84 || PROC==627 || PROC==819
+
 DATA0		udata
-ELSE
-DATA0		udata_shr
-ENDIF
 LoopCnt		res			2 ; 
 Index		res			1		; Index into message
 IndInd		res			1		; Index into Index
@@ -34,7 +31,7 @@ Buffer		res			17		; Buffer to test LCDmsg
 STARTUP		code
 			nop
 			lgoto		Start
-PROG1		code
+		code
 Start
 	;	Initialize
 ; 			clrf		LoopCnt
