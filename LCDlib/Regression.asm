@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 1.42 $ $Date: 2008-02-19 10:49:12-05 $
+;	$Revision: 1.43 $ $Date: 2008-02-26 09:59:25-05 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -41,7 +41,7 @@ SavIdx		res			1			; Temporary storage for index
 #define SavIdx SaveChr
 
 STARTUP		code
-			goto		Start
+			lgoto		Start
 			code
 ;	Test scrolling - 16 character display
 TstSc6
@@ -206,6 +206,9 @@ TstA63		movf		IndInd,W	; Get the position again
 Start
 			lcall		Del128ms
 	;	Initialize
+		IF	PROC==716
+			clrf		CCP1CON
+		ENDIF
 			lcall		LCDinit
             lcall       Del1s
 Loop
