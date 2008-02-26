@@ -2,7 +2,7 @@
 #
 # This makefile is intended for use with gputils
 #
-# $Revision: 1.2 $ $State: Exp $ $Date: 2008-02-25 21:02:54-05 $
+# $Revision: 2.0 $ $State: Exp $ $Date: 2008-02-26 14:11:59-05 $
 #
 # Set symbols for a few commands
 ASM=gpasm
