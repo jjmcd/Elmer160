@@ -1,13 +1,13 @@
 // Linker command file for LCDlib regression tests (16F84A)
-// $Id: Regression_84A.lkr,v 2.0 2008-02-26 14:08:41-05 jjmcd Exp $
+// $Id: Regression_84A.lkr,v 2.1 2008-02-26 20:49:29-05 jjmcd Exp $
 
 LIBPATH  .
 
 CODEPAGE   NAME=vectors  START=0x0      END=0x3      PROTECTED
 CODEPAGE   NAME=isr      START=0x4      END=0x2f     PROTECTED
 CODEPAGE   NAME=tables   START=0x300    END=0x3ff     PROTECTED
-CODEPAGE   NAME=page     START=0x30     END=0x23f
-CODEPAGE   NAME=lcdlib   START=0x240    END=0x2ff    PROTECTED
+CODEPAGE   NAME=page     START=0x30     END=0x1ff
+CODEPAGE   NAME=lcdlib   START=0x200    END=0x2ff    PROTECTED
 CODEPAGE   NAME=.idlocs  START=0x2000   END=0x2003   PROTECTED
 CODEPAGE   NAME=.config  START=0x2007   END=0x2007   PROTECTED
 CODEPAGE   NAME=eedata   START=0x2100   END=0x213f   PROTECTED
