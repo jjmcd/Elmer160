@@ -1,15 +1,16 @@
 # Makefile to build LCDlibb for each of the five
 # processors used in Lesson 21
 #
-# $Revision: 1.2 $
-# $Date: 2008-02-25 15:25:32-05 $
+# $Revision: 2.1 $
+# $Date: 2008-02-26 20:32:53-05 $
 #
 RM=rm -f
 MAKE=make -f Makefile_1
 DELDEPS=Del450ns.asm Del2ms.asm Del40us.asm Del1s.asm \
   Del512ms.asm Del256ms.asm Del128ms.asm
-LCDDEPS=LCDinit.asm LCDletr.asm LCDsend.asm LCDsnd.asm \
-  LCDclear.asm $(DELDEPS)
+LCDDEPS=LCDinit.asm LCDletr.asm LCDsend.asm LCDsnd.asm LCDinsc.asm \
+  LCDclear.asm LCDaddr.asm LCDmsg.asm LCDsc16.asm LCDshift.asm \
+  LCD8.asm LCDunshf.asm LCDzero.asm $(DELDEPS)
 
 all: LCDlib_84A.lib LCDlib_88.lib LCDlib_628.lib \
   LCDlib_648A.lib LCDlib_819.lib LCDlib_716.lib \
