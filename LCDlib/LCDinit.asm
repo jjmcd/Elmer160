@@ -23,7 +23,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 2.0 $ $Date: 2008-02-07 08:28:45-05 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 20:45:47-05 $
 
 		include		"LCDMacs.inc"
 
@@ -63,11 +63,13 @@ LCDinit:
 
 		; First, need to wait a long time after power up to
 		; allow time for 44780 to get it's act together
+		banksel		Count
 		movlw		020h		; Need >15.1ms after 4.5V
 		movwf		Count		; we will wait 65ms (after 2V
 		call		Del2ms		; in the case of LF parts)
 		decfsz		Count,F		;
 		goto		$-2
+		banksel		0
 
 		; Initialization begins with sending 0x03 3 times followed
 		; by a 0x02 to define 4 bit data

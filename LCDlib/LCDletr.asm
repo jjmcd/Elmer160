@@ -17,7 +17,7 @@
 ;
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 2.0 $ $Date: 2007-05-09 11:17:48-04 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 20:46:57-05 $
 
 			include		"LCDMacs.inc"
 
@@ -36,11 +36,14 @@ LCDdig:
 			iorlw		030h		; note falls thru
 
 LCDletr:
+			banksel		SaveLetr
 			movwf		SaveLetr	; save off the letter
 			swapf		SaveLetr,W	; Swap bytes
+			banksel		0
 			call		LCDsndD
-
+			banksel		SaveLetr
 			movfw		SaveLetr	; get it
+			banksel		0
 			call		LCDsndD
 
 			call		Del40us		; delay a while
