@@ -16,7 +16,7 @@
 ;  The contents of the W register are destroyed.
 ;**
 ;  WB8RCR - 13-Nov-04
-;  $Revision: 2.0 $ $Date: 2008-02-07 08:24:21-05 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 20:28:33-05 $
 
 		include		LCDMacs.inc
 
@@ -45,6 +45,7 @@ LCDLIB	code
 ;
 ;**
 LCDmsg
+		banksel		BufAddr
 		movwf		BufAddr		; Save off the buffer address
 		movwf		FSR			; and write into FSR
 		movf		INDF,W		; so we can pick up the length
@@ -62,17 +63,21 @@ MsL
 		xorwf		BufAddr,W	; Are we there yet?
 		btfss		STATUS,Z
 		goto		MsL1		; No, continue on
-		movlw		LINE2OFFSET	; Yes, point to the start of 
+		movlw		LINE2OFFSET	; Yes, point to the start of
+		banksel		0
 		call		LCDaddr		; line 2 in the LCD memory
+		banksel		BufAddr
 MsL1
 		ENDIF
 		movf		BufAddr,W	; Move the address of the next
 		movwf		FSR			; letter into FSR so we can
 		movf		INDF,W		; pick up the letter
+		banksel		0
 		call		LCDletr		; Display the character
+		banksel		BufAddr
 		incf		BufAddr,F	; Point to next char in message
 		decfsz		Count,F		; Count down characters
 		goto		MsL			; Not done, go do next char
-
+		banksel		0
 		return
 		end

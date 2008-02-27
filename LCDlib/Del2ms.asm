@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 26-Sep-04
-;  $Revision: 2.0 $ $Date: 2007-05-09 11:17:48-04 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 19:52:00-05 $
 
 		include		"LCDMacs.inc"
 
@@ -38,6 +38,7 @@ LCDLIB		code
 LOOPCNT=D'25'+D'2'*PROCSPEED
 
 Del2ms:
+	banksel		_DELV003
 		movlw		LOOPCNT			; Outer loop counter to calc valuee
 		movwf		_DELV003		; _DELV003 := w
 lloop:	movwf		_DELV004		; _DELV004 := w
@@ -45,6 +46,7 @@ mloop:	decfsz		_DELV004,f		; _DELV004 = _DELV004-1, skip next if zero
 		goto 		mloop
 		decfsz		_DELV003,f		; _DELV003 = _DELV003-1, skip next if zero
 		goto		lloop
+		banksel		0
 		return
 
 		end

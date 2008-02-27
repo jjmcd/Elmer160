@@ -13,7 +13,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 2.0 $ $Date: 2007-05-09 11:26:23-04 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 20:01:14-05 $
 
 		global		Del128ms
 ;
@@ -33,6 +33,7 @@ LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Delay 128 milliseconds
 Del128ms
+	banksel		_DELV001
 		call		Go128
 		call		Go128
 		call		Go128
@@ -49,5 +50,6 @@ inner_loop
         decfsz  	_DELV001,f	; Yes, Decrement outer loop counter
         goto    	outer_loop	; If outer loop counter not down to zero,
 								;   then go back to outer loop again
+	banksel		0
         return					; Yes, return to caller
 		end

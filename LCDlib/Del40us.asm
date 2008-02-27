@@ -12,7 +12,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR 26-Sep-04
-;  $Revision: 2.0 $ $Date: 2007-05-09 11:17:48-04 $
+;  $Revision: 2.1 $ $Date: 2008-02-26 20:01:11-05 $
 
 		include		"LCDMacs.inc"
 
@@ -41,6 +41,7 @@ LOOPCNT=4+(4*PROCSPEED)/11
 	;	20MHz		10	67.6us
 
 Del40us:
+		banksel		_DELV001
 		movlw		LOOPCNT
 		movwf		_DELV001	; _DELV001 := w
 jloop:	movwf		_DELV002	; _DELV002 := w
@@ -51,6 +52,7 @@ kloop:	decfsz		_DELV002,F	; _DELV002 = _DELV002-1, skip next if zero
 		nop			; Fill out remaining 3 usec (at 4MHz)
 		nop
 		nop
+		banksel		0
 		return
 
 		end
