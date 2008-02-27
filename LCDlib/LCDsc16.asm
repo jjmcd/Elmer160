@@ -27,7 +27,7 @@
 ;	2 scrolls off the left of line 2, the second copy will
 ;	scroll into the right of line 1.
 ;
-;	$Revision: 2.0 $ $Date: 2007-05-09 11:17:48-04 $
+;	$Revision: 2.1 $ $Date: 2008-02-27 10:55:21-05 $
 
 		include		Processor.inc
 
@@ -49,27 +49,45 @@ Char	res			1			; Temporary storage for char
 
 LCDLIB	code
 LCDsc16
+		banksel		Char
 		movwf		Char		; Save off the character
 
+		banksel		0
 		call		LCDshift	; Set the LCD to shift mode
+
+		banksel		LCDad2
 		movf		LCDad2,W	; Pick up the address
+
+		banksel		0
 		call		LCDaddr		; Set the cursor address
+
+		banksel		Char
 		movf		Char,W		; Pick up the character
+
+		banksel		0
 		call		LCDletr		; and write it
-
 		call		LCDunshf	; Set to unshift so we don't
-		movf		LCDad1,W	; shift twice.  Now handle the
-		call		LCDaddr		; second write just like
-		movf		Char,W		; the first.
-		call		LCDletr
 
+		banksel		LCDad1
+		movf		LCDad1,W	; shift twice.  Now handle the
+
+		banksel		0
+		call		LCDaddr		; second write just like
+
+		banksel		Char
+		movf		Char,W		; the first.
+
+		banksel		0
+		call		LCDletr
 		call		Limit		; Check to see whether wrapped
 
+		banksel		0
 		return
 
 ;	Test whether the address has moved off the high end
 ;	of memory for a line
 Limit
+		banksel		LCDad1
 		incf		LCDad1,F	; Increment line 1 address
 		incf		LCDad2,F	; and line 2 address
 		movf		LCDad1,W	; Pick up the line 1 address

@@ -13,7 +13,7 @@
 ;  are destroyed.
 ;**
 ;  WB8RCR - 25-Sep-04
-;  $Revision: 2.1 $ $Date: 2008-02-26 20:01:14-05 $
+;  $Revision: 2.2 $ $Date: 2008-02-27 11:24:55-05 $
 
 		global		Del128ms
 ;
@@ -33,12 +33,12 @@ LCDLIB		code
 ; ------------------------------------------------------------------------
 ;  Delay 128 milliseconds
 Del128ms
-	banksel		_DELV001
 		call		Go128
 		call		Go128
 		call		Go128
 Go128:
-        movlw   	LOOPCNT		; Set up outer loop counter
+	banksel		_DELV001
+	        movlw   	LOOPCNT		; Set up outer loop counter
         movwf   	_DELV001	;   to calculated value
 outer_loop
         movlw   	0xFF		; Set up inner loop counter
