@@ -1,5 +1,5 @@
 // Linker command file for LCDlib regression tests (16F818)
-// $Id: Regression_818.lkr,v 2.1 2008-02-26 20:37:30-05 jjmcd Exp $
+// $Id: Regression_818.lkr,v 2.2 2008-02-27 13:14:23-05 jjmcd Exp $
 
 LIBPATH  .
 
