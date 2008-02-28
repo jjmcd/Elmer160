@@ -1,4 +1,4 @@
-// $Id: makeLKR.c,v 1.1 2008-02-28 07:53:32-05 jjmcd Exp $
+// $Id: makeLKR.c,v 1.2 2008-02-28 08:35:06-05 jjmcd Exp $
 
 // makeLKR - Generate a linker script file for LCDlib regression
 // tests with random placement of the various sections
@@ -70,7 +70,7 @@ int main()
 
   // File header
   printf("// Linker command file for Lesson 21 (16F648A)\r\n");
-  printf("//$Id: makeLKR.c,v 1.1 2008-02-28 07:53:32-05 jjmcd Exp $\r\n\r\nLIBPATH    .\r\n\r\n");
+  printf("//$Id: makeLKR.c,v 1.2 2008-02-28 08:35:06-05 jjmcd Exp $\r\n\r\nLIBPATH    .\r\n\r\n");
 
   // A couple of fixed lines
   codeLine("vectors",0,3,1);
@@ -125,7 +125,7 @@ int main()
       nProcessed = 0;
       while ( !nProcessed )
 	{
-	  nThisBank = rand() % 0x03;
+	  nThisBank = rand() & 0x03;
 	  switch ( nThisBank )
 	    {
 	    case 0:
