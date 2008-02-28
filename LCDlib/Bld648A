@@ -1,0 +1,14 @@
+LINK=gplink
+
+R1648ADEPS="Regression_648A.o LCDlib_648A.lib"
+
+ALL="01 02 03 04 05 06 07 08 09 10"
+
+for THIS in $ALL
+  do
+    echo ======== $THIS
+    sleep 57
+    ./makeLKR >Regression_648A_$THIS.lkr
+    #diff Regression_648A_01.lkr Regression_648A_$THIS.lkr
+    $LINK --map --script=Regression_648A_$THIS.lkr -o Regression_648A_$THIS.hex $R1648ADEPS
+  done
