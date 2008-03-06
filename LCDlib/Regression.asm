@@ -3,28 +3,10 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 2.2 $ $Date: 2008-03-06 09:03:06-05 $
+;	$Revision: 2.3 $ $Date: 2008-03-06 10:24:03-05 $
 
 			include		Processor.inc
-			IF			PROC == 627	; For 16F627/628/648A
-			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
-            ENDIF
-            IF          PROC == 84
-			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON
-			ENDIF
-            IF          PROC == 819
-			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
-            ENDIF
-            IF          PROC == 716
-			__config	_WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _BOREN_OFF
-            ENDIF
-            IF          PROC == 88
-			__config	_CONFIG1, _XT_OSC & _LVP_OFF & _WDT_OFF & _DEBUG_OFF
-            ENDIF
-
-			IF			PROC == 84 || PROC == 819 || PROC == 716 || PROC == 54
-			errorlevel	-312
-			ENDIF
+			include		Configuration.inc
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
 			extern		LCDshift,LCDunshf,LCD8,LCDzero,LCDmsg
