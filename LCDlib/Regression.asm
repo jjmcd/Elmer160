@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 2.1 $ $Date: 2008-02-26 14:31:22-05 $
+;	$Revision: 2.2 $ $Date: 2008-03-06 09:03:06-05 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -36,23 +36,23 @@ Index		res			1		; Index into message
 IndInd		res			1		; Index into Index
 SaveChr		res			1		; Storage for character
 Buffer		res			17		; Buffer to test LCDmsg
-TABSTOR		udata
-SavIdx		res			1			; Temporary storage for index
+;TABSTOR		udata
+;SavIdx		res			1			; Temporary storage for index
 #define SavIdx SaveChr
 
 STARTUP		code
-			lgoto		Start
+			lgotox		Start
 			code
 ;	Test scrolling - 16 character display
 TstSc6
-			lcall		LCDclear	; Clear it out
-			lcall		LCDinsc		; Initialize scrolling
+			lcallx		LCDclear	; Clear it out
+			lcallx		LCDinsc		; Initialize scrolling
 			clrf		Index		; Start with zeroth character
 TstSc61		movf		Index,W		; Pick up the index
-			lcall		TabSc6		; Look up the desired character
-			lcall		LCDsc16		; Display it
-			lcall		Del256ms	; Slow it down
-			pagesel		TstSc6
+			lcallx		TabSc6		; Look up the desired character
+			lcallx		LCDsc16		; Display it
+			lcallx		Del256ms	; Slow it down
+			pageselx		TstSc6
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -62,14 +62,14 @@ TstSc61		movf		Index,W		; Pick up the index
 
 ;	Test the message function - 16-character (2x8) display
 TstMs6
-			lcall		LCDclear	; Clear out the display
-			pagesel		TstMs6
+			lcallx		LCDclear	; Clear out the display
+			pageselx		TstMs6
 			clrf		Index		; Start with zeroth character
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
 TstMs61		movf		Index,W		; Pick up the index
-			lcall		TabM6g		; Look up the desired character
-			pagesel		TstMs61
+			lcallx		TabM6g		; Look up the desired character
+			pageselx		TstMs61
 			movwf		SaveChr		; Save off the character
 			incf		IndInd,F	; Need to add one to index
 			movf		IndInd,W	; Pick up storage location
@@ -84,19 +84,19 @@ TstMs61		movf		Index,W		; Pick up the index
 			movlw		.16			; Message length
 			movwf		Buffer		; Stuff it in buffer
 			movlw		Buffer		; Message in buffer, can
-			lcall		LCDmsg		; display it with LCDmsg
+			lcallx		LCDmsg		; display it with LCDmsg
 			return					; All done
 ;
 ;;	Test the message function
 TstMsg
-			lcall		LCDclear	; Clear out the display
-			pagesel		TstMsg
+			lcallx		LCDclear	; Clear out the display
+			pageselx		TstMsg
 			clrf		Index		; Start with zeroth character
 			movlw		Buffer		; Pick up address of buffer
 			movwf		IndInd		; And save it
 TstMsg1		movf		Index,W		; Pick up the index
-			lcall		TabMsg		; Look up the desired character
-			pagesel		TstMsg1
+			lcallx		TabMsg		; Look up the desired character
+			pageselx		TstMsg1
 			movwf		SaveChr		; Save off the character
 			incf		IndInd,F	; Need to add one to index
 			movf		IndInd,W	; Pick up storage location
@@ -111,36 +111,36 @@ TstMsg1		movf		Index,W		; Pick up the index
 			movlw		.8			; Message length
 			movwf		Buffer		; Stuff it in buffer
 			movlw		Buffer		; Message in buffer, can
-			lcall		LCDmsg		; display it with LCDmsg
+			lcallx		LCDmsg		; display it with LCDmsg
 			return					; All done
 ;
 ;	Test scrolling - 8 character only
 TstScr
-			lcall		LCDclear	; First clear memory
-			lcall		LCDshift	; Set to shift mode
-			lcall		LCD8		; First char on right
+			lcallx		LCDclear	; First clear memory
+			lcallx		LCDshift	; Set to shift mode
+			lcallx		LCD8		; First char on right
 			clrf		Index		; Start with zeroth character
 TstScr1		movf		Index,W		; Pick up the index
-			lcall		TabScr		; Look up the desired character
-			lcall		LCDletr		; Display it
-			lcall		Del256ms	; Slow it down
-			pagesel		TstScr1
+			lcallx		TabScr		; Look up the desired character
+			lcallx		LCDletr		; Display it
+			lcallx		Del256ms	; Slow it down
+			pageselx		TstScr1
 			incf		Index,1		; Next character
 			movlw		.31			; Message length
 			subwf		Index,W		; WIll be zero when done
 			btfss		STATUS,Z	; Zero?
 			goto		TstScr1		; No, do it again
-			lcall		LCDunshf	; Get out of shift mode
+			lcallx		LCDunshf	; Get out of shift mode
 			return					;
 
 ;	Test digit ... send 1..8 to LCD
 TstDig
-			lcall		LCDclear	; Clear out old stuff
+			lcallx		LCDclear	; Clear out old stuff
 			clrf		Index		; Start with zeroth character
 TstDig1		movf		Index,W		; Pick up the index
-			lcall		TabDig		; Look up the desired character
-			lcall		LCDdig		; Display it
-			pagesel		TstDig
+			lcallx		TabDig		; Look up the desired character
+			lcallx		LCDdig		; Display it
+			pageselx		TstDig
 			incf		Index,F		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -151,16 +151,16 @@ TstDig1		movf		Index,W		; Pick up the index
 TstAdr
 			clrf		Index		; Start with zeroth
 TstAd1		movf		Index,W		; Pick up the index
-			lcall		TabAd1		; And get the char position
+			lcallx		TabAd1		; And get the char position
 			movwf		IndInd		; Save it
-			lcall		LCDaddr		; and position cursor
+			lcallx		LCDaddr		; and position cursor
 			movf		IndInd,W	; Get the position again
-			lcall		TabAdr		; and get the character
-			lcall		LCDletr		; Display it
+			lcallx		TabAdr		; and get the character
+			lcallx		LCDletr		; Display it
 			movlw		H'11'		; Move cursor out of the way
-			lcall		LCDaddr		; for a nicer display
-			lcall		Del256ms	; Slow it down
-			pagesel		TstAdr
+			lcallx		LCDaddr		; for a nicer display
+			lcallx		Del256ms	; Slow it down
+			pageselx		TstAdr
 			incf		Index,1		; Next character
 			movlw		.8			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -170,32 +170,32 @@ TstAd1		movf		Index,W		; Pick up the index
 
 ;	Test address - 16 char display ... will send "Wilderness Radio" slowly, from the ends in
 TstA6r
-			lcall		LCDclear	; Clear out prev message
-			pagesel		TstA6r
+			lcallx		LCDclear	; Clear out prev message
+			pageselx		TstA6r
 			clrf		Index		; Start with zeroth
 TstA61		movf		Index,W		; Pick up the index
-			lcall		TabA61		; And get the char position
-			pagesel		TstA6r
+			lcallx		TabA61		; And get the char position
+			pageselx		TstA6r
 			movwf		IndInd		; Save it
 			sublw		.7			; Check if second part of LCD
 			btfss		STATUS,C	; Borrow?
 			goto		TstA62		; No
 			movf		IndInd,W	; Yes
-			lcall		LCDaddr		; and position cursor
-			pagesel		TstA6r
+			lcallx		LCDaddr		; and position cursor
+			pageselx		TstA6r
 			goto		TstA63		; Skip over right half
 TstA62
     		movf		IndInd,W	; Pick up position
 			addlw		H'38'		; Move to right half
-			lcall		LCDaddr		; of LCD (add 64-8)
-			pagesel		TstA6r
+			lcallx		LCDaddr		; of LCD (add 64-8)
+			pageselx		TstA6r
 TstA63		movf		IndInd,W	; Get the position again
-			lcall		TabAd6		; and get the character
-			lcall		LCDletr		; Display it
+			lcallx		TabAd6		; and get the character
+			lcallx		LCDletr		; Display it
 			movlw		H'11'		; Move cursor out of the way
-			lcall		LCDaddr		; for a nicer display
-			lcall		Del256ms	; Slow it down
-			pagesel		TstA6r
+			lcallx		LCDaddr		; for a nicer display
+			lcallx		Del256ms	; Slow it down
+			pageselx		TstA6r
 			incf		Index,1		; Next character
 			movlw		.16			; Message length
 			subwf		Index,W		; WIll be zero when done
@@ -204,44 +204,44 @@ TstA63		movf		IndInd,W	; Get the position again
 			return					; Yes, all done
 
 Start
-			lcall		Del128ms
+			lcallx		Del128ms
 	;	Initialize
 		IF	PROC==716
 			clrf		CCP1CON
 		ENDIF
-			lcall		LCDinit
-            lcall       Del1s
+			lcallx		LCDinit
+            lcallx       Del1s
 Loop
 	;	Test LCDdig, also uses LCDletr
-			lcall		TstDig
+			lcallx		TstDig
 	;	Test 1 sec delay
-			lcall		Del1s
+			lcallx		Del1s
 	;	Test LCDclear
-			lcall		LCDclear
-			lcall		Del1s
+			lcallx		LCDclear
+			lcallx		Del1s
 	;	Test LCDaddr
-			lcall		TstAdr
-			lcall		Del1s
+			lcallx		TstAdr
+			lcallx		Del1s
 	;	Test LCDaddr - 16 char
-			lcall		TstA6r
-			lcall		Del1s
+			lcallx		TstA6r
+			lcallx		Del1s
 	;	Test LCDmsg
-			lcall		TstMsg
-			lcall		Del1s
+			lcallx		TstMsg
+			lcallx		Del1s
 	;	Test LCDmsg - 16 char
-			lcall		TstMs6
-			lcall		Del1s
+			lcallx		TstMs6
+			lcallx		Del1s
 	;	Test scrolling
-			lcall		TstScr
-			lcall		Del1s
+			lcallx		TstScr
+			lcallx		Del1s
 	;	Test scrolling - 16 char
-			lcall		TstSc6
-			lcall		Del1s
+			lcallx		TstSc6
+			lcallx		Del1s
 
 	; Get ready to start over
-			lcall		LCDclear	; Move cursor to the start
-			lcall		LCDzero		; for the next guy
-			lgoto		Loop
+			lcallx		LCDclear	; Move cursor to the start
+			lcallx		LCDzero		; for the next guy
+			lgotox		Loop
 
 
 ;	Lookup tables - moved up here to avoid page crossings
