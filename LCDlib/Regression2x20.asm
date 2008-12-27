@@ -3,11 +3,9 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 2.1 $ $Date: 2008-02-26 14:31:22-05 $
+;	$Revision: 2.2 $ $Date: 2008-12-27 14:25:08-05 $
 
 			include		Processor.inc
-;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF & _DEBUG_ON
-;			__config	_WDT_OFF & _XT_OSC & _BODEN_OFF & _PWRTE_ON & _LVP_OFF ;
 			include		Configuration.inc
 
 			extern		LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
@@ -15,11 +13,11 @@
 			extern		LCDinsc,LCDsc16
 			extern		Del1s,Del128ms,Del256ms
 
-lcallx		MACRO		Target
-			pagesel		Target
-			call		Target
-			pagesel		Start
-			ENDM
+;lcallx		MACRO		Target
+;			pagesel		Target
+;			call		Target
+;			pagesel		Start
+;		ENDM
 
 DATA0		udata
 LoopCnt		res			2 ; 
@@ -30,7 +28,7 @@ Buffer		res			17		; Buffer to test LCDmsg
 
 STARTUP		code
 			nop
-			lgoto		Start
+			lgotox		Start
 		code
 Start
 	;	Initialize
