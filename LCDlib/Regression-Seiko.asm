@@ -3,7 +3,7 @@
 ;	Exercise the routines in the LCD library
 ;
 ;	JJMcD - 17-Mar-05
-;	$Revision: 2.1 $ $Date: 2008-02-26 22:52:20-05 $
+;	$Revision: 2.2 $ $Date: 2008-12-27 19:13:52-05 $
 
 			include		Processor.inc
 			IF			PROC == 627	; For 16F627/628/648A
@@ -25,7 +25,7 @@
 			__config	_CONFIG1, _XT_OSC & _LVP_OFF & _WDT_OFF & _DEBUG_OFF
             ENDIF
 
-			IF			PROC == 84 || PROC == 819 || PROC == 716 || PROC == 54
+			IF			PROC == 84 || PROC == 819 || PROC == 716 || PROC == 627
 			errorlevel	-312
 			ENDIF
 
