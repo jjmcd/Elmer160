@@ -16,19 +16,19 @@ SAVADR		equ		H'04'
 ;	IEREG and IFREG, to point to the appropriate registers for
 ;	the EEIE and EEIF flags, respectively.
 ;
-;    $Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:35:53-05 $
+;    $Revision: 1.15 $ $State: Exp $ $Date: 2008-12-29 18:56:00-05 $
 
 	IF		PROC==84
 IEREG		equ		INTCON
 IFREG		equ		EECON1
 	ENDIF
 
-	IF		PROC==627
+	IF		(PROC==627) || (PROC==627A)
 IEREG		equ		PIE1
 IFREG		equ		PIR1
 	ENDIF
 
-	IF		(PROC==88) || (PROC==818) || (PROC==819) || (PROC==872)
+	IF		(PROC==88) || (PROC==818) || (PROC==872)
 IEREG		equ		PIE2
 IFREG		equ		PIR2
 	ENDIF
