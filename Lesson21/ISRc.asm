@@ -21,7 +21,7 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.16 $ $State: Exp $ $Date: 2008-12-27 17:33:00-05 $
+;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:19-05 $
 
 			extern		binary,dirty,eestate
 
@@ -42,7 +42,7 @@ IRQSVC		code
 
 			; Now that the status is safely saved, test whether it was a timer
 			; interrupt that got us here
-	IF 		(PROC == 818) || (PROC == 819) || (PROC == 88)
+	IF 		(PROC == 818) || (PROC == 88)
 			btfss		INTCON,TMR0IF
 	ELSE
 			btfss		INTCON,T0IF		; Timer interrupt flag
@@ -60,7 +60,7 @@ IRQSVC		code
 
 			; Note that if we do not clear T0IF, we will be interrupted again
 			; as soon as we do the retfie, so we will get nothing else done.
-	IF 		(PROC == 818) || (PROC == 819) || (PROC == 88)
+	IF 		(PROC == 818) || (PROC == 88)
 			bcf			INTCON,TMR0IF
 	ELSE
 			bcf			INTCON,T0IF		; Clear the old interrupt

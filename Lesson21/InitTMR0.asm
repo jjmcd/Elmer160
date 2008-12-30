@@ -13,14 +13,14 @@
 ;
 ;**
 ;	WB8RCR - 19-May-06
-;	$Revision: 1.15 $ $State: Exp $ $Date: 2008-12-27 17:36:00-05 $
+;	$Revision: 1.16 $ $State: Exp $ $Date: 2008-12-29 19:00:54-05 $
 
 			global		InitTMR0
 
 MYLIB		code
 InitTMR0:
 			errorlevel	-302
-		IF (PROC == 818) || (PROC == 819) || (PROC == 88)
+		IF (PROC == 818) || (PROC == 88)
 			bcf			INTCON,TMR0IE
 		ELSE
 			bcf			INTCON,T0IE		; Mask timer interrupt

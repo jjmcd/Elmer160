@@ -10,14 +10,14 @@
 ;	L21a
 ;
 ;	This program loops and displays a value on the LCD fifteen times
-;	a second.  The timer interrupt is used to initiate the incementing
+;	a second.  The timer interrupt is used to initiate the incrementing
 ;	of that value in the interrupt context.
 ;
 ;	The program relies on the BCD and LCD routines from previous lessons.
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.16 $ $State: Exp $ $Date: 2008-12-27 17:34:00-05 $
+;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:46-05 $
 
 			extern		binary,dirty
 			extern		LCDinit, LCDclear, LCDsend, Disp16, InitTMR0, LEDflg
@@ -57,7 +57,7 @@ Start:
 	; NOTE: INTCON is in all banks, so we need not concern
 	; ourselves with banksel.  
 
-	IF (PROC == 818) || (PROC == 819) || (PROC == 88)	; 16F88 and 819 have a
+	IF (PROC == 818) || (PROC == 88)	; 16F88 and 819 have a
 			bsf			INTCON,TMR0IE	; different name for T0IE
 	ELSE
 			bsf			INTCON,T0IE		; Allow timer interrupt

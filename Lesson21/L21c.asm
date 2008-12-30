@@ -20,7 +20,7 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.16 $ $State: Exp $ $Date: 2008-12-27 17:35:00-05 $
+;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:58-05 $
 
 			global		eestate
 			extern		binary, dirty, LEDflg
@@ -41,7 +41,7 @@ Start:
 			call		InitTMR0		; Initialize the timer
 
 
-		IF (PROC == 818) || ( PROC == 819 )
+		IF (PROC == 818)
 			errorlevel	-302
 			banksel		ADCON1			; For 819, need to turn
 			movlw		H'07'			; off A/D converter pins
@@ -74,7 +74,7 @@ Start:
 	;
 	; NOTE: INTCON is in all banks, so we need not concern
 	; ourselves with banksel.
-		IF (PROC == 818) || (PROC == 819) || (PROC == 88)
+		IF (PROC == 818) || (PROC == 88)
 			bsf			INTCON,TMR0IE
 		ELSE
 			bsf			INTCON,T0IE		; Allow timer interrupt

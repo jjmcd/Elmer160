@@ -13,7 +13,7 @@
 ;
 ;**
 ;	WB8RCR - 23-May-06
-;	$Revision: 1.14 $ $State: Exp $ $Date: 2007-11-19 10:43:57-05 $
+;	$Revision: 1.15 $ $State: Exp $ $Date: 2008-12-29 18:59:28-05 $
 
 			errorlevel	-302
 			global		RestCnt
@@ -29,12 +29,12 @@ SelectAddress	MACRO
 		ENDIF
 			ENDM
 SelectControl	MACRO
-		IF ( PROC == 84) || ( PROC == 88 ) || ( PROC == 819 )
+		IF ( PROC == 84) || ( PROC == 88 ) || ( PROC == 818 )
 			banksel		EECON1
 		ENDIF
 			ENDM
 SelectData		MACRO
-		IF ( PROC == 84) || ( PROC == 88 ) || ( PROC == 819 )
+		IF ( PROC == 84) || ( PROC == 88 ) || ( PROC == 818 )
 			banksel		EEDATA
 		ENDIF
 			ENDM
