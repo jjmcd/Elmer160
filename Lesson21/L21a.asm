@@ -17,10 +17,10 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:46-05 $
+;	$Revision: 1.18 $ $State: Exp $ $Date: 2009-01-05 13:35:33-05 $
 
 			extern		binary,dirty
-			extern		LCDinit, LCDclear, LCDsend, Disp16, InitTMR0, LEDflg
+			extern		LCDinit, LCDclear, LCDsend, Disp16, InitTMR0, LEDflg, setAnalog
 
 STARTUP		code
 			nop
@@ -31,6 +31,7 @@ Start:
 	; Initialization
 
 			call		InitTMR0		; Initialize the timer
+			call		setAnalog
 
 			call		LCDinit			; Initialize the LCD
 

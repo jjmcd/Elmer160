@@ -18,11 +18,11 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:54-05 $
+;	$Revision: 1.18 $ $State: Exp $ $Date: 2009-01-05 13:34:38-05 $
 
 			extern		binary,dirty,LEDflg
 			extern		LCDinit, LCDclear, LCDsend
-			extern		Disp16, InitTMR0, SaveCnt, RestCnt
+			extern		Disp16, InitTMR0, SaveCnt, RestCnt, setAnalog
 
 STARTUP		code
 			nop
@@ -33,15 +33,8 @@ Start:
 	; Initialization
 
 			call		InitTMR0		; Initialize the timer
+			call		setAnalog
 
-		IF (PROC == 818)
-			errorlevel	-302
-			banksel		ADCON1			; For 819, need to turn
-			movlw		H'07'			; off A/D converter pins
-			movwf		ADCON1			; in ADCON1.  Handled in
-			banksel		0				; LCDinit for F88.
-			errorlevel	+302
-		ENDIF
 			call		LCDinit			; Initialize the LCD
 
 	; The next two lines suppress the cursor.  Rather than including
@@ -66,7 +59,7 @@ Start:
 	;
 	; NOTE: INTCON is in all banks, so we need not concern
 	; ourselves with banksel.  
-		IF (PROC == 818) || (PROC == 88)
+		IF (PROC == 818) || (PROC == 87) || (PROC == 88)
 			bsf			INTCON,TMR0IE
 		ELSE
 			bsf			INTCON,T0IE		; Allow timer interrupt

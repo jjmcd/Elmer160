@@ -20,15 +20,20 @@
 ;
 ;**
 ;	WB8RCR - 30-Apr-06
-;	$Revision: 1.17 $ $State: Exp $ $Date: 2008-12-29 19:02:58-05 $
+;	$Revision: 1.18 $ $State: Exp $ $Date: 2009-01-05 13:33:10-05 $
 
 			global		eestate
 			extern		binary, dirty, LEDflg
 			extern		LCDinit, LCDclear, LCDsend
-			extern		Disp16, InitTMR0, SaveCnt, RestCnt
+			extern		Disp16, InitTMR0, SaveCnt, RestCnt, setAnalog
 
 			udata
 eestate		res			1
+
+eedata     udata
+filler       res         4
+stoloc      res         2
+
 
 STARTUP		code
 			nop
@@ -37,18 +42,10 @@ STARTUP		code
 PROG		code
 Start:
 	; Initialization
-
+			call		setAnalog
 			call		InitTMR0		; Initialize the timer
 
 
-		IF (PROC == 818)
-			errorlevel	-302
-			banksel		ADCON1			; For 819, need to turn
-			movlw		H'07'			; off A/D converter pins
-			movwf		ADCON1			; in ADCON1.  Handled in
-			banksel		0				; LCDinit for F88.
-			errorlevel	+302
-		ENDIF
 			call		LCDinit			; Initialize the LCD
 
 	; The next two lines suppress the cursor.  Rather than including
