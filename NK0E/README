@@ -1,0 +1,5 @@
+This folder contains NK0E's Serial Sender/DDS app
+
+The serial sender is used to connect to a PC running
+HyperTerm.  Commands may be sent to the PIC to control
+a DDS daughtercard.
