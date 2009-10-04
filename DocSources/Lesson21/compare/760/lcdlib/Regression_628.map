@@ -1,0 +1,209 @@
+MPLINK 4.11, Linker
+Linker Map File - Created Sat Dec 27 14:25:17 2008
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                  STARTUP       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000040    program   0x000004
+                    .code       code   0x000042    program   0x000128
+                   LCDLIB       code   0x000600    program   0x000200
+                   TABLES       code   0x000700    program   0x000176
+                  .config       code   0x002007    program   0x000002
+                   .udata      udata   0x000020       data   0x00001a
+                  _LCDOV2      udata   0x00003a       data   0x000003
+                  _LCDOV3      udata   0x00003d       data   0x000002
+                  _DELOV2      udata   0x00003f       data   0x000002
+                  _DELOV1      udata   0x000041       data   0x000002
+                  _LCDOV1      udata   0x000043       data   0x000001
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000040    0x0000d5      
+                            0x000600    0x0007ba      
+                            0x002007    0x002007      
+            595 out of 2181 program addresses used, program memory utilization is 27%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                 Del128ms   0x000600    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                    Del1s   0x000610    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del1s.asm
+                 Del256ms   0x000613    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del256ms.asm
+                   Del2ms   0x000634    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                  Del40us   0x00061d    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                 Del450ns   0x0006f7    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del450ns.asm
+                 Del512ms   0x000616    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del512ms.asm
+                    Go128   0x000603    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                     LCD8   0x000619    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCD8.asm
+                  LCDaddr   0x00062c    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDaddr.asm
+                 LCDclear   0x000630    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDclear.asm
+                   LCDdig   0x000640    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                  LCDinit   0x000651    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+                  LCDinsc   0x000675    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                  LCDletr   0x000642    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                   LCDmsg   0x00067e    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                  LCDsc16   0x0006a0    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                  LCDsend   0x0006d6    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsend.asm
+                 LCDshift   0x0006e5    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDshift.asm
+                  LCDsndD   0x0006e9    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+                  LCDsndI   0x0006ec    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+                 LCDunshf   0x0006f8    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDunshf.asm
+                  LCDzero   0x0006fc    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDzero.asm
+                    Limit   0x0006c3    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                   Limit1   0x0006d0    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                   Limit2   0x0006d3    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                     Loop   0x0000c3    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                      MsL   0x000688    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                     MsL1   0x000692    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                    Start   0x0000c0    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabA61   0x00073c    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAd1   0x00071a    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAd6   0x000727    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAdr   0x00070d    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabDig   0x000700    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabM6g   0x0007a6    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabMsg   0x000799    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabSc6   0x000775    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabScr   0x000751    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA61   0x0000a8    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA62   0x0000b1    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA63   0x0000b4    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA6r   0x0000a6    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstAd1   0x000096    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstAdr   0x000095    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstDig   0x00008a    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstDig1   0x00008c    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstMs6   0x00004f    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstMs61   0x000053    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstMsg   0x000065    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstMsg1   0x000069    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstSc6   0x000042    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstSc61   0x000045    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstScr   0x00007b    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstScr1   0x00007f    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+             _LCDLIB_0002   0x0006eb    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+             _LCDLIB_000C   0x00065d    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+               inner_loop   0x000609    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                    jloop   0x000621    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                    kloop   0x000622    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                    lloop   0x000638    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                    mloop   0x000639    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+               outer_loop   0x000607    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                     Addr   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDaddr.asm
+                  BufAddr   0x00003a       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                   Buffer   0x000023       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                     Char   0x00003a       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                    Count   0x00003b       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                    Count   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+                   IndInd   0x000021       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                    Index   0x000020       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   LCDad1   0x00003d       data     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                   LCDad2   0x00003e       data     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                     Save   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsend.asm
+                  SaveChr   0x000022       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                 SaveLetr   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                   Switch   0x00003c       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                 _DELV001   0x000041       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                 _DELV001   0x000041       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                 _DELV002   0x000042       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                 _DELV002   0x000042       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                 _DELV003   0x00003f       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                 _DELV004   0x000040       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   TstSc6   0x000042    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstSc61   0x000045    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstMs6   0x00004f    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstMs61   0x000053    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstMsg   0x000065    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstMsg1   0x000069    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstScr   0x00007b    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstScr1   0x00007f    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstDig   0x00008a    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  TstDig1   0x00008c    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstAdr   0x000095    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstAd1   0x000096    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA6r   0x0000a6    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA61   0x0000a8    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA62   0x0000b1    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TstA63   0x0000b4    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                    Start   0x0000c0    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                     Loop   0x0000c3    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                 Del128ms   0x000600    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                    Go128   0x000603    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+               outer_loop   0x000607    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+               inner_loop   0x000609    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                    Del1s   0x000610    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del1s.asm
+                 Del256ms   0x000613    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del256ms.asm
+                 Del512ms   0x000616    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del512ms.asm
+                     LCD8   0x000619    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCD8.asm
+                  Del40us   0x00061d    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                    jloop   0x000621    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                    kloop   0x000622    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                  LCDaddr   0x00062c    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDaddr.asm
+                 LCDclear   0x000630    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDclear.asm
+                   Del2ms   0x000634    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                    lloop   0x000638    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                    mloop   0x000639    program     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                   LCDdig   0x000640    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                  LCDletr   0x000642    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                  LCDinit   0x000651    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+             _LCDLIB_000C   0x00065d    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+                  LCDinsc   0x000675    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                   LCDmsg   0x00067e    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                      MsL   0x000688    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                     MsL1   0x000692    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                  LCDsc16   0x0006a0    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                    Limit   0x0006c3    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                   Limit1   0x0006d0    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                   Limit2   0x0006d3    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                  LCDsend   0x0006d6    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsend.asm
+                 LCDshift   0x0006e5    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDshift.asm
+                  LCDsndD   0x0006e9    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+             _LCDLIB_0002   0x0006eb    program     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+                  LCDsndI   0x0006ec    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDsnd.asm
+                 Del450ns   0x0006f7    program     extern H:\PIC\Lesson21\compare\760\lcdlib\Del450ns.asm
+                 LCDunshf   0x0006f8    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDunshf.asm
+                  LCDzero   0x0006fc    program     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDzero.asm
+                   TabDig   0x000700    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAdr   0x00070d    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAd1   0x00071a    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabAd6   0x000727    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabA61   0x00073c    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabScr   0x000751    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabSc6   0x000775    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabMsg   0x000799    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   TabM6g   0x0007a6    program     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                    Index   0x000020       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   IndInd   0x000021       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  SaveChr   0x000022       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                   Buffer   0x000023       data     static H:\PIC\Lesson21\compare\760\lcdlib\Regression.asm
+                  BufAddr   0x00003a       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                     Char   0x00003a       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsc16.asm
+                    Count   0x00003b       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                   Switch   0x00003c       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDmsg.asm
+                   LCDad1   0x00003d       data     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                   LCDad2   0x00003e       data     extern H:\PIC\Lesson21\compare\760\lcdlib\LCDinsc.asm
+                 _DELV003   0x00003f       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                 _DELV004   0x000040       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del2ms.asm
+                 _DELV001   0x000041       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                 _DELV001   0x000041       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                 _DELV002   0x000042       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del128ms.asm
+                 _DELV002   0x000042       data     static H:\PIC\Lesson21\compare\760\lcdlib\Del40us.asm
+                 SaveLetr   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDletr.asm
+                     Save   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDsend.asm
+                    Count   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDinit.asm
+                     Addr   0x000043       data     static H:\PIC\Lesson21\compare\760\lcdlib\LCDaddr.asm
+
+

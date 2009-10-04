@@ -1,0 +1,7 @@
+#!/bin/sh
+FILES="ConvBCD2.asm Disp16.asm ISRa.asm ISRc.asm InitTMR0.asm L20a.asm L20b.asm L20c.asm RestCnt.asm SaveCntB.asm SaveCntC.asm Configuration.inc EEPROM.inc Processor.inc"
+
+for FI in $FILES
+  do
+    ci -l -f -d -zLT -r1.21 -m"Create Lesson 21 branch point" ${FI}
+  done

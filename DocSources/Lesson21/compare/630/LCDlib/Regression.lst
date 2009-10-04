@@ -1,0 +1,1102 @@
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;       LCDlib Regression Test
+                      00002 ;
+                      00003 ;       Exercise the routines in the LCD library
+                      00004 ;
+                      00005 ;       JJMcD - 17-Mar-05
+                      00006 ;       $Revision: 2.1 $ $Date: 2008-02-26 14:31:22-05 $
+                      00007 
+                      00008                         include         Processor.inc
+                      00001 ; Processor.inc - Select include based on processor symbol
+                      00001         LIST
+                      00002 ; P16F819.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+                      00317         LIST
+                      00148                 list
+                      00009                         include         Configuration.inc
+                      00001 ; Configuration.inc
+                      00002 ;
+                      00003 ;       Establish configuration bits for 18 pin processors that
+                      00004 ;       might be used with the PIC-EL.  Note that this application
+                      00005 ;       expects to have EEPROM, so the 16F716 is absent.
+                      00006 ;
+                      00007 ;       Note that only the following have been tested:
+                      00008 ;               16F84A
+                      00009 ;               16F87
+                      00010 ;               16F88
+                      00011 ;               16F627A
+                      00012 ;               16F628
+                      00013 ;               16F648A
+                      00014 ;               16F716
+                      00015 ;               16F818
+                      00016 ;               16F819
+                      00017 ;
+                      00018 ;       The 16F84, 16F627, 16F628A should work but
+                      00019 ;       have not been tested.
+                      00020 ;
+                      00021 ;  WB8RCR - 1-Sep-06
+                      00022 ;  $Revision: 1.13 $  $State: Exp $ $Date: 2007-06-13 10:21:20-04 $
+                      00023 ;
+                      00024         IF PROC == 627
+                      00025                 IFDEF __16F648A
+                      00026                         ; For PIC16F648A
+                      00027                         __config        _XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
+                      00028                 ELSE
+                      00029                         ; For PIC16F627, 627A, 628, 628A
+                      00030                         __config        _XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
+                      00031                 ENDIF
+                      00032         ELSE
+                      00033                 IF PROC == 819
+                      00034                         ; For PIC16F818, 819
+2007   3F21           00035                         __config        _XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
+                      00036                 ELSE
+                      00037                         IF PROC == 88
+                      00038                                 ; For PIC16F87, 88
+                      00039                                 __config        _CONFIG1, _XT_OSC & _WDT_OFF & _BODEN_OFF & _LVP_OFF & _
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                            PWRTE_ON & _CCP1_RB3
+                      00040                                 __config        _CONFIG2, _IESO_OFF & _FCMEN_OFF
+                      00041                         ELSE
+                      00042                                 IF          PROC == 716
+                      00043                                         __config        _WDT_OFF & _XT_OSC & _PWRTE_ON & _BODEN_OFF & _B
+                            OREN_OFF
+                      00044 
+                      00045                                 ELSE
+                      00046                                         ; For PIC16F84, 84A
+                      00047                                         __config        _XT_OSC & _PWRTE_ON & _WDT_OFF
+                      00048                                 ENDIF
+                      00049                         ENDIF
+                      00050                 ENDIF
+                      00051 
+                      00052         ENDIF
+                      00010 
+  0000                00011                         extern          LCDinit,LCDdig,LCDclear,LCDaddr,LCDletr
+  0000                00012                         extern          LCDshift,LCDunshf,LCD8,LCDzero,LCDmsg
+  0000                00013                         extern          LCDinsc,LCDsc16
+  0000                00014                         extern          Del1s,Del128ms,Del256ms
+                      00015 
+                      00016                         udata
+0000                  00017 Index           res                     1               ; Index into message
+0001                  00018 IndInd          res                     1               ; Index into Index
+0002                  00019 SaveChr         res                     1               ; Storage for character
+0003                  00020 Buffer          res                     17              ; Buffer to test LCDmsg
+                      00021 ;TABSTOR                udata
+                      00022 ;SavIdx         res                     1                       ; Temporary storage for index
+                      00023 #define SavIdx SaveChr
+                      00024 
+                      00025 STARTUP         code
+                      00026                         lgotox          Start
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lgoto           Start
+                          M         ELSE
+0000   2???               M                         goto            Start
+                          M         ENDIF
+                      00027                         code
+                      00028 ;       Test scrolling - 16 character display
+0000                  00029 TstSc6
+                      00030                         lcallx          LCDclear        ; Clear it out
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0000   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00031                         lcallx          LCDinsc         ; Initialize scrolling
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDinsc
+                          M         ELSE
+0001   2???               M                         call            LCDinsc
+                          M         ENDIF
+0002   01??           00032                         clrf            Index           ; Start with zeroth character
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0003   08??           00033 TstSc61         movf            Index,W         ; Pick up the index
+                      00034                         lcallx          TabSc6          ; Look up the desired character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabSc6
+                          M         ELSE
+0004   2???               M                         call            TabSc6
+                          M         ENDIF
+                      00035                         lcallx          LCDsc16         ; Display it
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDsc16
+                          M         ELSE
+0005   2???               M                         call            LCDsc16
+                          M         ENDIF
+                      00036                         lcallx          Del256ms        ; Slow it down
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del256ms
+                          M         ELSE
+0006   2???               M                         call            Del256ms
+                          M         ENDIF
+                      00037                         pageselx                TstSc6
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstSc6
+                          M         ENDIF
+0007   0A??           00038                         incf            Index,1         ; Next character
+0008   301F           00039                         movlw           .31                     ; Message length
+0009   02??           00040                         subwf           Index,W         ; WIll be zero when done
+000A   1D03           00041                         btfss           STATUS,Z        ; Zero?
+000B   2???           00042                         goto            TstSc61         ; No, do it again
+000C   0008           00043                         return                                  ;
+                      00044 
+                      00045 ;       Test the message function - 16-character (2x8) display
+000D                  00046 TstMs6
+                      00047                         lcallx          LCDclear        ; Clear out the display
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+000D   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00048                         pageselx                TstMs6
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstMs6
+                          M         ENDIF
+000E   01??           00049                         clrf            Index           ; Start with zeroth character
+000F   30??           00050                         movlw           Buffer          ; Pick up address of buffer
+0010   00??           00051                         movwf           IndInd          ; And save it
+0011   08??           00052 TstMs61         movf            Index,W         ; Pick up the index
+                      00053                         lcallx          TabM6g          ; Look up the desired character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabM6g
+                          M         ELSE
+0012   2???               M                         call            TabM6g
+                          M         ENDIF
+                      00054                         pageselx                TstMs61
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstMs61
+                          M         ENDIF
+0013   00??           00055                         movwf           SaveChr         ; Save off the character
+0014   0A??           00056                         incf            IndInd,F        ; Need to add one to index
+0015   08??           00057                         movf            IndInd,W        ; Pick up storage location
+0016   0084           00058                         movwf           FSR                     ; Place it in FSR
+0017   08??           00059                         movf            SaveChr,W       ; Get letter back
+0018   0080           00060                         movwf           INDF            ; And store it in the buffer
+0019   0A??           00061                         incf            Index,1         ; Next character
+001A   3010           00062                         movlw           .16                     ; Message length
+001B   02??           00063                         subwf           Index,W         ; WIll be zero when done
+001C   1D03           00064                         btfss           STATUS,Z        ; Zero?
+001D   2???           00065                         goto            TstMs61         ; No, do it again
+001E   3010           00066                         movlw           .16                     ; Message length
+001F   00??           00067                         movwf           Buffer          ; Stuff it in buffer
+0020   30??           00068                         movlw           Buffer          ; Message in buffer, can
+                      00069                         lcallx          LCDmsg          ; display it with LCDmsg
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDmsg
+                          M         ELSE
+0021   2???               M                         call            LCDmsg
+                          M         ENDIF
+0022   0008           00070                         return                                  ; All done
+                      00071 ;
+                      00072 ;;      Test the message function
+0023                  00073 TstMsg
+                      00074                         lcallx          LCDclear        ; Clear out the display
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0023   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00075                         pageselx                TstMsg
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstMsg
+                          M         ENDIF
+0024   01??           00076                         clrf            Index           ; Start with zeroth character
+0025   30??           00077                         movlw           Buffer          ; Pick up address of buffer
+0026   00??           00078                         movwf           IndInd          ; And save it
+0027   08??           00079 TstMsg1         movf            Index,W         ; Pick up the index
+                      00080                         lcallx          TabMsg          ; Look up the desired character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabMsg
+                          M         ELSE
+0028   2???               M                         call            TabMsg
+                          M         ENDIF
+                      00081                         pageselx                TstMsg1
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstMsg1
+                          M         ENDIF
+0029   00??           00082                         movwf           SaveChr         ; Save off the character
+002A   0A??           00083                         incf            IndInd,F        ; Need to add one to index
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+002B   08??           00084                         movf            IndInd,W        ; Pick up storage location
+002C   0084           00085                         movwf           FSR                     ; Place it in FSR
+002D   08??           00086                         movf            SaveChr,W       ; Get letter back
+002E   0080           00087                         movwf           INDF            ; And store it in the buffer
+002F   0A??           00088                         incf            Index,1         ; Next character
+0030   3008           00089                         movlw           .8                      ; Message length
+0031   02??           00090                         subwf           Index,W         ; WIll be zero when done
+0032   1D03           00091                         btfss           STATUS,Z        ; Zero?
+0033   2???           00092                         goto            TstMsg1         ; No, do it again
+0034   3008           00093                         movlw           .8                      ; Message length
+0035   00??           00094                         movwf           Buffer          ; Stuff it in buffer
+0036   30??           00095                         movlw           Buffer          ; Message in buffer, can
+                      00096                         lcallx          LCDmsg          ; display it with LCDmsg
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDmsg
+                          M         ELSE
+0037   2???               M                         call            LCDmsg
+                          M         ENDIF
+0038   0008           00097                         return                                  ; All done
+                      00098 ;
+                      00099 ;       Test scrolling - 8 character only
+0039                  00100 TstScr
+                      00101                         lcallx          LCDclear        ; First clear memory
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0039   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00102                         lcallx          LCDshift        ; Set to shift mode
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDshift
+                          M         ELSE
+003A   2???               M                         call            LCDshift
+                          M         ENDIF
+                      00103                         lcallx          LCD8            ; First char on right
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCD8
+                          M         ELSE
+003B   2???               M                         call            LCD8
+                          M         ENDIF
+003C   01??           00104                         clrf            Index           ; Start with zeroth character
+003D   08??           00105 TstScr1         movf            Index,W         ; Pick up the index
+                      00106                         lcallx          TabScr          ; Look up the desired character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabScr
+                          M         ELSE
+003E   2???               M                         call            TabScr
+                          M         ENDIF
+                      00107                         lcallx          LCDletr         ; Display it
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDletr
+                          M         ELSE
+003F   2???               M                         call            LCDletr
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         ENDIF
+                      00108                         lcallx          Del256ms        ; Slow it down
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del256ms
+                          M         ELSE
+0040   2???               M                         call            Del256ms
+                          M         ENDIF
+                      00109                         pageselx                TstScr1
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstScr1
+                          M         ENDIF
+0041   0A??           00110                         incf            Index,1         ; Next character
+0042   301F           00111                         movlw           .31                     ; Message length
+0043   02??           00112                         subwf           Index,W         ; WIll be zero when done
+0044   1D03           00113                         btfss           STATUS,Z        ; Zero?
+0045   2???           00114                         goto            TstScr1         ; No, do it again
+                      00115                         lcallx          LCDunshf        ; Get out of shift mode
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDunshf
+                          M         ELSE
+0046   2???               M                         call            LCDunshf
+                          M         ENDIF
+0047   0008           00116                         return                                  ;
+                      00117 
+                      00118 ;       Test digit ... send 1..8 to LCD
+0048                  00119 TstDig
+                      00120                         lcallx          LCDclear        ; Clear out old stuff
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0048   2???               M                         call            LCDclear
+                          M         ENDIF
+0049   01??           00121                         clrf            Index           ; Start with zeroth character
+004A   08??           00122 TstDig1         movf            Index,W         ; Pick up the index
+                      00123                         lcallx          TabDig          ; Look up the desired character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabDig
+                          M         ELSE
+004B   2???               M                         call            TabDig
+                          M         ENDIF
+                      00124                         lcallx          LCDdig          ; Display it
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDdig
+                          M         ELSE
+004C   2???               M                         call            LCDdig
+                          M         ENDIF
+                      00125                         pageselx                TstDig
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstDig
+                          M         ENDIF
+004D   0A??           00126                         incf            Index,F         ; Next character
+004E   3008           00127                         movlw           .8                      ; Message length
+004F   02??           00128                         subwf           Index,W         ; WIll be zero when done
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0050   1D03           00129                         btfss           STATUS,Z        ; Zero?
+0051   2???           00130                         goto            TstDig1         ; No, do it again
+0052   0008           00131                         return                                  ; Yes, all done
+                      00132 ;       Test address ... will send "Elecraft" slowly, from the ends in
+0053                  00133 TstAdr
+0053   01??           00134                         clrf            Index           ; Start with zeroth
+0054   08??           00135 TstAd1          movf            Index,W         ; Pick up the index
+                      00136                         lcallx          TabAd1          ; And get the char position
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabAd1
+                          M         ELSE
+0055   2???               M                         call            TabAd1
+                          M         ENDIF
+0056   00??           00137                         movwf           IndInd          ; Save it
+                      00138                         lcallx          LCDaddr         ; and position cursor
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDaddr
+                          M         ELSE
+0057   2???               M                         call            LCDaddr
+                          M         ENDIF
+0058   08??           00139                         movf            IndInd,W        ; Get the position again
+                      00140                         lcallx          TabAdr          ; and get the character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabAdr
+                          M         ELSE
+0059   2???               M                         call            TabAdr
+                          M         ENDIF
+                      00141                         lcallx          LCDletr         ; Display it
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDletr
+                          M         ELSE
+005A   2???               M                         call            LCDletr
+                          M         ENDIF
+005B   3011           00142                         movlw           H'11'           ; Move cursor out of the way
+                      00143                         lcallx          LCDaddr         ; for a nicer display
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDaddr
+                          M         ELSE
+005C   2???               M                         call            LCDaddr
+                          M         ENDIF
+                      00144                         lcallx          Del256ms        ; Slow it down
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del256ms
+                          M         ELSE
+005D   2???               M                         call            Del256ms
+                          M         ENDIF
+                      00145                         pageselx                TstAdr
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstAdr
+                          M         ENDIF
+005E   0A??           00146                         incf            Index,1         ; Next character
+005F   3008           00147                         movlw           .8                      ; Message length
+0060   02??           00148                         subwf           Index,W         ; WIll be zero when done
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0061   1D03           00149                         btfss           STATUS,Z        ; Zero?
+0062   2???           00150                         goto            TstAd1          ; No, do it again
+0063   0008           00151                         return                                  ; Yes, all done
+                      00152 
+                      00153 ;       Test address - 16 char display ... will send "Wilderness Radio" slowly, from the ends in
+0064                  00154 TstA6r
+                      00155                         lcallx          LCDclear        ; Clear out prev message
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0064   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00156                         pageselx                TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstA6r
+                          M         ENDIF
+0065   01??           00157                         clrf            Index           ; Start with zeroth
+0066   08??           00158 TstA61          movf            Index,W         ; Pick up the index
+                      00159                         lcallx          TabA61          ; And get the char position
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabA61
+                          M         ELSE
+0067   2???               M                         call            TabA61
+                          M         ENDIF
+                      00160                         pageselx                TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstA6r
+                          M         ENDIF
+0068   00??           00161                         movwf           IndInd          ; Save it
+0069   3C07           00162                         sublw           .7                      ; Check if second part of LCD
+006A   1C03           00163                         btfss           STATUS,C        ; Borrow?
+006B   2???           00164                         goto            TstA62          ; No
+006C   08??           00165                         movf            IndInd,W        ; Yes
+                      00166                         lcallx          LCDaddr         ; and position cursor
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDaddr
+                          M         ELSE
+006D   2???               M                         call            LCDaddr
+                          M         ENDIF
+                      00167                         pageselx                TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstA6r
+                          M         ENDIF
+006E   2???           00168                         goto            TstA63          ; Skip over right half
+006F                  00169 TstA62
+006F   08??           00170                 movf            IndInd,W        ; Pick up position
+0070   3E38           00171                         addlw           H'38'           ; Move to right half
+                      00172                         lcallx          LCDaddr         ; of LCD (add 64-8)
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDaddr
+                          M         ELSE
+0071   2???               M                         call            LCDaddr
+                          M         ENDIF
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00173                         pageselx                TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstA6r
+                          M         ENDIF
+0072   08??           00174 TstA63          movf            IndInd,W        ; Get the position again
+                      00175                         lcallx          TabAd6          ; and get the character
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TabAd6
+                          M         ELSE
+0073   2???               M                         call            TabAd6
+                          M         ENDIF
+                      00176                         lcallx          LCDletr         ; Display it
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDletr
+                          M         ELSE
+0074   2???               M                         call            LCDletr
+                          M         ENDIF
+0075   3011           00177                         movlw           H'11'           ; Move cursor out of the way
+                      00178                         lcallx          LCDaddr         ; for a nicer display
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDaddr
+                          M         ELSE
+0076   2???               M                         call            LCDaddr
+                          M         ENDIF
+                      00179                         lcallx          Del256ms        ; Slow it down
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del256ms
+                          M         ELSE
+0077   2???               M                         call            Del256ms
+                          M         ENDIF
+                      00180                         pageselx                TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         pagesel         TstA6r
+                          M         ENDIF
+0078   0A??           00181                         incf            Index,1         ; Next character
+0079   3010           00182                         movlw           .16                     ; Message length
+007A   02??           00183                         subwf           Index,W         ; WIll be zero when done
+007B   1D03           00184                         btfss           STATUS,Z        ; Zero?
+007C   2???           00185                         goto            TstA61          ; No, do it again
+007D   0008           00186                         return                                  ; Yes, all done
+                      00187 
+007E                  00188 Start
+                      00189                         lcallx          Del128ms
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del128ms
+                          M         ELSE
+007E   2???               M                         call            Del128ms
+                          M         ENDIF
+                      00190         ;       Initialize
+                      00191                 IF      PROC==716
+                      00192                         clrf            CCP1CON
+                      00193                 ENDIF
+                      00194                         lcallx          LCDinit
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDinit
+                          M         ELSE
+007F   2???               M                         call            LCDinit
+                          M         ENDIF
+                      00195             lcallx       Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0080   2???               M                         call            Del1s
+                          M         ENDIF
+0081                  00196 Loop
+                      00197         ;       Test LCDdig, also uses LCDletr
+                      00198                         lcallx          TstDig
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstDig
+                          M         ELSE
+0081   2???               M                         call            TstDig
+                          M         ENDIF
+                      00199         ;       Test 1 sec delay
+                      00200                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0082   2???               M                         call            Del1s
+                          M         ENDIF
+                      00201         ;       Test LCDclear
+                      00202                         lcallx          LCDclear
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0083   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00203                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0084   2???               M                         call            Del1s
+                          M         ENDIF
+                      00204         ;       Test LCDaddr
+                      00205                         lcallx          TstAdr
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstAdr
+                          M         ELSE
+0085   2???               M                         call            TstAdr
+                          M         ENDIF
+                      00206                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0086   2???               M                         call            Del1s
+                          M         ENDIF
+                      00207         ;       Test LCDaddr - 16 char
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00208                         lcallx          TstA6r
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstA6r
+                          M         ELSE
+0087   2???               M                         call            TstA6r
+                          M         ENDIF
+                      00209                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0088   2???               M                         call            Del1s
+                          M         ENDIF
+                      00210         ;       Test LCDmsg
+                      00211                         lcallx          TstMsg
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstMsg
+                          M         ELSE
+0089   2???               M                         call            TstMsg
+                          M         ENDIF
+                      00212                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+008A   2???               M                         call            Del1s
+                          M         ENDIF
+                      00213         ;       Test LCDmsg - 16 char
+                      00214                         lcallx          TstMs6
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstMs6
+                          M         ELSE
+008B   2???               M                         call            TstMs6
+                          M         ENDIF
+                      00215                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+008C   2???               M                         call            Del1s
+                          M         ENDIF
+                      00216         ;       Test scrolling
+                      00217                         lcallx          TstScr
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstScr
+                          M         ELSE
+008D   2???               M                         call            TstScr
+                          M         ENDIF
+                      00218                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+008E   2???               M                         call            Del1s
+                          M         ENDIF
+                      00219         ;       Test scrolling - 16 char
+                      00220                         lcallx          TstSc6
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           TstSc6
+                          M         ELSE
+008F   2???               M                         call            TstSc6
+                          M         ENDIF
+                      00221                         lcallx          Del1s
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           Del1s
+                          M         ELSE
+0090   2???               M                         call            Del1s
+                          M         ENDIF
+                      00222 
+                      00223         ; Get ready to start over
+                      00224                         lcallx          LCDclear        ; Move cursor to the start
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDclear
+                          M         ELSE
+0091   2???               M                         call            LCDclear
+                          M         ENDIF
+                      00225                         lcallx          LCDzero         ; for the next guy
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lcall           LCDzero
+                          M         ELSE
+0092   2???               M                         call            LCDzero
+                          M         ENDIF
+                      00226                         lgotox          Loop
+                          M         IF _FLASHSIZE_ > 2
+                          M                         lgoto           Loop
+                          M         ELSE
+0093   2???               M                         goto            Loop
+                          M         ENDIF
+                      00227 
+                      00228 
+                      00229 ;       Lookup tables - moved up here to avoid page crossings
+                      00230 
+                      00231 TABLES      code
+                      00232 
+                      00233 ;       Table of digits to display
+0000                  00234 TabDig
+0000   00??           00235                 movwf           SavIdx          ; Save off the index
+0001   30??           00236                         movlw           HIGH(TabDig); ; Get this page's high byte
+0002   008A           00237                         movwf           PCLATH          ; and store it into PCLATH
+0003   08??           00238                         movf            SavIdx,W        ; Pick up index
+0004   0782           00239                         addwf           PCL,F           ; And look it up
+0005   3401 3402 3403 00240                         dt                      .1,.2,.3,.4,.5,.6,.7,.8
+       3404 3405 3406 
+       3407 3408 
+                      00241 ;       Table with message for TstAdr
+000D                  00242 TabAdr
+000D   00??           00243                 movwf           SavIdx          ; Save off the index
+000E   30??           00244                         movlw           HIGH(TabAdr); ; Get this page's high byte
+000F   008A           00245                         movwf           PCLATH          ; and store it into PCLATH
+0010   08??           00246                         movf            SavIdx,W        ; Pick up index
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0011   0782           00247                         addwf           PCL,F           ; And look it up
+0012   3445 346C 3465 00248                         dt                      "Elecraft"
+       3463 3472 3461 
+       3466 3474 
+                      00249 ;       Table with char numbers for TstAdr
+001A                  00250 TabAd1
+001A   00??           00251                 movwf           SavIdx          ; Save off the index
+001B   30??           00252                         movlw           HIGH(TabAd1); ; Get this page's high byte
+001C   008A           00253                         movwf           PCLATH          ; and store it into PCLATH
+001D   08??           00254                         movf            SavIdx,W        ; Pick up index
+001E   0782           00255                         addwf           PCL,F           ; And look it up
+001F   3407 3400 3406 00256                         dt                      .7,.0,.6,.1,.5,.2,.4,.3
+       3401 3405 3402 
+       3404 3403 
+                      00257 ;       Table with message for TstAdr 16-character
+0027                  00258 TabAd6
+0027   00??           00259                 movwf           SavIdx          ; Save off the index
+0028   30??           00260                         movlw           HIGH(TabAd6); ; Get this page's high byte
+0029   008A           00261                         movwf           PCLATH          ; and store it into PCLATH
+002A   08??           00262                         movf            SavIdx,W        ; Pick up index
+002B   0782           00263                         addwf           PCL,F           ; And look it up
+002C   3457 3469 346C 00264                         dt                      "Wilderness Radio"
+       3464 3465 3472 
+       346E 3465 3473 
+       3473 3420 3452 
+       3461 3464 3469 
+       346F 
+                      00265 ;       Table with char numbers for TstAdr 16-char
+003C                  00266 TabA61
+003C   00??           00267                 movwf           SavIdx          ; Save off the index
+003D   30??           00268                         movlw           HIGH(TabA61); ; Get this page's high byte
+003E   008A           00269                         movwf           PCLATH          ; and store it into PCLATH
+003F   08??           00270                         movf            SavIdx,W        ; Pick up index
+0040   0782           00271                         addwf           PCL,F           ; And look it up
+0041   340F 3400 340E 00272                         dt                      .15,.0,.14,.1,.13,.2,.12,.3,.11,.4,.10,.5,.9,.6,.8,.7
+       3401 340D 3402 
+       340C 3403 340B 
+       3404 340A 3405 
+       3409 3406 3408 
+       3407 
+                      00273 ;       Table with message for TstScr
+0051                  00274 TabScr
+0051   00??           00275                 movwf           SavIdx          ; Save off the index
+0052   30??           00276                         movlw           HIGH(TabScr); ; Get this page's high byte
+0053   008A           00277                         movwf           PCLATH          ; and store it into PCLATH
+0054   08??           00278                         movf            SavIdx,W        ; Pick up index
+0055   0782           00279                         addwf           PCL,F           ; And look it up
+0056   344F 3461 346B 00280                         dt                      "Oak Hills Research ...         "
+       3420 3448 3469 
+       346C 346C 3473 
+       3420 3452 3465 
+       3473 3465 3461 
+       3472 3463 3468 
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+       3420 342E 342E 
+       342E 3420 3420 
+       3420 3420 3420 
+       3420 3420 3420 
+       3420 
+                      00281 ;       Table with message for TstScr - 16 char
+0075                  00282 TabSc6
+0075   00??           00283                 movwf           SavIdx          ; Save off the index
+0076   30??           00284                         movlw           HIGH(TabSc6); ; Get this page's high byte
+0077   008A           00285                         movwf           PCLATH          ; and store it into PCLATH
+0078   08??           00286                         movf            SavIdx,W        ; Pick up index
+0079   0782           00287                         addwf           PCL,F           ; And look it up
+007A   3453 346D 3461 00288                         dt                      "Small Wonder Labs ...          "
+       346C 346C 3420 
+       3457 346F 346E 
+       3464 3465 3472 
+       3420 344C 3461 
+       3462 3473 3420 
+       342E 342E 342E 
+       3420 3420 3420 
+       3420 3420 3420 
+       3420 3420 3420 
+       3420 
+                      00289 ;       Table with message for TstMsg
+0099                  00290 TabMsg
+0099   00??           00291                 movwf           SavIdx          ; Save off the index
+009A   30??           00292                         movlw           HIGH(TabMsg); ; Get this page's high byte
+009B   008A           00293                         movwf           PCLATH          ; and store it into PCLATH
+009C   08??           00294                         movf            SavIdx,W        ; Pick up index
+009D   0782           00295                         addwf           PCL,F           ; And look it up
+009E   3451 3452 3450 00296                         dt                      "QRP Labs"
+       3420 344C 3461 
+       3462 3473 
+                      00297 ;       Table with message for TstMsg (16 character message)
+00A6                  00298 TabM6g
+00A6   00??           00299                 movwf           SavIdx          ; Save off the index
+00A7   30??           00300                         movlw           HIGH(TabM6g); ; Get this page's high byte
+00A8   008A           00301                         movwf           PCLATH          ; and store it into PCLATH
+00A9   08??           00302                         movf            SavIdx,W        ; Pick up index
+00AA   0782           00303                         addwf           PCL,F           ; And look it up
+00AB   342A 344D 346F 00304                         dt                      "*Morse Express* "
+       3472 3473 3465 
+       3420 3445 3478 
+       3470 3472 3465 
+       3473 3473 342A 
+       3420 
+                      00305 
+                      00306                         end
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BF                                00000000
+Buffer                            00000003
+C                                 00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CKE                               00000006
+CKP                               00000004
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+Del128ms                          00000000
+Del1s                             00000000
+Del256ms                          00000000
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FREE                              00000004
+FSR                               00000004
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+I2C_DATA                          00000005
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOFS                              00000002
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+IndInd                            00000001
+Index                             00000000
+LCD8                              00000000
+LCDaddr                           00000000
+LCDclear                          00000000
+LCDdig                            00000000
+LCDinit                           00000000
+LCDinsc                           00000000
+LCDletr                           00000000
+LCDmsg                            00000000
+LCDsc16                           00000000
+LCDshift                          00000000
+LCDunshf                          00000000
+LCDzero                           00000000
+Loop                              00000081
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PROC                              00000819
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+R                                 00000002
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+R_W                               00000002
+S                                 00000003
+SMP                               00000007
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SavIdx                            SaveChr
+SaveChr                           00000002
+Start                             0000007E
+T0CS                              00000005
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TUN5                              00000005
+TabA61                            0000003C
+TabAd1                            0000001A
+TabAd6                            00000027
+TabAdr                            0000000D
+TabDig                            00000000
+TabM6g                            000000A6
+TabMsg                            00000099
+TabSc6                            00000075
+TabScr                            00000051
+TstA61                            00000066
+TstA62                            0000006F
+TstA63                            00000072
+TstA6r                            00000064
+TstAd1                            00000054
+TstAdr                            00000053
+TstDig                            00000048
+TstDig1                           0000004A
+TstMs6                            0000000D
+TstMs61                           00000011
+TstMsg                            00000023
+TstMsg1                           00000027
+TstSc6                            00000000
+TstSc61                           00000003
+TstScr                            00000039
+TstScr1                           0000003D
+UA                                00000001
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+MPASM 03.50 Released                           REGRESSION.ASM   6-26-2008  9:56:41         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CCP1_RB2                         00003FFF
+_CCP1_RB3                         00002FFF
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_EXTCLK                           00003FEF
+_EXTRC_CLKOUT                     00003FFF
+_EXTRC_IO                         00003FFE
+_FLASHSIZE_                       00000002
+_HS_OSC                           00003FEE
+_INTRC_CLKOUT                     00003FFD
+_INTRC_IO                         00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLR_OFF                         00003FDF
+_MCLR_ON                          00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_ENABLE_1024                  00003BFF
+_WRT_ENABLE_1536                  000039FF
+_WRT_ENABLE_512                   00003DFF
+_WRT_ENABLE_OFF                   00003FFF
+_XT_OSC                           00003FED
+__16F819                          00000001
+lcallx                            
+lgotox                            
+pageselx                          
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

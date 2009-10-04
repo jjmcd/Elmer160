@@ -1,0 +1,32 @@
+#!/bin/sh
+rcs -i -zLT -T -t-"Set configuration bits depending on processor" Configuration.inc
+rcs -i -zLT -T -t-"Binary to BCD conversion for Lesson 21" ConvBCD2.asm
+rcs -i -zLT -T -t-"16-bit display for Lesson 21" Disp16.asm
+rcs -i -zLT -T -t-"Include file for EEPROM usage" EEPROM.inc
+rcs -i -zLT -T -t-"L21a/b interrupt service routine" ISRa.asm
+rcs -i -zLT -T -t-"L21c interrupt service routine" ISRc.asm
+rcs -i -zLT -T -t-"Initialize Timer0 for Lesson 21" InitTMR0.asm
+rcs -i -zLT -T -t-"Introductory interrupt lesson - increment counter" L21a.asm
+rcs -i -zLT -T -t-"Save and restore counter from L21a in EEPROM" L21b.asm
+rcs -i -zLT -T -t-"Save and restore counter from L21a, interrupt version" L21c.asm
+rcs -i -zLT -T -t-"Select appropriate include file" Processor.inc
+rcs -i -zLT -T -t-"Restore counter value from EEPROM" RestCnt.asm
+rcs -i -zLT -T -t-"Store counter value in EEPROM" SaveCntB.asm
+rcs -i -zLT -T -t-"Write count in EEPROM - Interrupt version" SaveCntC.asm
+
+
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' Configuration.inc
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' ConvBCD2.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' Disp16.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' EEPROM.inc
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' ISRa.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' ISRc.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' InitTMR0.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' L21a.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' L21b.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' L21c.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' Processor.inc
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' RestCnt.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' SaveCntB.asm
+ci -f -l -zLT -d -r1.13 -M -m"Start Lesson 21 from mid-Lesson 20 code" -n'I21' SaveCntC.asm
+

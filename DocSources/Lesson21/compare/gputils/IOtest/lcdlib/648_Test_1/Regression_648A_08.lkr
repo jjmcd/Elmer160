@@ -1,0 +1,56 @@
+// Linker command file for Lesson 21 (16F648A)
+//$Id$
+
+LIBPATH    .
+
+CODEPAGE   NAME=vectors   START=0x0000   END=0x0003   PROTECTED
+CODEPAGE   NAME=isr       START=0x0004   END=0x003f   PROTECTED
+CODEPAGE   NAME=tables    START=0x0800   END=0x08ff   PROTECTED
+CODEPAGE   NAME=lcdlib    START=0x0040   END=0x013f   PROTECTED
+CODEPAGE   NAME=page0     START=0x0140   END=0x07ff  
+CODEPAGE   NAME=page1     START=0x0900   END=0x0fff  
+CODEPAGE   NAME=.idlocs   START=0x2000   END=0x2006   PROTECTED
+CODEPAGE   NAME=.devid    START=0x2006   END=0x2006   PROTECTED
+CODEPAGE   NAME=.config   START=0x2007   END=0x2007   PROTECTED
+CODEPAGE   NAME=.oscval   START=0x2008   END=0x2008   PROTECTED
+CODEPAGE   NAME=.test     START=0x2009   END=0x200f   PROTECTED
+CODEPAGE   NAME=eedata    START=0x2100   END=0x21ff   PROTECTED
+
+DATABANK   NAME=sfr0      START=0x0      END=0x1F     PROTECTED
+DATABANK   NAME=sfr1      START=0x80     END=0x9F     PROTECTED
+DATABANK   NAME=sfr2      START=0x100    END=0x11F    PROTECTED
+DATABANK   NAME=sfr3      START=0x180    END=0x19F    PROTECTED
+
+DATABANK   NAME=lcd1      START=0x00a0   END=0x00a0   PROTECTED
+DATABANK   NAME=lcd2      START=0x0120   END=0x0122   PROTECTED
+DATABANK   NAME=lcd3      START=0x0123   END=0x0124   PROTECTED
+DATABANK   NAME=del1      START=0x00a1   END=0x00a2   PROTECTED
+DATABANK   NAME=del2      START=0x0020   END=0x0021   PROTECTED
+
+DATABANK   NAME=gpr0      START=0x0022   END=0x006f   
+DATABANK   NAME=gpr1      START=0x00a3   END=0x00ef   
+DATABANK   NAME=gpr2      START=0x0125   END=0x016f   
+
+SHAREBANK  NAME=gprnobnk  START=0x70     END=0x7F
+SHAREBANK  NAME=gprnobnk  START=0xF0     END=0xFF
+SHAREBANK  NAME=gprnobnk  START=0x170    END=0x17F
+SHAREBANK  NAME=gprnobnk  START=0x1F0    END=0x1FF
+
+SECTION    NAME=STARTUP   ROM=vectors    // Reset vector
+SECTION    NAME=PROG1     ROM=page1      // ROM code space
+SECTION    NAME=PROG2     ROM=page0      // ROM code space
+SECTION    NAME=IRQSVC    ROM=isr        // Interrupt service routine
+SECTION    NAME=TABLES    ROM=tables     // Message tables
+SECTION    NAME=LCDLIB    ROM=lcdlib     // LCD library
+SECTION    NAME=IDLOCS    ROM=.idlocs    // ID locations
+SECTION    NAME=DEVID     ROM=.devid     // device id
+SECTION    NAME=CONFIG    ROM=.config    // Configuration bits location
+SECTION    NAME=OSCVAL    ROM=.oscval    // Oscillator value
+SECTION    NAME=TEST      ROM=.test      // Test program memory
+SECTION    NAME=DEEPROM   ROM=eedata     // Data EEPROM
+SECTION    NAME=.udata    RAM=gpr0       // Application data
+SECTION    NAME=_LCDOV1   RAM=lcd1       // Data section
+SECTION    NAME=_LCDOV2   RAM=lcd2       // Data section
+SECTION    NAME=_LCDOV3   RAM=lcd3       // Data section
+SECTION    NAME=_DELOV1   RAM=del1       // Data section
+SECTION    NAME=_DELOV2   RAM=del2       // Data section

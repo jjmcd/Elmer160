@@ -1,0 +1,116 @@
+gplink-0.13.5 alpha
+Map File - Created 7-7-2008  14:40:19
+ 
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                  STARTUP       code   00000000    program   0x000002
+                    .code       code   0x000030    program   0x000128
+                   LCDLIB       code   0x000200    program   0x000200
+                   TABLES       code   0x000300    program   0x000176
+                  .config       code   0x002007    program   0x000002
+                   .udata      udata   0x000020       data   0x00001a
+                  _LCDOV3      udata   0x00006e       data   0x000002
+                  _LCDOV1      udata   0x0000ed       data   0x000001
+                  _DELOV1      udata   0x0000ee       data   0x000002
+                  _LCDOV2      udata   0x00014b       data   0x000003
+                  _DELOV2      udata   0x00014e       data   0x000002
+ 
+                              Program Memory Usage
+                               Start         End
+                           ---------   ---------
+                            0x002007    0x002007
+                            00000000    00000000
+                            0x000030    0x0000c3
+                            0x000300    0x0003ba
+                            0x000200    0x0002ff
+ 
+                            593 program addresses used
+ 
+                              Symbols
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+                    Index   0x000020       data     static Regression.asm
+                   IndInd   0x000021       data     static Regression.asm
+                  SaveChr   0x000022       data     static Regression.asm
+                   Buffer   0x000023       data     static Regression.asm
+                   TstSc6   0x000030    program     static Regression.asm
+                  TstSc61   0x000033    program     static Regression.asm
+                   TstMs6   0x00003d    program     static Regression.asm
+                  TstMs61   0x000041    program     static Regression.asm
+                   TstMsg   0x000053    program     static Regression.asm
+                  TstMsg1   0x000057    program     static Regression.asm
+                   TstScr   0x000069    program     static Regression.asm
+                  TstScr1   0x00006d    program     static Regression.asm
+                   TstDig   0x000078    program     static Regression.asm
+                  TstDig1   0x00007a    program     static Regression.asm
+                   TstAdr   0x000083    program     static Regression.asm
+                   TstAd1   0x000084    program     static Regression.asm
+                   TstA6r   0x000094    program     static Regression.asm
+                   TstA61   0x000096    program     static Regression.asm
+                   TstA62   0x00009f    program     static Regression.asm
+                   TstA63   0x0000a2    program     static Regression.asm
+                    Start   0x0000ae    program     static Regression.asm
+                     Loop   0x0000b1    program     static Regression.asm
+                   TabDig   0x000300    program     static Regression.asm
+                   TabAdr   0x00030d    program     static Regression.asm
+                   TabAd1   0x00031a    program     static Regression.asm
+                   TabAd6   0x000327    program     static Regression.asm
+                   TabA61   0x00033c    program     static Regression.asm
+                   TabScr   0x000351    program     static Regression.asm
+                   TabSc6   0x000375    program     static Regression.asm
+                   TabMsg   0x000399    program     static Regression.asm
+                   TabM6g   0x0003a6    program     static Regression.asm
+                 SaveLetr   0x0000ed       data     static LCDletr_627A.asm
+                   LCDdig   0x000200    program     extern LCDletr_627A.asm
+                  LCDletr   0x000202    program     extern LCDletr_627A.asm
+                 LCDclear   0x000211    program     extern LCDclear_627A.asm
+                   LCDad1   0x00006e       data     extern LCDinsc_627A.asm
+                   LCDad2   0x00006f       data     extern LCDinsc_627A.asm
+                  LCDinsc   0x000215    program     extern LCDinsc_627A.asm
+                    Del1s   0x00021e    program     extern Del1s_627A.asm
+                  LCDsndD   0x000221    program     extern LCDsnd_627A.asm
+           _LCDLIB_000002   0x000223    program     static LCDsnd_627A.asm
+                  LCDsndI   0x000224    program     extern LCDsnd_627A.asm
+                 _DELV003   0x00014e       data     static Del2ms_627A.asm
+                 _DELV004   0x00014f       data     static Del2ms_627A.asm
+                   Del2ms   0x00022f    program     extern Del2ms_627A.asm
+                    lloop   0x000233    program     static Del2ms_627A.asm
+                    mloop   0x000234    program     static Del2ms_627A.asm
+                     Save   0x0000ed       data     static LCDsend_627A.asm
+                  LCDsend   0x00023b    program     extern LCDsend_627A.asm
+                 _DELV001   0x0000ee       data     static Del40us_627A.asm
+                 _DELV002   0x0000ef       data     static Del40us_627A.asm
+                  Del40us   0x00024a    program     extern Del40us_627A.asm
+                    jloop   0x00024e    program     static Del40us_627A.asm
+                    kloop   0x00024f    program     static Del40us_627A.asm
+                    Count   0x0000ed       data     static LCDinit_627A.asm
+                  LCDinit   0x000259    program     extern LCDinit_627A.asm
+           _LCDLIB_00000c   0x000265    program     static LCDinit_627A.asm
+                 Del450ns   0x00027d    program     extern Del450ns_627A.asm
+                 LCDshift   0x00027e    program     extern LCDshift_627A.asm
+                     Char   0x00014b       data     static LCDsc16_627A.asm
+                  LCDsc16   0x000282    program     extern LCDsc16_627A.asm
+                    Limit   0x0002a5    program     static LCDsc16_627A.asm
+                   Limit1   0x0002b2    program     static LCDsc16_627A.asm
+                   Limit2   0x0002b5    program     static LCDsc16_627A.asm
+                     LCD8   0x0002b8    program     extern LCD8_627A.asm
+                 LCDunshf   0x0002bc    program     extern LCDunshf_627A.asm
+                  BufAddr   0x00014b       data     static LCDmsg_627A.asm
+                    Count   0x00014c       data     static LCDmsg_627A.asm
+                   Switch   0x00014d       data     static LCDmsg_627A.asm
+                   LCDmsg   0x0002c0    program     extern LCDmsg_627A.asm
+                      MsL   0x0002ca    program     static LCDmsg_627A.asm
+                     MsL1   0x0002d4    program     static LCDmsg_627A.asm
+                  LCDzero   0x0002e2    program     extern LCDzero_627A.asm
+                     Addr   0x0000ed       data     static LCDaddr_627A.asm
+                  LCDaddr   0x0002e6    program     extern LCDaddr_627A.asm
+                 Del512ms   0x0002ea    program     extern Del512ms_627A.asm
+                 Del256ms   0x0002ed    program     extern Del256ms_627A.asm
+                 _DELV001   0x0000ee       data     static Del128ms_627A.asm
+                 _DELV002   0x0000ef       data     static Del128ms_627A.asm
+                 Del128ms   0x0002f0    program     extern Del128ms_627A.asm
+                    Go128   0x0002f3    program     static Del128ms_627A.asm
+               outer_loop   0x0002f7    program     static Del128ms_627A.asm
+               inner_loop   0x0002f9    program     static Del128ms_627A.asm
+ 

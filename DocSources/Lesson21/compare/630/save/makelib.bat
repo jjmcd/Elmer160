@@ -1,0 +1,1 @@
+"C:\usb\MPLAB IDE\MCHIP_tools\mplib" /c LCDlib_84A.lib Del128ms.o Del1s.o Del256ms.o Del2ms.o Del40us.o Del450ns.o Del512ms.o DelWrk.o LCD10.o LCD8.o LCDaddr.o LCDclear.o LCDinit.o LCDinsc.o LCDletr.o LCDmsg.o LCDsc16.o LCDsend.o LCDshift.o LCDsnd.o LCDunshf.o LCDzero.o

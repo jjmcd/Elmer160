@@ -1,0 +1,82 @@
+gplink-0.13.5 alpha
+Map File - Created 2-6-2008  20:28:01
+ 
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                  STARTUP       code   00000000    program   0x000004
+                   IRQSVC       code   0x000004    program   0x00001a
+                   TABLES       code   0x000020    program   0x00001c
+                    MYLIB       code   0x000030    program   0x000092
+                     PROG       code   0x0000d0    program   0x000020
+                   LCDLIB       code   0x000100    program   0x0000b0
+                  .config       code   0x002007    program   0x000002
+                   .udata      udata   0x00000c       data   0x000013
+                  _DELOV2      udata   0x00001f       data   0x000002
+                  _DELOV1      udata   0x000021       data   0x000002
+                  _LCDOV1      udata   0x000023       data   0x000001
+ 
+                              Program Memory Usage
+                               Start         End
+                           ---------   ---------
+                            0x000004    0x000010
+                            0x002007    0x002007
+                            00000000    0x000001
+                            0x0000d0    0x0000df
+                            0x000030    0x000078
+                            0x000020    0x00002d
+                            0x000100    0x000157
+ 
+                            207 program addresses used
+ 
+                              Symbols
+                     Name    Address   Location    Storage File
+                ---------  ---------  ---------  --------- ---------
+                   w_temp   0x00000c       data     static ISRa.asm
+              status_temp   0x00000d       data     static ISRa.asm
+                    Start   0x0000d0    program     static L21a.asm
+                     Loop   0x0000db    program     static L21a.asm
+                    Loop1   0x0000dc    program     static L21a.asm
+                    count   0x00000e       data     static Disp16.asm
+                   binary   0x00000f       data     extern Disp16.asm
+                   digits   0x000011       data     extern Disp16.asm
+                    dirty   0x000016       data     extern Disp16.asm
+                   LEDflg   0x000017       data     extern Disp16.asm
+                   Disp16   0x000030    program     extern Disp16.asm
+                  Disp16L   0x000036    program     static Disp16.asm
+                   dindex   0x000018       data     static ConvBCD2.asm
+                  divisor   0x000019       data     static ConvBCD2.asm
+                     work   0x00001b       data     static ConvBCD2.asm
+                    inter   0x00001d       data     static ConvBCD2.asm
+                       t1   0x000020    program     static ConvBCD2.asm
+                 ConvBCD2   0x00003f    program     extern ConvBCD2.asm
+                   ConvL1   0x00004b    program     static ConvBCD2.asm
+                   ConvL2   0x000055    program     static ConvBCD2.asm
+                 noBorrow   0x00005d    program     static ConvBCD2.asm
+                  doneDig   0x000067    program     static ConvBCD2.asm
+                 InitTMR0   0x00006f    program     extern InitTMR0.asm
+                 SaveLetr   0x000023       data     static LCDletr_84A.asm
+                   LCDdig   0x000100    program     extern LCDletr_84A.asm
+                  LCDletr   0x000102    program     extern LCDletr_84A.asm
+                 LCDclear   0x000109    program     extern LCDclear_84A.asm
+                  LCDsndD   0x00010d    program     extern LCDsnd_84A.asm
+           _LCDLIB_000002   0x00010f    program     static LCDsnd_84A.asm
+                  LCDsndI   0x000110    program     extern LCDsnd_84A.asm
+                 _DELV003   0x00001f       data     static Del2ms_84A.asm
+                 _DELV004   0x000020       data     static Del2ms_84A.asm
+                   Del2ms   0x00011b    program     extern Del2ms_84A.asm
+                    lloop   0x00011d    program     static Del2ms_84A.asm
+                    mloop   0x00011e    program     static Del2ms_84A.asm
+                     Save   0x000023       data     static LCDsend_84A.asm
+                  LCDsend   0x000123    program     extern LCDsend_84A.asm
+                 _DELV001   0x000021       data     static Del40us_84A.asm
+                 _DELV002   0x000022       data     static Del40us_84A.asm
+                  Del40us   0x00012a    program     extern Del40us_84A.asm
+                    jloop   0x00012c    program     static Del40us_84A.asm
+                    kloop   0x00012d    program     static Del40us_84A.asm
+                    Count   0x000023       data     static LCDinit_84A.asm
+                  LCDinit   0x000135    program     extern LCDinit_84A.asm
+           _LCDLIB_000008   0x00013d    program     static LCDinit_84A.asm
+                 Del450ns   0x000153    program     extern Del450ns_84A.asm
+                  LCDzero   0x000154    program     extern LCDzero_84A.asm
+ 

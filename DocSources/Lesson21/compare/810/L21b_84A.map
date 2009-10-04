@@ -1,0 +1,150 @@
+MPLINK 4.20, Linker
+Linker Map File - Created Sat Dec 27 18:28:51 2008
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                  STARTUP       code   0x000000    program   0x000004
+                   IRQSVC       code   0x000004    program   0x00001a
+                   TABLES       code   0x000020    program   0x00001c
+                    MYLIB       code   0x000030    program   0x000116
+                     PROG       code   0x0000d0    program   0x000030
+                   .cinit    romdata   0x0000e8    program   0x000004
+                   LCDLIB       code   0x000100    program   0x0000cc
+                  .config       code   0x002007    program   0x000002
+                   .udata      udata   0x00000c       data   0x000013
+                  _DELOV2      udata   0x00001f       data   0x000002
+                  _DELOV1      udata   0x000021       data   0x000002
+                  _LCDOV1      udata   0x000023       data   0x000001
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000001      
+                            0x000004    0x000010      
+                            0x000020    0x00002d      
+                            0x000030    0x0000ba      
+                            0x0000d0    0x0000e9      
+                            0x000100    0x000165      
+                            0x002007    0x002007      
+            297 out of 453 program addresses used, program memory utilization is 65%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                 ConvBCD2   0x00006d    program     extern H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                   ConvL1   0x000079    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                   ConvL2   0x000083    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                   Del2ms   0x000104    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                  Del40us   0x00013b    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                 Del450ns   0x000161    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del450ns.asm
+                   Disp16   0x00005e    program     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                  Disp16L   0x000064    program     static H:\PIC\Lesson21\compare\810\Disp16.asm
+                 InitTMR0   0x00009d    program     extern H:\PIC\Lesson21\compare\810\InitTMR0.asm
+                 LCDclear   0x000100    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDclear.asm
+                   LCDdig   0x00012e    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                  LCDinit   0x00010e    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+                  LCDletr   0x000130    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                  LCDsend   0x000148    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsend.asm
+                  LCDsndD   0x000153    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+                  LCDsndI   0x000156    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+                  LCDzero   0x000162    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDzero.asm
+                     Loop   0x0000db    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                    Loop1   0x0000dc    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                  RestCnt   0x0000a7    program     extern H:\PIC\Lesson21\compare\810\RestCnt.asm
+                  SaveCnt   0x000030    program     extern H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Start   0x0000d0    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                    Wait0   0x000034    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Wait1   0x000046    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Wait2   0x000056    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+             _LCDLIB_0002   0x000155    program     static H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+             _LCDLIB_0009   0x000117    program     static H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+                  doneDig   0x000095    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                    jloop   0x00013e    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                    kloop   0x00013f    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                    lloop   0x000107    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                    mloop   0x000108    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                 noBorrow   0x00008b    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                       t1   0x000020    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                    Count   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+                   LEDflg   0x000017       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                     Save   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDsend.asm
+                 SaveLetr   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                 _DELV001   0x000021       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                 _DELV002   0x000022       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                 _DELV003   0x00001f       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                 _DELV004   0x000020       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                   binary   0x00000f       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                    count   0x00000e       data     static H:\PIC\Lesson21\compare\810\Disp16.asm
+                   digits   0x000011       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                   dindex   0x000018       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                    dirty   0x000016       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                  divisor   0x000019       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                    inter   0x00001d       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+              status_temp   0x00000d       data     static H:\PIC\Lesson21\compare\810\ISRa.asm
+                   w_temp   0x00000c       data     static H:\PIC\Lesson21\compare\810\ISRa.asm
+                     work   0x00001b       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                       t1   0x000020    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                  SaveCnt   0x000030    program     extern H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Wait0   0x000034    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Wait1   0x000046    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                    Wait2   0x000056    program     static H:\PIC\Lesson21\compare\810\SaveCntB.asm
+                   Disp16   0x00005e    program     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                  Disp16L   0x000064    program     static H:\PIC\Lesson21\compare\810\Disp16.asm
+                 ConvBCD2   0x00006d    program     extern H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                   ConvL1   0x000079    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                   ConvL2   0x000083    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                 noBorrow   0x00008b    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                  doneDig   0x000095    program     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                 InitTMR0   0x00009d    program     extern H:\PIC\Lesson21\compare\810\InitTMR0.asm
+                  RestCnt   0x0000a7    program     extern H:\PIC\Lesson21\compare\810\RestCnt.asm
+                    Start   0x0000d0    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                     Loop   0x0000db    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                    Loop1   0x0000dc    program     static H:\PIC\Lesson21\compare\810\L21b.asm
+                 LCDclear   0x000100    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDclear.asm
+                   Del2ms   0x000104    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                    lloop   0x000107    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                    mloop   0x000108    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                  LCDinit   0x00010e    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+             _LCDLIB_0009   0x000117    program     static H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+                   LCDdig   0x00012e    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                  LCDletr   0x000130    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                  Del40us   0x00013b    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                    jloop   0x00013e    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                    kloop   0x00013f    program     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                  LCDsend   0x000148    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsend.asm
+                  LCDsndD   0x000153    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+             _LCDLIB_0002   0x000155    program     static H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+                  LCDsndI   0x000156    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDsnd.asm
+                 Del450ns   0x000161    program     extern H:\PIC\Lesson21\compare\810\lcdlib\Del450ns.asm
+                  LCDzero   0x000162    program     extern H:\PIC\Lesson21\compare\810\lcdlib\LCDzero.asm
+                   w_temp   0x00000c       data     static H:\PIC\Lesson21\compare\810\ISRa.asm
+              status_temp   0x00000d       data     static H:\PIC\Lesson21\compare\810\ISRa.asm
+                    count   0x00000e       data     static H:\PIC\Lesson21\compare\810\Disp16.asm
+                   binary   0x00000f       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                   digits   0x000011       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                    dirty   0x000016       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                   LEDflg   0x000017       data     extern H:\PIC\Lesson21\compare\810\Disp16.asm
+                   dindex   0x000018       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                  divisor   0x000019       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                     work   0x00001b       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                    inter   0x00001d       data     static H:\PIC\Lesson21\compare\810\ConvBCD2.asm
+                 _DELV003   0x00001f       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                 _DELV004   0x000020       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del2ms.asm
+                 _DELV001   0x000021       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                 _DELV002   0x000022       data     static H:\PIC\Lesson21\compare\810\lcdlib\Del40us.asm
+                 SaveLetr   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDletr.asm
+                     Save   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDsend.asm
+                    Count   0x000023       data     static H:\PIC\Lesson21\compare\810\lcdlib\LCDinit.asm
+
+

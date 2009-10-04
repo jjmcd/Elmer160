@@ -1,0 +1,81 @@
+* Regression Tests
+** Linker script files
+*** DONE Formatting, comments, 84A
+*** TODO Formatting, comments, 87
+*** DONE Formatting, comments, 88
+*** TODO Formatting, comments, 627A
+*** DONE Formatting, comments, 628
+*** TODO Formatting, comments, 648A
+*** TODO Formatting, comments, 818
+*** DONE Formatting, comments, 819
+*** DONE Formatting, comments, 716
+** plain
+*** TODO Test on 84A gputils
+*** DONE Test on 87 gputils
+*** DONE Test on 88 gputils
+**** DONE tables low, lcdlib low, .code low
+**** DONE tables low, lcdlib low, .code high
+**** DONE tables low, lcdlib high, .code low
+**** DONE tables low, lcdlib high, .code high
+**** DONE tables high, lcdlib low, .code low
+**** DONE tables high, lcdlib low, .code high
+**** DONE tables high, lcdlib high, .code low
+**** DONE tables high, lcdlib high, .code high
+*** DONE Test on 818 gputils
+*** DONE Test on 819 gputils
+*** DONE Test on 627A gputils
+*** DONE Test on 628 gputils
+*** TODO Test on 648A gputils
+**** TODO tables low, lcdlib low, .code low
+**** TODO tables low, lcdlib low, .code high
+**** TODO tables low, lcdlib high, .code low
+**** TODO tables low, lcdlib high, .code high
+**** TODO tables high, lcdlib low, .code low
+**** TODO tables high, lcdlib low, .code high
+**** TODO tables high, lcdlib high, .code low
+**** TODO tables high, lcdlib high, .code high
+*** DONE Test on 716 gputils
+*** TODO Test on 84A 6.30
+*** TODO Test on 88 6.30
+*** TODO Test on 819 6.30
+*** TODO Test on 628 6.30
+*** TODO Test on 648A 6.30
+*** TODO Test on 716 6.30
+*** TODO Test on 84A 7.60
+*** TODO Test on 88 7.60
+*** TODO Test on 819 7.60
+*** TODO Test on 628 7.60
+*** TODO Test on 648A 7.60
+*** TODO Test on 716 7.60
+** 44100
+*** Complete Makefile
+*** VERIFY Test on 84A gputils
+*** DONE Test on 88 gputils
+*** INPROC Test on 819 gputils
+*** INPROC Test on 628 gputils
+*** INPROC Test on 648A gputils
+*** TODO Test on 716 gputils
+** 2x20
+*** TODO Test on 84A gputils
+*** TODO Test on 88 gputils
+*** TODO Test on 819 gputils
+*** TODO Test on 628 gputils
+*** TODO Test on 648A gputils
+*** TODO Test on 716 gputils
+** Seiko
+*** TODO Test on 84A gputils
+*** TODO Test on 88 gputils
+*** TODO Test on 819 gputils
+*** TODO Test on 628 gputils
+*** TODO Test on 648A gputils
+*** TODO Test on 716 gputils
+* Library zip
+** TODO Assemble gputils
+** TODO Assemble old coff
+** TODO Assemble new coff
+** TODO Zip
+* Regression test zip
+** TODO Assemble gputils
+** TODO Assemble old coff
+** TODO Assemble new coff
+** TODO Zip

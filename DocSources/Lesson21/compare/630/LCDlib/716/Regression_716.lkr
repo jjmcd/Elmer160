@@ -1,0 +1,39 @@
+// Linker command file for LCDlib regression tests (16F716)
+// $Id: Regression_716.lkr,v 2.1 2008-02-27 10:49:36-05 jjmcd Exp jjmcd $
+
+LIBPATH  .
+
+CODEPAGE   NAME=vectors  START=0x0      END=0x3      PROTECTED
+CODEPAGE   NAME=isr      START=0x4      END=0x1f     PROTECTED
+CODEPAGE   NAME=tables   START=0x300    END=0x3ff    PROTECTED
+CODEPAGE   NAME=page     START=0x400    END=0x6ff
+CODEPAGE   NAME=lcdlib   START=0x700    END=0x7ff    PROTECTED
+CODEPAGE   NAME=.idlocs  START=0x2000   END=0x2003   PROTECTED
+CODEPAGE   NAME=.config  START=0x2007   END=0x2007   PROTECTED
+
+DATABANK   NAME=sfr0     START=0x0      END=0x1F     PROTECTED
+DATABANK   NAME=sfr1     START=0x80     END=0x9F     PROTECTED
+
+DATABANK   NAME=gpr0     START=0x20     END=0x6a
+DATABANK   NAME=gpr1     START=0xA0     END=0xB5
+DATABANK   NAME=lcd1     START=0xb6     END=0xb6
+//DATABANK   NAME=lcd2     START=0x6d     END=0x6f
+DATABANK   NAME=lcd2     START=0xb7     END=0xb9
+DATABANK   NAME=lcd3     START=0x6b     END=0x6c
+//DATABANK   NAME=lcd3     START=0xba     END=0xbb
+DATABANK   NAME=delay1   START=0xbc     END=0xbd
+DATABANK   NAME=delay2   START=0xbe     END=0xbf
+DATABANK   NAME=gprnobnk START=0x70     END=0x7f
+
+SECTION    NAME=STARTUP  ROM=vectors    // Reset and interrupt vectors
+SECTION    NAME=PROG     ROM=page       // ROM code space
+SECTION    NAME=IRQSVC   ROM=isr        // Interrupt service routine
+SECTION    NAME=TABLES   ROM=tables     // Message tables 
+SECTION    NAME=LCDLIB   ROM=lcdlib     // LCD library
+SECTION    NAME=IDLOCS   ROM=.idlocs    // ID locations
+SECTION    NAME=CONFIG   ROM=.config    // Configuration bits location
+SECTION    NAME=_LCDOV1  RAM=lcd1       // Place LCDib data up in
+SECTION    NAME=_LCDOV2  RAM=lcd2       // high memory out of the way
+SECTION    NAME=_LCDOV3  RAM=lcd3       // of user data
+SECTION    NAME=_DELOV1  RAM=delay1     // Also for delay counters
+SECTION    NAME=_DELOV2  RAM=delay2     // in library

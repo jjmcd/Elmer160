@@ -1,0 +1,25 @@
+Configuration bits
+	PWRTE
+	OSC_XT
+	WDT
+	LVP
+	BODEN
+	CCP_RB3
+	IES0
+	FCMEM
+Program Memory
+	Paging
+File Register
+	Banking
+	Different start loc GPRs
+	Sharemem
+Context Saving
+Additional Peripherals
+	Analogs
+	Different register banks
+	Writable FLASH
+Macros
+	Processor.inc
+	Configuration.inc
+	EEPROM.inc
+	RestCnt

@@ -1,0 +1,71 @@
+* Lesson 21
+Lesson 21 takes the programs from Lesson 20 and generalizes them for
+all applicable PICs (i.e.  18 pin PIC16's with EEPROM).  Lesson 20 was
+prepared by developing conditionalized code, then removing all non-F84
+code, so the code should take essentially no work.  An RCS branch was
+created just before the conditionalization was removed so that the
+complete code could be easily retreved.
+** DONE Initial RCS
+Rename the Lesson 20 branch code modules to Lesson 21, correct
+internal Lesson 20 references, and create a new RCS library for Lesson
+21.
+** Testing
+*** INPROC gputils testing
+    SCHEDULED: <2007-11-23 Fri> This comes first because it is easier
+to test out all the code this way.  Tha Makefile is rather ugly and
+gangly, it would be nice if I could come up with a way to clean it up.
+Posted for help on QRPLINUX-L on 11/19 but so far no takers.
+*** TODO MPLAB 6.3 testing
+Version of MPLAB we started with
+*** TODO MPLAB 7.52 testing
+Latest version of MPLAB I have installed.  Perhaps I should install
+version 8 which appears to be a big change to support the PIC32, but
+which no doubt folks will begin installing.
+** Prose
+*** TODO Processor Differences
+    SCHEDULED: <2007-12-09 Tue>
+**** Configuration bits
+Show table of possible config bits.  Discuss those bits that generally
+need to be played with.
+**** Banking
+Impact of banking on GPRs as well as SFRs.  Begin with discussion of
+TRIS registers, talk about EEPROM registers from Lesson 20, show
+issues when more peripherals added.
+**** Paging
+Only a brief mention needed, but point out how relocatable code
+simplifies and yet complicates this.
+**** Peripherals
+***** Analogs
+Analog input and comparator inputs, why they need to be paid attention
+to even if we don't use them.
+***** Register banks
+How the proliferation of peripherals forces some registers to appear
+in different banks on different PICs
+***** Writeable Flash
+How this impacts register names and EEPROM writing
+**** Linker Scripts
+*** TODO Macros
+    SCHEDULED: <2007-12-10 Wed>
+**** Processor.inc
+Selection of processor include file based on symbol passed in from
+compiler.  Also establish a symbol for processor "families" to avoid
+long lists of IF statements in macros. [[file:Processor.inc][Processor include file]]
+**** Configuration.inc
+Select configuration bits depending on processor. [[file:Configuration.inc][Configuration include file]]
+**** EEPROM.inc
+The names of some bits, and the registers in which they live are
+dependent on the procesor.  Set up symbols so we don't have to fret
+about this in the code.  Also, set up a symbol for the EEPROM address
+to be used for this project. [[file:EEPROM.inc][EEPROM include file]]
+**** RestCnt.asm
+Here we have a fairly elaborate set of macros to limit the amount of
+banks switching we have to do.  Make note that we could simply
+'always' select banks, but this might lead to bloated code.
+*** TODO Context Saving
+How banking affects context saving in the ISR
+*** TODO L21a
+*** TODO L21b
+*** TODO L21c
+*** TODO Summary
+** TODO Final RCS
+** TODO Distribution kit

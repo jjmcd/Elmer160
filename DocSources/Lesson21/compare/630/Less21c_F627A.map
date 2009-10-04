@@ -1,0 +1,161 @@
+MPLINK 3.50, Linker
+Linker Map File - Created Sat Dec 27 19:43:00 2008
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                  STARTUP       code   0x000000    program   0x000004
+                   IRQSVC       code   0x000004    program   0x00003a
+                   TABLES       code   0x000022    program   0x00001c
+                   LCDLIB       code   0x000030    program   0x0000ec
+                    MYLIB       code   0x000100    program   0x000148
+                     PROG       code   0x0001a4    program   0x000040
+                   .cinit    romdata   0x0001c4    program   0x000004
+                  .config       code   0x002007    program   0x000002
+                   .udata      udata   0x000020       data   0x000012
+                  _DELOV2      udata   0x000032       data   0x000002
+                  _DELOV1      udata   0x000034       data   0x000002
+                  _LCDOV1      udata   0x000036       data   0x000001
+               .udata_shr      udata   0x000070       data   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000001      
+                            0x000004    0x000020      
+                            0x000022    0x0000a5      
+                            0x000100    0x0001c5      
+                            0x002007    0x002007      
+            362 out of 645 program addresses used, program memory utilization is 56%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               CheckDirty   0x0001c0    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                  Clearit   0x000108    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                ContWrite   0x000132    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                 ConvBCD2   0x000141    program     extern C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   ConvL1   0x00014d    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   ConvL2   0x000157    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   Del2ms   0x000034    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                  Del40us   0x000075    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                 Del450ns   0x0000a1    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del450ns.asm
+                   Disp16   0x000171    program     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                  Disp16L   0x000177    program     static C:\Projects\PIC\Lesson21\Disp16.asm
+                FirstByte   0x000112    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                IRQEEDONE   0x000016    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                IRQEEPROM   0x000012    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                  IRQEXIT   0x00001a    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                 InitTMR0   0x000180    program     extern C:\Projects\PIC\Lesson21\InitTMR0.asm
+                 LCDclear   0x000030    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDclear.asm
+                   LCDdig   0x000064    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                  LCDinit   0x000040    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+                  LCDletr   0x000066    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                  LCDsend   0x000084    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsend.asm
+                  LCDsndD   0x000093    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+                  LCDsndI   0x000096    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+                  LCDzero   0x0000a2    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDzero.asm
+                     Loop   0x0001b0    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                    Loop1   0x0001b1    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                 NextByte   0x000124    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                  RestCnt   0x00018c    program     extern C:\Projects\PIC\Lesson21\RestCnt.asm
+                  SaveCnt   0x000100    program     extern C:\Projects\PIC\Lesson21\SaveCntC.asm
+                    Start   0x0001a4    program     static C:\Projects\PIC\Lesson21\L21c.asm
+             _LCDLIB_0002   0x000095    program     static C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+             _LCDLIB_000C   0x00004c    program     static C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+                  doneDig   0x000169    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                    jloop   0x000079    program     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                    kloop   0x00007a    program     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                    lloop   0x000038    program     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                    mloop   0x000039    program     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                 noBorrow   0x00015f    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                       t1   0x000022    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                    Count   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+                   LEDflg   0x000030       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                     Save   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDsend.asm
+                 SaveLetr   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                 _DELV001   0x000034       data     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                 _DELV002   0x000035       data     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                 _DELV003   0x000032       data     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                 _DELV004   0x000033       data     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                   binary   0x000028       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                    count   0x000027       data     static C:\Projects\PIC\Lesson21\Disp16.asm
+                   digits   0x00002a       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                   dindex   0x000020       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                    dirty   0x00002f       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                  divisor   0x000021       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                  eestate   0x000031       data     extern C:\Projects\PIC\Lesson21\L21c.asm
+                    inter   0x000025       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+              status_temp   0x000071       data     static C:\Projects\PIC\Lesson21\ISRc.asm
+                   w_temp   0x000070       data     static C:\Projects\PIC\Lesson21\ISRc.asm
+                     work   0x000023       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                IRQEEPROM   0x000012    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                IRQEEDONE   0x000016    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                  IRQEXIT   0x00001a    program     static C:\Projects\PIC\Lesson21\ISRc.asm
+                       t1   0x000022    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                 LCDclear   0x000030    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDclear.asm
+                   Del2ms   0x000034    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                    lloop   0x000038    program     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                    mloop   0x000039    program     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                  LCDinit   0x000040    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+             _LCDLIB_000C   0x00004c    program     static C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+                   LCDdig   0x000064    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                  LCDletr   0x000066    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                  Del40us   0x000075    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                    jloop   0x000079    program     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                    kloop   0x00007a    program     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                  LCDsend   0x000084    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsend.asm
+                  LCDsndD   0x000093    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+             _LCDLIB_0002   0x000095    program     static C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+                  LCDsndI   0x000096    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDsnd.asm
+                 Del450ns   0x0000a1    program     extern C:\Projects\PIC\Lesson21\LCDlib\Del450ns.asm
+                  LCDzero   0x0000a2    program     extern C:\Projects\PIC\Lesson21\LCDlib\LCDzero.asm
+                  SaveCnt   0x000100    program     extern C:\Projects\PIC\Lesson21\SaveCntC.asm
+                  Clearit   0x000108    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                FirstByte   0x000112    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                 NextByte   0x000124    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                ContWrite   0x000132    program     static C:\Projects\PIC\Lesson21\SaveCntC.asm
+                 ConvBCD2   0x000141    program     extern C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   ConvL1   0x00014d    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   ConvL2   0x000157    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                 noBorrow   0x00015f    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                  doneDig   0x000169    program     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                   Disp16   0x000171    program     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                  Disp16L   0x000177    program     static C:\Projects\PIC\Lesson21\Disp16.asm
+                 InitTMR0   0x000180    program     extern C:\Projects\PIC\Lesson21\InitTMR0.asm
+                  RestCnt   0x00018c    program     extern C:\Projects\PIC\Lesson21\RestCnt.asm
+                    Start   0x0001a4    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                     Loop   0x0001b0    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                    Loop1   0x0001b1    program     static C:\Projects\PIC\Lesson21\L21c.asm
+               CheckDirty   0x0001c0    program     static C:\Projects\PIC\Lesson21\L21c.asm
+                   dindex   0x000020       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                  divisor   0x000021       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                     work   0x000023       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                    inter   0x000025       data     static C:\Projects\PIC\Lesson21\ConvBCD2.asm
+                    count   0x000027       data     static C:\Projects\PIC\Lesson21\Disp16.asm
+                   binary   0x000028       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                   digits   0x00002a       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                    dirty   0x00002f       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                   LEDflg   0x000030       data     extern C:\Projects\PIC\Lesson21\Disp16.asm
+                  eestate   0x000031       data     extern C:\Projects\PIC\Lesson21\L21c.asm
+                 _DELV003   0x000032       data     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                 _DELV004   0x000033       data     static C:\Projects\PIC\Lesson21\LCDlib\Del2ms.asm
+                 _DELV001   0x000034       data     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                 _DELV002   0x000035       data     static C:\Projects\PIC\Lesson21\LCDlib\Del40us.asm
+                 SaveLetr   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDletr.asm
+                     Save   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDsend.asm
+                    Count   0x000036       data     static C:\Projects\PIC\Lesson21\LCDlib\LCDinit.asm
+                   w_temp   0x000070       data     static C:\Projects\PIC\Lesson21\ISRc.asm
+              status_temp   0x000071       data     static C:\Projects\PIC\Lesson21\ISRc.asm
+
+
