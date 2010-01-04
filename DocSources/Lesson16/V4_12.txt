@@ -1,0 +1,47 @@
+Project->New Project
+Less16b.pjt
+Hilight Less16b.hex
+Node Properties
+Language Tool: -> MPLINK
+Map file on: Less16b.map
+Additional Command Line Options: ->16f84a.lkr
+(NProp.gif)
+OK, OK
+Copy 16f84a.lkr to project directory
+File->New
+  processor
+  include
+  end
+Save Less16b.asm
+save as Less16b1.asm
+save as Less16b2.asm
+Open Less16b1, b
+Project->Edit Project
+Add Node
+    Less16b
+           1
+           2
+(EdProp.gif)
+In 16b
+	__config
+	extern
+STARTUP	code
+	goto	Start
+	code
+Start
+Loop
+	Call Sub1,Sub2
+	goto Loop
+
+In 16b1
+	global Sub1
+	code
+Sub1	return
+
+In 16b2
+	global Sub2
+	code
+Sub2	return
+
+Project->Build All
+

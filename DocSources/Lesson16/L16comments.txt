@@ -1,0 +1,202 @@
+Reusing Code
+   Intro
+   Use of Include Files
+   Allocating Register Locations
+	1. Pg2 "Allocating File Register Locations" - I prefer to see "reserved 
+	words like "cblock" picked out in some way, so they don't blend into the 
+	text.  In normal use I would capitalise them, but using bold may be 
+	better and will do so in this document (likewise later on with things 
+	like ".hex", ".o" etc, I think typographical diversity is a Good Thing! :-).
+   Allocating Program Memory Locations
+	what goes into locations zero and four,
+	( the reset and interrupt locations)
+	When we write lookup tables it is a little simpler to write these tables
+	   MUCH simpler to.....
+   Managing Symbol Scope
+	> Page 3 – MANAGING SYMBOL SCOPE – First paragraph. when you say “The 
+	> only symbol within that routine that needs...” I would tend to say 
+	> “The only program memory symbol...” or “ The only program label within 
+	> that routine that needs...” in order to be more consistent with the 
+	> second paragraph, which talks about “file register symbols”. That way, 
+	> you've clarified that you're talking instruction labels, rather than 
+	> register locations. Actually, I'd prefer using the word “label” in 
+	> place of all “symbol” references in the first paragraph, since MPASM 
+	> refers to instruction names as labels. I know that the Linker refers 
+	> to both labels and register names as symbols, but don't forget, 
+	> newbies don't know that yet!
+	2. Pg3 "Managing Symbol scope" : "...pass parameters into the routine with 
+	the file register," I notice you talk of the "File Register" as if it's a 
+	single entity - I'm used to each PIC memory location being referred to as 
+	"a register" - as in a "General Purpose Register" or "Special Function 
+	Register" etc.  Looking in a recent datasheet (for the 16F684, DS41202C, 
+	pg.8) they refer to the whole set as the "Register File".  This may have 
+	changed since earlier datasheets - I don't know.
+   Reusing File Register Locations
+
+What is Relocatable Code
+    Intro
+	3. Pg4 "Introduction": "There may even be different rules for different 
+	symbols" - you haven't mentioned rules yet, so this leaves me wondering 
+	what you mean.
+    Local and Global symbols
+    Program Sections
+	> Page 4 – PROGRAM SECTIONS – Second paragraph. You refer to “eedata”, 
+	> without the leading period. Should that be “.eedata”?? Also, most all 
+	> your references here contain a leading period (such as “.code”), yet 
+	> in your examples (also in text starting on page 6), you give the 
+	> operation as “code”, without the period. Could you explain the 
+	> difference in nomenclature?
+	4. Pg4 "Program Sections" : the fact that "eedata" doesn't have a dot 
+	in front of it where all the others do, stands out - I haven't been able 
+	to find reference to it in Microchip's documents so I don't know if it's 
+	right.  If it is, I think you should comment on it to stop readers 
+	wondering if it's a typo.
+    Assembler Output
+
+The Linking Process
+    Introduction
+    Linking in MPLAB
+    The Linker Script
+	5. Pg5 "The Linker Script": I don't know if your setup is different from 
+	mine, but my LKR subdirectory is below C:\Program Files\Microchip\MPASM 
+	Suite\ - I haven't got a directory called MCHIP_Tools.  My copy of MPLAB 
+	itself was installed on a different drive (H:) but the install routine 
+	seems to have put the tools in C:, as above.  I'm using MPLAB 7.0, by the way.
+	6. Pg5 "The Linker Script":  I'm not sure what you mean by adding the Linker 
+	Script "under the Linker Scripts heading" - I can't find anything that looks 
+	like this in MPLAB - can you explain where this is done
+Assembler Directives
+    The code directive
+	> Page 6 – CODE DIRECTIVE - In the paragraph containing the phrase “..to 
+	> group these instructions together with instructions from another file, 
+	> we could assign a name...”. I don't understand what the purpose of 
+	> this grouping would be (are you talking about building a LIBRARY 
+	> file?). Wouldn't the more likely reason for assigning a name to this 
+	> section be that we wanted to specifically reference that portion of 
+	> code in the linker script (i.e. setting it on a page boundary for a 
+	> table)? This would be a modified version on your later comment in this 
+	> section about defining a specific address for “table2” at hex 0200, 
+	> which would normally be considered bad practice for relocatable code, 
+	> since this hard address would then reside within the assembled code 
+	> and COULD conflict with another piece of code you ultimately link 
+	> together. Wouldn't a better example be “Int_Routine code H'0004' ”, 
+	> describing placement of an interrupt routine?
+    The udata and res directives
+	7.Pg6 "The udata and res directives": ..."udata can have a name and an 
+	address" - as I understand it udata items will always have both - but 
+	the address may be left to the linker or assigned by the programmer - 
+	I think you mean something like: "...a udata item is given a name and 
+	can have an address assigned - if not the address is determined by the 
+	linker".  (Rereading this afterwards I think I may have misunderstood, 
+	in that you are referring to the udata block, whereas I thought you 
+	meant a data item within it.)
+    global and extern
+	> Page 7 – GLOBAL AND EXTERN – Well written. Several questions, however. 
+	> Where do you specify these statements? Any time prior to the first 
+	> reference of the label? Also, I assume these statements apply to BOTH 
+	> labels AND register addresses? I'm thinking of parameter passing via 
+	> registers, etc., in addition to subroutine entry points.
+	8.Pg7 "global and extrn" - I think the description of extrn would be 
+	easier to remember if it read: "While the extrn directive tells the 
+	assembler that the symbol mentioned is external to this module and will 
+	be resolved later by the linker."  I find it difficult to remember which 
+	of global / extrn is which, and this would help (previous environments 
+	I've worked in have had "Global" doing both jobs, but only for data!)
+    Additional Directives
+	9.Pg7 "Additional Directives" - I think it helps (my!) memory if you 
+	mention that udata_ovr overlays symbols on the same physical location(s).
+
+A Simple Example
+    Introduction
+    Setting up the project
+    Adding code to our subroutine
+    The mainline
+    Assembling
+    Simulating the program
+    Seeing where things got placed
+
+Sharing Data Locations
+    Introduction
+	10.Pg11 "Introduction" - I think it would make things a little clearer 
+	for the first sentence to have a bit added something like this: "...and 
+	how the global directive could make a symbol (in this case the subroutine's 
+	entry point) available outside the assembly."
+    Less16b
+    The Subroutines
+    Assembling and simulating
+	11.Pg12 "Assembling and Simulating" - not sure if this is worth mentioning, 
+	but the modules were assembled in a different order and ended up with Sub2 
+	starting at address 7, Sub1 at 9, and Start at h"B".  I know this isn't a 
+	problem, but it may confuse beginners, and may be worth mentioning.  I 
+	don't know why MPLAB decided to swap them round, but it may be because I 
+	edited Less16b2.asm last.
+    Re-use
+
+Re-using File Register Locations
+    Intro
+    udata_ovr
+    A udata_ovr example
+    Assembling and Testing
+
+Libraries
+    Intro
+    What is a Library
+    Why a Library
+	"Why Use a Library" on page 15 is an immensely confusing paragraph. I
+	had to re-read it a few times to get it to make sense, while the rest
+	of the document was understandable even with a light skim through. I'm
+	not really sure how to make it a bit easier to understand
+	though...perhaps if you could use other words than members, objects,
+	and symbols? I'm not really sure.
+	12.Pg14 I think it may be worth reminding people that an item of data 
+	declared under "udata_ovr" is only valid ("only has a known value") 
+	while processing is within the section of code it's declared in, and 
+	must be initialised to the value needed by that section of code every 
+	time the routine is entered.  Some people might try to initialise it 
+	before the call, or may expect it to have the value left from the last call.
+	13.Pg15 "Why a library?" When resolving links from Library modules, does 
+	the linker look at all the modules it's handling at that point?  I'd expect 
+	this but your description seems to imply that it only looks at other Library 
+	(rather than external file) object modules.
+	14.Pg15 "Why a library?" By giving priority to external file object modules, does 
+	that mean that a build may substitute Library modules with its own, using the 
+	same entry point but perhaps different processing?  If so it may be worth 
+	mentioning this as a way to test a new routine, before committing to using 
+	it (with the old one in the Library, including the new one as a file gives 
+	the new version, removing the file from the build reverts to the original).
+
+Using a Library
+    Intro
+    Setting up the project
+    The project source
+	15.Pg16 "The project source" - a real nitpick here: you say ..."then loading 
+	a letter into the W..." but the code loads '2'.  I think "character" is 
+	less confusing than "letter".
+    What just happened
+
+Further Experiments
+    Intro
+    LCDlib.inc
+	18. Typo in LCDlib.inc: The comment on  extrn LCDinit  says"Initialize the 
+	LCS" when I think it means "LCD"  (I won't mention the spelling of "initialise" 
+	in the interests of transatlantic harmony :-)
+    LCDdig
+    LCDaddr
+    Del1s
+    LCDmsg
+    Other Routines
+
+Wrap Up
+    Summary
+    Coming Up
+
+
+> General Observations: Your examples are VERY good!!! One point is that 
+> you've described what's IN a library, but haven't described how to 
+> CREATE a library file. Will this be covered in a future lesson?? 
+> Libraries are a most important function! The last point is that no 
+> mention has been made on why you would want to modify linker scripts 
+> and how to do that to accomplish a certain purpose (i.e. page boundary 
+> for a table, etc.). Use of DATABANK or CODEPAGE, etc.
+
+
