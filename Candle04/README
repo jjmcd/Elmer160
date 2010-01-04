@@ -1,0 +1,7 @@
+Candle Simulator
+
+Simulates a candle using 3 LEDs.  Although initial testing
+can be done on a PIC-EL, the candle effect requires orange
+and white LEDs, and capacitors to smooth the changes.
+
+Application is written for SDCC.
