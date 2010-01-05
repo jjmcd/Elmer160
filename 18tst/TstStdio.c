@@ -23,7 +23,7 @@
 // Apparently this gets linked in to accomodate parts with
 // additional peripherals but is lacking in the 1320
 //extern __sfr __at (0xfc9) SSPBUF;
-unsigned int SSPBUF;
+//unsigned int SSPBUF;
 
 // Define the pins holding the LEDs
 #define LED1 PORTBbits.RB1

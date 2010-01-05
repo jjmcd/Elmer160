@@ -24,10 +24,10 @@ void LCDaddr( byte );
 void LCDzero( void );
 
 static int nLCDcursPos = 0;
-void putchar( unsigned char ch ) wparam
+void putchar( char ch ) wparam
 {
 
-  if ( ch == (unsigned char)0x0c )
+  if ( ch == (char)0x0c )
     {
       nLCDcursPos = 0;
       LCDclear();
@@ -35,7 +35,7 @@ void putchar( unsigned char ch ) wparam
     }
   else
     {
-      LCDletr(ch);
+      LCDletr( ch );
       nLCDcursPos++;
       //if ( nLCDcursPos == 8 )
       //LCDaddr(0x40);

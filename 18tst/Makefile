@@ -15,7 +15,8 @@ INC2DIR=/usr/share/sdcc/include
 # Assembler options
 ASMOPTS=--deps --processor 18f1320
 # Compiler optimizations
-OPTZ=--optimize-goto --optimize-cmp --optimize-df --obanksel=2 --opt-code-size --peep-asm
+##OPTZ=--optimize-goto --optimize-cmp --optimize-df --obanksel=2 --opt-code-size --peep-asm
+OPTZ=--optimize-cmp --optimize-df --obanksel=2 --opt-code-size --peep-asm
 # SDCC options
 CCOPTS=-mpic16 -p18f1320 $(OPTZ) --model-small --pstack-model=small -I"$(INCDIR)" -I"$(INC2DIR)"
 # Linker options
@@ -23,7 +24,7 @@ LNKOPTS=--map --script 18f1320.lkr -I"$(LIBDIR)"
 # Linker options tstMenu only
 LNMOPTS=--map --script tstMenu.lkr -I"$(LIBDIR)"
 # PIC 18F base libraries
-LIB18=libc18f.lib libio18f1320.lib libm18f.lib libsdcc.lib pic18f1320.lib
+LIB18=libc18f.lib libio18f1320.lib libm18f.lib libsdcc.lib libdev18f1320.lib
 # LCDlib dependencies for delays
 DELDEPS=Del450ns.o Del2ms.o Del40us.o Del1s.o Del512ms.o Del256ms.o Del128ms.o
 # LCDlib dependencies, all
