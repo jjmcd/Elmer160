@@ -1,0 +1,15 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F88</device>
+    <tool>sdcc</tool>
+    <files>
+      <item>tsdcc88.c</item>
+    </files>
+  </general>
+  <editors>
+    <bookmarks>
+      <item>file:///home/jjmcd/Projects/PIC/tsdcc/tsdcc88.c,72</item>
+    </bookmarks>
+  </editors>
+</piklab>

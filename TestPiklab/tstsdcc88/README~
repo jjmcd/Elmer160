@@ -1,0 +1,9 @@
+Little program to exercise SDCC
+
+Program flashes the 3 PIC-EL LEDs and an LED plugged into the
+transmitter port in an erratic fashion.  The PIC-EL LEDs are red and
+get a different treatment than the xmit LED.  The LED plugged into the
+xmit port is white.
+
+This version uses the PIC16F88 with its internal oscillator set to
+31.25 kHz
