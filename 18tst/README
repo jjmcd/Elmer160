@@ -1,0 +1,6 @@
+Simple PIC18 exercises
+
+This folder contains a number of simple programs for the PIC18F1320 on
+the PIC-EL.  Programs mostly flash LEDs and exercise the LCD library.
+Note that this version of the LCD library has been modified to work
+with the pinout of the 18F parts which is different than the 16F PICs.
