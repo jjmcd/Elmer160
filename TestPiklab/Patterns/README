@@ -1,0 +1,10 @@
+Generate code for LED patterns
+
+This is NOT a PIC program.
+
+When making some candle simulations, it is useful to have LEDs
+flashing erratically, but complete randomness is not desireable
+because we want to have at least one LED on at all times.  This
+program, which is intended to run on a PC, generates both C and
+assembler code for a series of bytes to write to PORTB on the 
+PIC-EL.

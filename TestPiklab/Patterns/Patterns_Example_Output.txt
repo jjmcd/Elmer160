@@ -1,0 +1,26 @@
+[jjmcd@Aidan tsdcc]$ ./Patterns
+static const unsigned char Patterns[32] = {
+    0x02, 0x0a, 0x0c, 0x0c, 0x08, 0x02, 0x06, 0x02,
+    0x08, 0x08, 0x06, 0x00, 0x00, 0x00, 0x02, 0x02,
+    0x00, 0x0c, 0x04, 0x00, 0x06, 0x0c, 0x04, 0x0c,
+    0x08, 0x00, 0x0c, 0x06, 0x02, 0x02, 0x04, 0x06
+    };
+
+
+TABSAV	udata_ovr
+SavIdx	res	1		; Temp storage for tableindex
+TABLE	code
+Pattern
+	movwf	SavIdx		; Save off index
+	movlw	HIGH(Pattern)	; Get table's high byte
+	movwf	PCLATH		; and put it to PC high latch
+	movf	SavIdx,W	; Pick up saved index
+	addwf	PCL,F		; and index into table
+	dt	H'02', H'0a', H'0c', H'0c', H'08', H'02', H'06', H'02'
+	dt	H'08', H'08', H'06', H'00', H'00', H'00', H'02', H'02'
+	dt	H'00', H'0c', H'04', H'00', H'06', H'0c', H'04', H'0c'
+	dt	H'08', H'00', H'0c', H'06', H'02', H'02', H'04', H'06'
+
+
+[jjmcd@Aidan tsdcc]$ 
+
