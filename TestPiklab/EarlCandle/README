@@ -1,0 +1,13 @@
+N8ERO Candle Simulation
+
+This is a candle simulation written by N8ERO.  It is one of the few
+programs in this folder in assembler.  It was used here as an
+assembler test for Piklab.  The program again flashes LEDs
+erratically.  On this one, only one LED may be off at a time.  Here
+not only is the "off" LED random, but the length of time between
+changes is also random.  For a realistic candle simulation capacitors
+are required on the LEDs.
+
+Earl originally wrote the application for the PIC16F716.  because that
+part is not supported by Piklab, the application was modified for the
+PIC16F84A.
