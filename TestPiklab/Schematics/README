@@ -1,0 +1,5 @@
+Schematics for the Candle project
+
+These are some example schematics for the candle simulation.  The .sch
+files are for gEDA's gschem program.  Because everyone might not have
+this application, some .png images are also stored in this folder.
