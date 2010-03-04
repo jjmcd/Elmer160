@@ -1,0 +1,12 @@
+A simple clock for the PIC-EL
+
+This little C program, along with the LCD routines from
+Elmer 160, provides a simple 24-hour clock for the PIC-EL.
+
+The program is quite crude, with few features.  In particular,
+there is no way to actually set the clock.  The timing may
+vary from PIC-EL to PIC-EL, so a manifest constant is provided
+to adjust the speed for the particular crystal.  Since this
+is a little coarse, a small trimmer in parallel with one of
+the capacitors would be an improvement, but it needs to be
+quite a small value.
