@@ -1,0 +1,28 @@
+<!DOCTYPE piklab>
+<piklab>
+  <general>
+    <device>16F88</device>
+    <tool>sdcc</tool>
+    <files>
+      <item>Configuration.inc</item>
+      <item>Del128ms.asm</item>
+      <item>Del1s.asm</item>
+      <item>Del256ms.asm</item>
+      <item>Del2ms.asm</item>
+      <item>Del40us.asm</item>
+      <item>Del450ns.asm</item>
+      <item>Del512ms.asm</item>
+      <item>LCDclear.asm</item>
+      <item>LCD-F88.lkr</item>
+      <item>LCDinit.asm</item>
+      <item>LCDinter.asm</item>
+      <item>LCDletr.asm</item>
+      <item>LCDmacs.inc</item>
+      <item>LCDsend.asm</item>
+      <item>LCDsnd.asm</item>
+      <item>PIC-Clock.c</item>
+      <item>Processor.inc</item>
+    </files>
+  </general>
+  <editors/>
+</piklab>
