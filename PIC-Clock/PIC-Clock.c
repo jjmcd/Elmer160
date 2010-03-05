@@ -1,16 +1,19 @@
 /* PIC-Clock.c
  *
  * Display the time on the PIC-EL.  No provision at this time
- * for actually setting the clock, just a simple de,o.
+ * for actually setting the clock, just a simple demo.
  *
  * John J. McDonough, WB8RCR
  * 4-March-2010
+ * Updated 5-March-2010
  *
  */
 
 #include <pic16f88.h>
 
 // ****** SET THE FOLLOWING VALUE TO ADJUST FOR YOUR CRYSTAL ******
+// If the clock runs too fast, increase the value,
+// too slow, decrease the value
 #define CLOCKSET 1954
 
 // External functions
@@ -37,22 +40,24 @@ void isr() interrupt 0
 {
   int i;
 	
-  if ( TMR0IF )		/* Was it the timer that brought us here? */
+  if ( TMR0IF )		         // Was it the timer that brought us here?
     {
-      TMR0IF = 0;	/* Turn off the timer interrupt flag */
+      TMR0IF = 0;	         // Turn off the timer interrupt flag
 
-      fracsecs++;
-      if ( fracsecs > CLOCKSET )
+      fracsecs++;                // Count up interrupts
+      if ( fracsecs > CLOCKSET ) // Has a second elapsed?
 	{
-	  fracsecs = 0;
+	  fracsecs = 0;          // Yes, reset the count
 
-	  /* Set the dirty flag */
-	  dirty = 1;
+	  dirty = 1;             // And set the dirty flag
 	}
     }
 }
 
 // showDigits - send a value between 0 and 99 to the LCD
+/* Note that this function will send trash if called with
+ * a value not between 0 and 99.  No checking is done.
+ */
 void showDigits( unsigned char n )
 {
     unsigned char d1, d2;
@@ -63,6 +68,10 @@ void showDigits( unsigned char n )
 }
 
 // showTime - Display hours, minutes, seconds on the LCD
+/* This function sends the time as hh:mm:ss to the LCD from
+ * wherever the cursor currently sits.  The assumption on
+ * a small LCD is that the cursor has been set to zero.
+ */
 void showTime( void )
 {
   showDigits( hours );
@@ -88,37 +97,38 @@ void main( void )
   // This initialization will result in a couple seconds of
   // a clear display before the clock actually starts.
   // Note that LCDinit sets PORTB appropriately
-  LCDinit();  // Initialize the LCD
-  Del1s();    // Wait a bit
-  LCDclear(); // Clear the display
+  LCDinit();    // Initialize the LCD
+  Del1s();      // Wait a bit
+  LCDclear();   // Clear the display
 
   // Now enable interrupts so the timer can start
-  dirty=0;
-  TMR0IE = 1;
-  GIE = 1;
+  dirty=0;      // Clear the dirty flag
+  TMR0IE = 1;   // Enable the timer interrupt
+  GIE = 1;      // Enable all interrupts
 
+  // Loop forever, updating the time if the dirty flag set
   while ( 1 )
     {
-      if ( dirty )  // Whenever the time has changed
+      if ( dirty )                    // Whenever the time has changed
 	{
-	  dirty = 0;  // Reset the flag
-	  seconds++;  // New seconds
-	  if ( seconds > 59 ) // Minute?
+	  dirty = 0;                  // Reset the flag
+	  seconds++;                  // Increment seconds
+	  if ( seconds > 59 )         // Minute?
 	    {
 	      seconds = 0;
-	      minutes++;
-	      if ( minutes > 59 ) // Hour?
+	      minutes++;              // Increment minutes
+	      if ( minutes > 59 )     // Hour?
 		{
 		  minutes = 0;
-		  hours++;
+		  hours++;            // Increment hourc
 		  if ( hours > 23 )   // Day?
 		    {
 		      hours = 0;
 		    }
 		}
 	    }
-	  LCDclear();      // Clear the display
-	  showTime();      // and show the time
+	  LCDclear();                 // Clear the display
+	  showTime();                 // and show the time
 	}
     }
 }
