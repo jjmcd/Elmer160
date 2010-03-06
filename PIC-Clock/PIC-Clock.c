@@ -5,7 +5,7 @@
  *
  * John J. McDonough, WB8RCR
  * 4-March-2010
- * Updated 5-March-2010
+ * Updated 6-March-2010
  *
  */
 
@@ -38,7 +38,6 @@ unsigned int fracsecs;  // Partial seconds
  */
 void isr() interrupt 0
 {
-  int i;
 	
   if ( TMR0IF )		         // Was it the timer that brought us here?
     {
@@ -120,7 +119,7 @@ void main( void )
 	      if ( minutes > 59 )     // Hour?
 		{
 		  minutes = 0;
-		  hours++;            // Increment hourc
+		  hours++;            // Increment hours
 		  if ( hours > 23 )   // Day?
 		    {
 		      hours = 0;
