@@ -3,7 +3,7 @@
 
 		processor	16f628A
 		include		p16f84a.inc
-		__config	_HS_OSC & _WDT_OFF & _PWRTE_ON
+		__config	XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
 
 ; Variable Storage
 
