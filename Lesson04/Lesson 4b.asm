@@ -1,9 +1,9 @@
-; Lesson 4a - PIC Elmer lesson 4
+; Lesson 4b - PIC Elmer lesson 4
 ; WB8RCR - 11 Oct 2003
 
-		processor	16f84a
-		include		<p16f84a.inc>
-		__config	_HS_OSC & _WDT_OFF & _PWRTE_ON
+		processor	16f628a
+		include		<P16F628A.INC>
+		__config	_XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
 
 ; Variable Storage
 
