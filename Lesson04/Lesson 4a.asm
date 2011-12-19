@@ -2,8 +2,8 @@
 ; WB8RCR - 11 Oct 2003
 
 		processor	16f628A
-		include		p16f84a.inc
-		__config	XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
+		include		P16F628A.INC
+		__config	_XT_OSC & _PWRTE_ON & _WDT_OFF & _BODEN_OFF & _LVP_OFF
 
 ; Variable Storage
 
