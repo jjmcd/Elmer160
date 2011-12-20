@@ -6,9 +6,9 @@
 ;
 ;=====================================================================
 
-		processor	pic16f84a
-		include		"p16f84a.inc"
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		"P16F628A.INC"
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF
 		list		b=4,n=70
 
 ;=====================================================================
@@ -134,6 +134,8 @@ start
 		movwf		TRISB			; Make all port B output
 		banksel		PORTA
 		errorlevel	+302
+		movlw		H'07'
+		movwf		CMCON
 
 ;---------------------------------------------------------------------
 ;	Initialize memory
