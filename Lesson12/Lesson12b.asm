@@ -3,30 +3,30 @@
 ;
 ;  WB8RCR - 21-Feb-04
 ;
-		processor	pic16f84a
-		include		"p16f84a.inc"
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		"P16F628A.INC"
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
 		list		b=4,n=70
 
 ;=====================================================================
 ;	Manifest Constants
 ;=====================================================================
 LED1	equ			H'03'			; PORTA bit number for LED
-PB1		equ			H'04'			; PORTB bit number for button
+PB1		equ		H'04'			; PORTB bit number for button
 MASKA	equ			B'11111111'		; PORTA all inputs
 MASKB	equ			B'00000000'		; PORTB all outputs
 
 ;=====================================================================
 ;	File register use
 ;=====================================================================
-		cblock		H'0c'
-			Buttons					; Storage for inputs
-			LEDs					; Storage for outputs
+		cblock		H'20'
+			Buttons				; Storage for inputs
+			LEDs				; Storage for outputs
 		endc
 
-
+		nop
 		goto		start			; Skip over interrupt vector
-		org			H'05'
+		org		H'05'
 
 ;=====================================================================
 ;  Mailine begins here -- Initialization
@@ -64,10 +64,10 @@ main
 ;	Do Calculations
 ;---------------------------------------------------------------------
 		btfss		Buttons,PB1		; Is PB1 pressed?
-		goto		$+3				; Yes
-		bsf			LEDs,LED1		; No, turn off LED1
+		goto		$+3			; Yes
+		bsf		LEDs,LED1		; No, turn off LED1
 		goto		$+2
-		bcf			LEDs,LED1		; Yes, turn on LED1
+		bcf		LEDs,LED1		; Yes, turn on LED1
 
 ;---------------------------------------------------------------------
 ;	Set outputs

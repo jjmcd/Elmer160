@@ -3,9 +3,9 @@
 ;  WB8RCR - 21-Feb-04
 ;=====================================================================
 
-		processor	pic16f84a
-		include		"p16f84a.inc"
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		"P16F628A.INC"
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
 		list		b=4,n=70
 
 ;=====================================================================
@@ -13,10 +13,10 @@
 ;=====================================================================
 ChkBut	macro		Button,LED
 		btfss		Buttons,Button	; Is PB pressed?
-		goto		$+3				; Yes
-		bsf			LEDs,LED		; No, turn off LED
+		goto		$+3			; Yes
+		bsf		LEDs,LED		; No, turn off LED
 		goto		$+2
-		bcf			LEDs,LED		; Yes, turn on LED
+		bcf		LEDs,LED		; Yes, turn on LED
 		endm
 
 ;=====================================================================
@@ -25,23 +25,23 @@ ChkBut	macro		Button,LED
 LED1	equ			H'03'			; PORTA bit number for LED
 LED2	equ			H'02'			; PORTA bit number for LED
 LED3	equ			H'01'			; PORTA bit number for LED
-PB1		equ			H'04'			; PORTB bit number for button
-PB2		equ			H'03'			; PORTB bit number for button
-PB3		equ			H'02'			; PORTB bit number for button
+PB1	equ			H'04'			; PORTB bit number for button
+PB2	equ			H'03'			; PORTB bit number for button
+PB3	equ			H'02'			; PORTB bit number for button
 MASKA	equ			B'11111111'		; PORTA all inputs
 MASKB	equ			B'00000000'		; PORTB all outputs
 
 ;=====================================================================
 ;	File register use
 ;=====================================================================
-		cblock		H'0c'
+		cblock		H'20'
 			Buttons					; Storage for inputs
 			LEDs					; Storage for outputs
 		endc
 
 
 		goto		start			; Skip over interrupt vector
-		org			H'05'
+		org		H'05'
 
 ;=====================================================================
 ;  Mailine begins here -- Initialization
@@ -56,6 +56,9 @@ start
 		movwf		TRISB
 		banksel		PORTB
 		errorlevel	+302
+
+		movlw		h'07'
+		movwf		CMCON
 
 		movlw		B'00001110'		; Turn off all LEDs
 		movwf		PORTB
