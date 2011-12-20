@@ -3,9 +3,9 @@
 ;
 ;  WB8RCR - 21-Feb-04
 ;
-		processor	pic16f84a
-		include		"p16f84a.inc"
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		"P16F628A.INC"
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _BODEN_OFF & _LVP_OFF
 		list		b=4,n=70
 
 ;=====================================================================
@@ -19,14 +19,14 @@ MASKB	equ			B'00000000'		; PORTB all outputs
 ;=====================================================================
 ;	File register use
 ;=====================================================================
-		cblock		H'0c'
+		cblock		H'20'
 			Buttons					; Storage for inputs
 			LEDs					; Storage for outputs
 		endc
 
-
+		nop
 		goto		start			; Skip over interrupt vector
-		org			H'05'
+		org		H'05'
 
 ;=====================================================================
 ;  Mailine begins here -- Initialization
@@ -41,6 +41,10 @@ start
 		movwf		TRISB
 		banksel		PORTB
 		errorlevel	+302
+
+		movlw		B'00000111'		; Comparators normal I/O
+		movwf		CMCON
+
 		movlw		B'00001110'		; Turn off all LEDs
 		movwf		PORTB
 
@@ -64,10 +68,10 @@ main
 ;---------------------------------------------------------------------
 		btfss		Buttons,PB1		; Is PB1 pressed?
 		goto		LEDon			; Yes
-		bsf			LEDs,LED1		; No, turn off LED1
+		bsf		LEDs,LED1		; No, turn off LED1
 		goto		LEDoff			; Skip over turn on LED
-LEDon								; Output low = LED on
-		bcf			LEDs,LED1		; Yes, turn on LED1
+LEDon							; Output low = LED on
+		bcf		LEDs,LED1		; Yes, turn on LED1
 LEDoff
 
 ;---------------------------------------------------------------------
