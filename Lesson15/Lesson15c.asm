@@ -10,13 +10,13 @@
 ;   Lesson15b, but the inputs are debounced before use.
 ;
 ; WB8RCR - 19-Aug-04
-; $Revision: 1.6 $ $Date: 2004-10-25 08:31:14-04 $
+; $Revision: 1.7 $ $Date: 2011-12-21 10:46:12-04 $
 ;
 ;=====================================================================
 
-		processor	pic16f84a
-		include		p16f84a.inc
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		P16F628A.INC
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BODEN_OFF
 		list		b=4,n=70
 
 ; Port bit assignments
@@ -153,6 +153,8 @@ Start
 		bcf			TRISB,LED3		; making them outputs
 		errorlevel	+302			; Back on just in case
 		banksel		PORTB			; Back to bank 0
+		movlw		H'07'
+		movwf		CMCON
 
 ;---------------------------------------------------------------------
 ;	Main program loop here

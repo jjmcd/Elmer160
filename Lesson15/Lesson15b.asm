@@ -12,13 +12,13 @@
 ;   being turned.
 ;
 ; WB8RCR - 11-Aug-04
-; $Revision: 1.3 $ $Date: 2004-10-22 09:58:14-04 $
+; $Revision: 1.4 $ $Date: 2011-12-21 18:38:19-04 $
 ;
 ;=====================================================================
 
-		processor	pic16f84a
-		include		p16f84a.inc
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f28a
+		include		P16F628A.INC
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BODEN_OFF
 		list		b=4,n=70
 
 ; Port bit assignments
@@ -45,6 +45,8 @@ Start
 		bcf			TRISB,LED3	; making them outputs
 		errorlevel	+302		; Back on just in case
 		banksel		PORTB		; Back to bank 0
+		movlw		H'07'
+		movwf		CMCON
 Loop
 	; Move last reading over 2 and mask other bits
 		rlf			Input,F		; Rotate the input storage
