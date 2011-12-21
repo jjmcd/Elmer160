@@ -5,12 +5,12 @@
 ;	call the routine to restore it.
 ;
 ;	WB8RCR - 16-Nov-04
-;	$Revision: 1.3 $ $Date: 2004-11-16 11:30:42-05 $
+;	$Revision: 1.4 $ $Date: 2011-12-21 12:46:20-05 $
 ;===========================================================
 
-		processor	pic16f84a
-		include		p16f84a.inc
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		P16F628A.INC
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BOREN_OFF
 
 		extern		Sub1,Sub2
 
