@@ -4,3 +4,5 @@
 *.err
 *.lst
 *.mcs
+*.map
+*.mcw
