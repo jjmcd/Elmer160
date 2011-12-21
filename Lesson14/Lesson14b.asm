@@ -1,9 +1,9 @@
 ;	Elmer 160 Lesson 14b - 9 June 2004
 ;	Send digits in Morse 
 
-		processor	pic16f84a
-		include		<p16f84a.inc>
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		<P16F628A.INC>
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BODEN_OFF
 		list		b=4,n=70
 
 XMTR	equ			H'02'
@@ -105,6 +105,8 @@ Start
 		bcf			TRISB,XMTR
 		bcf			TRISB,KEY
 		banksel		PORTB
+		movlw		H'07'
+		movwf		CMCON
 
 ;	Main loop here
 Loop

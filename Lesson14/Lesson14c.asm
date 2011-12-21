@@ -1,7 +1,7 @@
 ; Lesson14c - fetch values from table in File Register
 ;
-		processor	pic16f84a
-		include		p16f84a.inc
+		processor	pic16f628a
+		include		P16F628A.INC
 
 		cblock		H'20'
 			D1					; Storage for seven

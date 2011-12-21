@@ -3,9 +3,9 @@
 ;	Read a message in EEPROM and send it out as Morse.
 ;
 
-		processor	pic16f84a
-		include		<p16f84a.inc>
-		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+		processor	pic16f628a
+		include		<P16F628A.INC>
+		__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BODEN_OFF
 		list		b=4,n=72
 
 ;	Morse speed adjust, higher values mean slower code
@@ -252,19 +252,21 @@ Start
 		movwf		TRISB		; as outputs
 		banksel		PORTB
 		errorlevel	+302
+		movlw		H'07'
+		movwf		CMCON
 
 ;	Main loop here
 Loop
 		clrf		LetterNum	; Assume msg starts at 0 in EEPROM
 LLoop
 		movf		LetterNum,W	; Pick up EEPROM address to read
-		movwf		EEADR		; and put it in EEPROM addr register
 		errorlevel	-302
-		banksel		EECON1
+		banksel		EEADR
+		movwf		EEADR		; and put it in EEPROM addr register
 		bsf			EECON1,RD	; Set the EEPROM read bit
-		banksel		EEDATA
-		errorlevel	+302
 		movf		EEDATA,W	; and pick up the character
+		errorlevel	+302
+		banksel		PORTA
 		call		SendLtr		; Send the character
 		incf		LetterNum,F	; Point to the next letter in message
 		movlw		EndMsg		; Subtract the end address of the 

@@ -1,7 +1,7 @@
 ; Lesson14d - Read data from EEPROM
 ;
-		processor	pic16f84a
-		include		p16f84a.inc
+		processor	pic16f628a
+		include		P16F628A.INC
 
 		cblock		H'20'
 			Index
@@ -19,14 +19,16 @@ Start
 
 Loop
 	;  NOTE that the following code is fairly specific to
-	;  the PIC16F84/84A.  On other PICs, the various
+	;  the PIC16F628A.  On other PICs, the various
 	;  EEPROM registers are in different banks.
 		movf		Location, W	; Location in EEPROM
+		banksel		EEADR		; Select bank for EE regs
+		errorlevel	-302
 		movwf		EEADR		;
-		banksel		EECON1		; Select bank for EECON1
 		bsf			EECON1,RD	; Initiate read
-		banksel		EEDATA		; Back to bank 0
 		movf		EEDATA,W	; Pick up the data
+		banksel		Target
+		errorlevel	+302
 		movwf		Target		; and store it off
 		incf		Location,F	; Point to next EEPROM loc
 		decfsz		Index,F		; Count down
