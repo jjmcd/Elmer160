@@ -1,9 +1,8 @@
 ;	Less17b1 - Replace send nybble code in library
 ;
 ;	JJMcD - 2005-03-17
-;	$Revision: 1.3 $ $Date: 2005-04-25 10:27:02-04 $
-			include		p16f84a.inc
-
+;	$Revision: 1.3 $ $Date: 2011-12-21 21:26:02-05 $
+			include		P16F628A.INC
 	; Provided Routines
 			global		LCDsndI		; Send a command nybble to the LCD
 			global		LCDsndD		; Send data to the LCD

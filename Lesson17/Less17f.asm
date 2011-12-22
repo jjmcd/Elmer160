@@ -1,9 +1,9 @@
 ;	Less17f.asm - Mainline to test display addressing
 ;
 ;	JJMcD - 2005-04-26
-;	$Revision: 1.1 $ $Date: 2005-04-26 15:14:42-04 $
+;	$Revision: 1.1 $ $Date: 2011-12-21 21:59:11-05 $
 			include		Processor.inc
-			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
+			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _BOREN_OFF
 			extern		LCDinit,LCDletr,LCDclear,LCDaddr
 			extern		Del1s, Del256ms
 

@@ -1,9 +1,9 @@
 ;	Less17e.asm - Mainline to test clear display
 ;
 ;	JJMcD - 2005-04-26
-;	$Revision: 1.1 $ $Date: 2005-04-26 11:55:08-04 $
+;	$Revision: 1.1 $ $Date: 2011-12-21 21:52:37-05 $
 			include		Processor.inc
-			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
+			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _BOREN_OFF
 			extern		LCDinit,LCDletr,LCDclear
 			extern		Del1s
 			extern		Msg1,Msg2

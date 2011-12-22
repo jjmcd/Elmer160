@@ -1,9 +1,9 @@
 ;	Less17 - Test program for Lesson 17 on LCD's
 ;
 ;	JJMcD - 14-May-05
-;	$Revision: 1.2 $ $Date: 2005-08-07 10:36:34-04 $
-			include		p16f84a.inc
-			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+;	$Revision: 1.3 $ $Date: 2011-12-21 21:21:34-05 $
+			include		P16F628A.INC
+			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BOREN_OFF
 
 			extern		LCDinit,LCDclear,LCDaddr,LCDletr
 			extern		Del128ms
@@ -23,6 +23,8 @@ Start
 			movwf		TRISA
 			banksel		PORTA
 			errorlevel	+302
+			movlw		H'07'
+			movwf		CMCON
 			call		LCDinit		; Initialize the LCD
 			call		LCDclear	; and clear it
 Loop
