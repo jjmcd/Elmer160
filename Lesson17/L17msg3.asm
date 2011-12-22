@@ -11,9 +11,9 @@
 ;
 ;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.8 $ $State: Rel $ $Date: 2005-08-09 21:03:56-04 $
+;	$Revision: 1.9 $ $State: Rel $ $Date: 2011-12-21 22:31:14-04 $
 
-			include		p16f84a.inc
+			include		P16F628A.INC
 
 			global		Msg3
 			extern		LCDletr,LCDshift,LCDunshf,LCDaddr

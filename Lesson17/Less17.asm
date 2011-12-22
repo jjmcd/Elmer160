@@ -24,10 +24,10 @@
 ;
 ;**
 ;	JJMcD - 14-May-05
-;	$Revision: 1.8 $ $State: Rel $ $Date: 2005-08-09 21:03:56-04 $
+;	$Revision: 1.9 $ $State: Rel $ $Date: 2011-12-21 22:29:03-05 $
 
-			include		p16f84a.inc
-			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON
+			include		P16F628A.INC
+			__config	_XT_OSC & _WDT_OFF & _PWRTE_ON & _LVP_OFF & _BOREN_OFF
 
 			extern		Msg1,Msg2,Msg3
 			extern		LCDinit,LCDclear
