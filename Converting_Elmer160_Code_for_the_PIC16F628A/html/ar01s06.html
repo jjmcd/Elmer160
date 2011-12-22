@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>6. Comparator</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="ar01s05.html" title="5. Special Function Registers" /><link rel="next" href="appe-Converting_Elmer160_Code_for_the_PIC16F628A-Revision_History.html" title="A. Revision History" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s05.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="appe-Converting_Elmer160_Code_for_the_PIC16F628A-Revision_History.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id730482">6. Comparator</h2></div></div></div><div class="para">
+			On the <span class="application"><strong>PIC16F84A</strong></span>, all the pins at power up are configured as digital inputs. A couple of pins have special functions that may be enabled, but on power up, all pins are digital inputs. Students, therefore, are often surprised to see that is not the case on the <span class="application"><strong>PIC16F628A</strong></span>. <code class="code">RA0</code> through <code class="code">RA3</code> are configured for analog at power up.
+		</div><div class="para">
+			These pins serve as comparator inputs on the 628, and cannot be used as ordinary digital I/O until the comparator is disabled. At first glance, doing this is fairly simple: 
+<pre class="screen">
+      movlw     H'07'
+      movwf     CMCON
+</pre>
+
+		</div><div class="para">
+			Indeed, when used in the PIC-EL, this is typically all that is required for most applications.
+		</div><div class="para">
+			However, especially for your own applications, there is a dark side. 
+			<div class="warning"><div class="admonition_header"><h2>Warning</h2></div><div class="admonition"><div class="para">
+					It is possible to damage the PIC in software
+				</div></div></div>
+
+		</div><div class="para">
+			PICs are extremely robust devices and can take a startling amount of abuse, but in this area of analog inputs, there is a significant risk of damaging the part.
+		</div><div class="para">
+			On any PIC input which may accept an analog voltage, the pin defaults to analog rather than digital. This is because an analog pin set to be a digital input and left unconnected may cause significant current to flow inside the part. This current is capable of destroying the PIC. This can also occur if the pin is set to digital and held at an intermediate voltage; i.e. neither fully true or fully false.
+		</div><div class="para">
+			This is not an issue on the PIC-EL because these pins are all pulled up. They will remain at the supply voltage unless pulled down by a switch or the encoder. But in any case, they cannot be left at an intermediate state on the PIC-EL.
+		</div><div class="para">
+			However, for other designs, the student must either ensure that the pin cannot face a high impedance, or not allow the pin to be in its digital input configuration. Setting the pin to be a digital output is an acceptable strategy, as is leaving the comparator enabled.
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s05.html"><strong>Prev</strong>5. Special Function Registers</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="appe-Converting_Elmer160_Code_for_the_PIC16F628A-Revision_History.html"><strong>Next</strong>A. Revision History</a></li></ul></body></html>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE articleinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "Converting_Elmer160_Code_for_the_PIC16F628A.ent">
+%BOOK_ENTITIES;
+]>
+<articleinfo id="arti-Converting_Elmer160_Code_for_the_PIC16F628A-Converting_Elmer160_Code_for_the_PIC16F628A">
+	<title>Converting Elmer160 Code for the PIC16F628A</title>
+	<subtitle>&nbsp;</subtitle>
+	<productname>Elmer</productname>
+	<productnumber>160</productnumber>
+	<edition>0</edition>
+	<pubsnumber>0</pubsnumber>
+	<abstract>
+		<para>
+		  How to convert the Elmer 160 code to the PIC16F628A used in the PIC-EL II and PIC-EL III
+		</para>
+	</abstract>
+	<corpauthor>
+		<inlinemediaobject>
+			<imageobject>
+				<imagedata fileref="Common_Content/images/title_logo.png" format="PNG" />
+			</imageobject>
+		</inlinemediaobject>
+	</corpauthor>
+	<xi:include href="Common_Content/Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+</articleinfo>
+

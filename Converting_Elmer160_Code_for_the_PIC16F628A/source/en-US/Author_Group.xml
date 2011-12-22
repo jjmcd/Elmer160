@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE authorgroup PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "Converting_Elmer160_Code_for_the_PIC16F628A.ent">
+%BOOK_ENTITIES;
+]>
+<authorgroup>
+	<author>
+		<firstname>John</firstname>
+		<surname>McDonough</surname>
+		<affiliation>
+			<orgname>WB8RCR</orgname>
+		</affiliation>
+		<email>wb8rcr@arrl.net</email>
+	</author>
+</authorgroup>
+

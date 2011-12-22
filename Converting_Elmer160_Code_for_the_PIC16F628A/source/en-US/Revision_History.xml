@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE appendix PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "Converting_Elmer160_Code_for_the_PIC16F628A.ent">
+%BOOK_ENTITIES;
+]>
+<appendix id="appe-Converting_Elmer160_Code_for_the_PIC16F628A-Revision_History">
+  <title>Revision History</title>
+  <simpara>
+    <revhistory>
+      <revision>
+	<revnumber>0,1</revnumber>
+	<date>Wed Dec 21 2011</date>
+	<author>
+	  <firstname>John</firstname>
+	  <surname>McDonough</surname>
+	  <email>wbrcr@arrl.net</email>
+	</author>
+	<revdescription>
+	  <simplelist>
+	    <member>Initial draft</member>
+	  </simplelist>
+	</revdescription>
+      </revision>
+    </revhistory>
+  </simpara>
+</appendix>
+

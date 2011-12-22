@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>2. Obvious Changes</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="ar01s01.html" title="1. Introduction" /><link rel="next" href="ar01s03.html" title="3. Configuration Fuses" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s01.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ar01s03.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id514162">2. Obvious Changes</h2></div></div></div><div class="para">
+			There are a number of obvious issues to deal with. First, perhaps most obvious, select the <span class="application"><strong>PIC16F628A</strong></span> as the processor type in <span class="application"><strong>MPLAB</strong></span>. Choose <span class="guimenuitem"><strong>Select Device ...</strong></span> from the <span class="guimenu"><strong>Configure</strong></span> menu, scroll down to the correct device. 
+			<div class="figure"><div class="figure-contents"><div class="mediaobject"><img src="images/628-selectdevice.png" width="270" alt="Selecting the processor in MPLAB" /><div class="longdesc"><div class="para">
+							Selecting the processor in MPLAB
+						</div></div></div></div><h6>Figure 1. Selecting the processor in MPLAB</h6></div><br class="figure-break" />
+
+		</div><div class="para">
+			Next, change the processor line in the source file: 
+<pre class="screen">
+        processor   pic16f628a
+</pre>
+
+		</div><div class="para">
+			Thirdly, change the name of the processor include file: 
+<pre class="screen">
+        include     "P16F628A.INC"
+</pre>
+
+		</div><div class="para">
+			<div class="note"><div class="admonition_header"><h2>Case Matters</h2></div><div class="admonition"><div class="para">
+					Maybe not now, but perhaps later
+				</div></div></div>
+			 In <span class="application"><strong>MPLAB</strong></span> 8 and earlier, the case of the include file doesn't matter. In most cases, the examples show the file name in lower case, because a number of students use <span class="application"><strong>gpasm</strong></span> which expects lower case file names. However, the more recent <span class="application"><strong>MPLAB-X</strong></span> expects upper case names. Since <span class="application"><strong>gpasm</strong></span> complains about an upper case name, but still finds it, while <span class="application"><strong>MPLAB-X</strong></span> simply fails, it is probably preferable to use upper case names for the include file.
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s01.html"><strong>Prev</strong>1. Introduction</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ar01s03.html"><strong>Next</strong>3. Configuration Fuses</a></li></ul></body></html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>1. Introduction</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="next" href="ar01s02.html" title="2. Obvious Changes" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="index.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ar01s02.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id490734">1. Introduction</h2></div></div></div><div class="para">
+			The original Elmer 160 course was written around the <span class="application"><strong>PIC16F84A</strong></span> microcontroller. Even at the time this was a somewhat controversial decision. The <span class="application"><strong>PIC16F84A</strong></span> is a relatively expensive part, and is the least capable of the 14-bit core PICs. However, this lack of capability leads to greater simplicity; something very worthwhile when learning a new subject.
+		</div><div class="para">
+			The American QRP Club kitted a device called the <span class="application"><strong>PIC-EL</strong></span>, designed by AA0ZZ and others, to go along with the course. Eventually, the supply of kits ran out, but demand for the kit remained high.
+		</div><div class="para">
+			Craig Johnson, AA0ZZ, negotiated with Kanga U.S. to distribute an updated version of the <span class="application"><strong>PIC-EL</strong></span>. Having a commercial supplier meant that there could be an almost unlimited supply for future students. The new, <span class="application"><strong>PIC-EL II</strong></span> however, used the <span class="application"><strong>PIC16F628A</strong></span> instead of the simpler <span class="application"><strong>PIC16F84A</strong></span>.
+		</div><div class="para">
+			There are a number of reasons to select the newer part: 
+			<div class="itemizedlist"><ul><li class="listitem"><div class="para">
+						It is considerably cheaper
+					</div></li><li class="listitem"><div class="para">
+						It has twice the memory of the older part
+					</div></li><li class="listitem"><div class="para">
+						It has additional, useful peripherals
+					</div></li><li class="listitem"><div class="para">
+						It was not clear how much longer the <span class="application"><strong>PIC16F84A</strong></span> would be available
+					</div></li></ul></div>
+
+		</div><div class="para">
+			Later still the <span class="application"><strong>PIC-EL III</strong></span> was introduced, incorporating a USB programmer, but retaining the <span class="application"><strong>PIC16F628A</strong></span>. Since few modern computers have the serial port required of the earlier devices, the <span class="application"><strong>PIC-EL III</strong></span> is the tool of choice for new students. However, the lessons are written around the <span class="application"><strong>PIC16F84A</strong></span>.
+		</div><div class="para">
+			Since the <span class="application"><strong>PIC16F628A</strong></span> is significantly more complex than the <span class="application"><strong>PIC16F84A</strong></span>, new students are encouraged to obtain a <span class="application"><strong>PIC16F84A</strong></span> (which can be used in the newer boards) to follow the lessons. Code for using other PICs is introduced later on in the lessons, so at that point it makes sense to use the <span class="application"><strong>PIC16F628A</strong></span>. Indeed, there are quite a number of PICs that may be used in the <span class="application"><strong>PIC-EL</strong></span>, and for new designs, almost anything makes more sense than the <span class="application"><strong>PIC16F84A</strong></span>. However, the <span class="application"><strong>PIC16F84A</strong></span> is far simpler, so it is recommended for beginners.
+		</div><div class="para">
+			Although the <span class="application"><strong>PIC16F84A</strong></span> is significantly more expensive than the <span class="application"><strong>PIC16F628A</strong></span>, it is still fairly inexpensive. But it isn't something the student can pick up at the local hardware store, and as a result, shipping often costs several times the cost of the part. As a consequence, many students choose to continue with the <span class="application"><strong>PIC16F628A</strong></span> in spite of the problems.
+		</div><div class="para">
+			Fortunately, most code is transportable between the various PICs within a family. There are only a handful of changes necessary in the examples in the course. This is a bit misleading since the user may be blindsided to some issues in his own code if attempted before getting to the parts of the course that explain the differences.
+		</div><div class="para">
+			The basic changes required are: 
+			<div class="itemizedlist"><ul><li class="listitem"><div class="para">
+						There are obvious changes such as the processor name and the name of the processor include file.
+					</div></li><li class="listitem"><div class="para">
+						There are additional configuration fuses.
+					</div></li><li class="listitem"><div class="para">
+						For the absolute code examples early in the lessons, the general purpose registers start at a different address.
+					</div></li><li class="listitem"><div class="para">
+						In the <span class="application"><strong>PIC16F628A</strong></span> the general purpose registers are banked. In the <span class="application"><strong>PIC16F84A</strong></span>, they are not. This could lead to the student discovering that his variables have suddenly disappeared for no apparent reason. Without a debugger, this could be very hard to diagnose.
+					</div></li><li class="listitem"><div class="para">
+						Some special function registers appear in different banks in the two processors. This largely affects the interrupts and the EEPROM, so the student is unlikely to encounter this issue early on.
+					</div></li><li class="listitem"><div class="para">
+						The <span class="application"><strong>PIC16F628A</strong></span> includes a comparator which is enabled by default. If the student wishes to use the comparator pins for ordinary I/O, the comparator must be turned off.
+					</div></li></ul></div>
+
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="index.html"><strong>Prev</strong>Converting Elmer160 Code for the PIC16F628A</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ar01s02.html"><strong>Next</strong>2. Obvious Changes</a></li></ul></body></html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>4. General Purpose Register Address</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="ar01s03.html" title="3. Configuration Fuses" /><link rel="next" href="ar01s05.html" title="5. Special Function Registers" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s03.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ar01s05.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id756799">4. General Purpose Register Address</h2></div></div></div><div class="para">
+			The <span class="application"><strong>PIC16F84A</strong></span> has 18 Special Function Registers (<code class="code">SFR</code>s) with addresses from 0x00 to 0x0b in two banks. The <span class="application"><strong>PIC16F628A</strong></span> has 33 Special Function Registers with addresses fro 0x00 to 0x1f. In the <span class="application"><strong>PIC16F84A</strong></span> the General Purpose Registers (<code class="code">GPR</code>s) start at 0x0c. Since that space is taken on the <span class="application"><strong>PIC16F628A</strong></span> by SFRs, the GPRs don't start until 0x20.
+		</div><div class="para">
+			When writing absolute code, (Lessons 15 and earlier) the assembler cannot "allocate" GPR memory. It is up to the programmer to keep track of memory use. In most cases this is done by assigning specific addresses for storage of each variable. For example, In lesson 4 there is code like: 
+<pre class="screen">
+; Variable Storage
+
+Spot1   equ          H'30'   ; First program variable
+Spot2   equ          H'31'   ; Second program variable
+</pre>
+
+		</div><div class="para">
+			To convert a program from the <span class="application"><strong>PIC16F84A</strong></span> to the <span class="application"><strong>PIC16F628A</strong></span> it is necessary to modify each of those equivalences to ensure they are in the GPR region of memory for the target processor.
+		</div><div class="para">
+			If the student is unfamiliar with the program being ported, this can be problematic as there are many other uses of the <code class="code">equ</code> statement, and the developer must understand each use to decide the correct action. This operation can be highly error prone.
+		</div><div class="para">
+			The assembler provides a <code class="code">cblock</code> directive which creates sequential <code class="code">equ</code> statements. This allows GPRs to be "allocated" in a single place, with a single starting address. Most of the PIC Elmer code uses this method, because it makes it far easier to port programs to other processors. The programmer need only ensure that the range of the single block is within the GPR range of the target processor.
+		</div><div class="para">
+			Further, most of the PIC Elmer examples use few memory locations, and <code class="code">cblock</code> addresses were selected that fall in the range of all the PICs. (All the 14 bit core parts except the <span class="application"><strong>PIC16F84A</strong></span> share the 0x20 to 0x7f GPR range of the <span class="application"><strong>PIC16F628A</strong></span>.)
+		</div><div class="para">
+			So if the student should encounter something like: 
+<pre class="screen">
+                cblock          H'0c'
+                        Buttons             ; Storage for inputs
+                        LEDs                ; Storage for outputs
+                endc
+</pre>
+			 it will be necessary to change the <code class="code">H'0c'</code> to some higher value, at least <code class="code">H'20'</code>, assuming the student is confident that the symbols point to GPR locations and don't have some other use.
+		</div><div class="para">
+			Of course, none of this matters in relocatable programs.
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s03.html"><strong>Prev</strong>3. Configuration Fuses</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ar01s05.html"><strong>Next</strong>5. Special Function Registers</a></li></ul></body></html>

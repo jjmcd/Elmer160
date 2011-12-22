@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>5. Special Function Registers</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="ar01s04.html" title="4. General Purpose Register Address" /><link rel="next" href="ar01s06.html" title="6. Comparator" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s04.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ar01s06.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id730324">5. Special Function Registers</h2></div></div></div><div class="para">
+			The <span class="application"><strong>PIC16F628A</strong></span> has thirty-three Special Function Registers in four banks. Six of these are echoed in all banks; the same six as in the <span class="application"><strong>PIC16F84A</strong></span>.
+		</div><div class="para">
+			However, those registers that are not in all the banks are not always in the same banks as the <span class="application"><strong>PIC16F84A</strong></span>. Fortunately, the most commonly used registers are. <code class="code">PORTA</code>, <code class="code">TRISA</code>, <code class="code">PORTB</code> and <code class="code">TRISB</code> are all found in their familiar locations.
+		</div><div class="para">
+			<div class="warning"><div class="admonition_header"><h2>Warning</h2></div><div class="admonition"><div class="para">
+					Here there be dragons
+				</div></div></div>
+			 Unfortunately, even this isn't as simple as it sounds. The <code class="code">TRIS</code> registers are in bank 1, as in the 84. But, the student is likely to put most of his data in bank 0. On the 84, data in bank 0 also appears in bank 1, but that isn't the case in the <span class="application"><strong>PIC16F628A</strong></span>. The data in bank 1 is different data than in bank 0. Typically the programmer only sets the <code class="code">TRIS</code> registers once in the program, and usually immediately switches back to bank 0. In most cases, there is no need for the data at the time the <code class="code">TRIS</code> registers are set up.
+		</div><div class="para">
+			Things get more interesting with the EEPROM, though. In the <span class="application"><strong>PIC16F84A</strong></span>, the <code class="code">EEDATA</code> and <code class="code">EEADR</code> registers are in bank 0, while the <code class="code">EECON1</code> and <code class="code">EECON2</code> registers are in bank 1. This works our reasonably well as the programmer generally needs access to data when dealing with <code class="code">EEDATA</code> and <code class="code">EEADR</code>, but not the others. On the <span class="application"><strong>PIC16F628A</strong></span>, however, all these registers are in bank 1. This not only means that the <code class="code">banksel</code> directives need to be moved around when converting code, the the student must be alert to where the settings are as data is manipulated.
+		</div><div class="para">
+			Consider the following code for the <span class="application"><strong>PIC16F84A</strong></span>: 
+<pre class="screen">
+Loop
+        movf            Location, W     ; Location in EEPROM
+        movwf           EEADR           ; Set the EEPROM address
+        banksel         EECON1          ; Select bank for EECON1
+        bsf             EECON1,RD       ; Initiate read
+        banksel         EEDATA          ; Back to bank 0
+        movf            EEDATA,W        ; Pick up the data
+        movwf           Target          ; and store it off
+        incf            Location,F      ; Point to next EEPROM loc
+        decfsz          Index,F         ; Count down
+        goto            Loop            ; Go do next location
+</pre>
+			 The corresponding code for the <span class="application"><strong>PIC16F628A</strong></span> has a number of differences, both in the location and targets of the <code class="code">banksel</code> directives: 
+<pre class="screen">
+Loop
+        movf            Location, W     ; Location in EEPROM
+        banksel         EEADR           ; Select bank for EE regs
+        movwf           EEADR           ; Set the EEPROM address
+        bsf             EECON1,RD       ; Initiate read
+        movf            EEDATA,W        ; Pick up the data
+        banksel         Target          ; Back to bank 0
+        movwf           Target          ; and store it off
+        incf            Location,F      ; Point to next EEPROM loc
+        decfsz          Index,F         ; Count down
+        goto            Loop            ; Go do next location
+</pre>
+
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s04.html"><strong>Prev</strong>4. General Purpose Register Address</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ar01s06.html"><strong>Next</strong>6. Comparator</a></li></ul></body></html>

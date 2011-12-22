@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>3. Configuration Fuses</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><link rel="home" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="up" href="index.html" title="Converting Elmer160 Code for the PIC16F628A" /><link rel="prev" href="ar01s02.html" title="2. Obvious Changes" /><link rel="next" href="ar01s04.html" title="4. General Purpose Register Address" /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s02.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ar01s04.html"><strong>Next</strong></a></li></ul><div class="section"><div class="titlepage"><div><div><h2 class="title" id="id498931">3. Configuration Fuses</h2></div></div></div><div class="para">
+			The newer processor, with new features, of course includes additional configuration fuses. Some of those fuses turn out to be important. In the <span class="application"><strong>PIC16F84A</strong></span> the configuration fuse setting almost always looked like: 
+<pre class="screen">
+                __config        _XT_OSC &amp; _WDT_OFF &amp; _PWRTE_ON
+</pre>
+			 These particular settings are still generally used for the <span class="application"><strong>PIC16F628A</strong></span>. They mean:
+		</div><div class="para">
+			<div class="itemizedlist"><ul><li class="listitem"><div class="para">
+						<code class="code">_XT_OSC</code> - Use a crystal between 4 and 10 MHz.
+					</div></li><li class="listitem"><div class="para">
+						<code class="code">_WDT_OFF</code> - Don't use the watchdog timer. The watchdog timer creates an interrupt at a specific interval so if code hangs we could program a recovery. Since we don't have the code to handle this, we don't want an interrupt occurring every few minutes.
+					</div></li><li class="listitem"><div class="para">
+						<code class="code">_PWRTE_ON</code> - Turn on the power up timer. This one isn't terribly important in most cases. it simple inserts a small delay before the program starts so that any circuitry that may need a little time to stabilize before processing can do so.
+					</div></li></ul></div>
+
+		</div><div class="para">
+			However, the <span class="application"><strong>PIC16F628A</strong></span> has a few other settings, some important, some not so much.
+		</div><div class="para">
+			<div class="itemizedlist"><ul><li class="listitem"><div class="para">
+						<code class="code">_LVP_OFF</code> - This one is quite important since normally it should be OFF but the default is ON. If this bit is set to <code class="code">_LVP_ON</code> (or omitted), then should pin 10 become high, the processor will enter programming mode. On earlier (and later) PICs, a high voltage on <code class="code">MCLR</code> was required to enter programming mode. On a few PICs introduced around the same time as the <span class="application"><strong>PIC16F628A</strong></span>, this fuse allows in the field programming with only a single power supply. However, unless the circuitry takes this into account and ensures the programming pin cannot become high at the wrong time, an improper setting can cause surprising operation.
+					</div></li><li class="listitem"><div class="para">
+						<code class="code">_MCLRE_ON</code> - If set OFF, this allows <code class="code">MCLR</code> to be used as an input instead of processor reset. Since the <span class="application"><strong>PIC-EL</strong></span> is not wired this way, in most cases the student will want it ON. This fuse defaults "correctly".
+					</div></li><li class="listitem"><div class="para">
+						<code class="code">_BOREN_OFF</code> - This fuse controls a reset on brown out (low voltage). This allows for special action to be taken in the milliseconds before loss of power. In most cases of interest to students, this setting doesn't matter.
+					</div></li><li class="listitem"><div class="para">
+						<code class="code">_CP_OFF</code>, <code class="code">_CPD_OFF</code> - These settings control code protection. If set on, the program memory or EEPROM cannot be read by a programmer, meaning that programming cannot be verified. Typically these should both be OFF, which is the default.
+					</div></li></ul></div>
+
+		</div><div class="para">
+			So, in most cases for the <span class="application"><strong>PIC-EL</strong></span>, the settings should be: 
+<pre class="screen">
+                __config        _XT_OSC &amp; _WDT_OFF &amp; _PWRTE_ON &amp; _LVP_OFF &amp; _BOREN_OFF
+</pre>
+
+		</div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="ar01s02.html"><strong>Prev</strong>2. Obvious Changes</a></li><li class="up"><a accesskey="u" href="#"><strong>Up</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Home</strong></a></li><li class="next"><a accesskey="n" href="ar01s04.html"><strong>Next</strong>4. General Purpose Register Address</a></li></ul></body></html>
