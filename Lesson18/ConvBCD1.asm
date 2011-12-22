@@ -11,9 +11,9 @@
 ;
 ;**
 ;  WB8RCR - 10-Aug-05
-;  $Revision: 1.1 $ $State: Exp $ $Date: 2005-08-12 09:35:00-04 $
+;  $Revision: 1.2 $ $State: Rel $ $Date: 2011-12-22 11:28:19-05 $
 
-		include		p16f84a.inc
+		include		P16F628A.INC
 
 		global		ConvBCD1
 		extern		binary,d1,d2,d3

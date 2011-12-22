@@ -15,10 +15,10 @@
 ;
 ;**
 ;  WB8RCR - 10-Aug-05
-;  $Revision: 1.2 $ $State: Exp $ $Date: 2005-08-12 09:30:14-04 $
+;  $Revision: 1.3 $ $State: Exp $ $Date: 2011-12-22 10:49:12-05 $
 
-			include		p16f84a.inc
-			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF
+			include		P16F628A.INC
+			__config	_XT_OSC & _PWRTE_ON & _WDT_OFF & _LVP_OFF & _BOREN_OFF
 
 
 			global		binary,d1,d2
