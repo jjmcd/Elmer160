@@ -49,8 +49,8 @@ RestCnt:
 			movlw		H'0a'			; Middle LED on
 			movwf		PORTB
 			movwf		LEDflg
-			SelectAddress
 			movlw		SAVADR			; Store the EEPROM address
+			SelectAddress
 			movwf		EEADR			; to the address register
 			SelectControl
 		IFDEF EEPGD						; For processors that support

@@ -50,6 +50,10 @@ Start:
 			errorlevel	+302
 		ENDIF
 			call		LCDinit			; Initialize the LCD
+		IF ( PROC == 627 ) || ( PROC == 627A )
+			movlw		H'07'
+			movwf		CMCON
+		ENDIF
 
 	; The next two lines suppress the cursor.  Rather than including
 	; LCDmacs.inc, we simply use the values for
