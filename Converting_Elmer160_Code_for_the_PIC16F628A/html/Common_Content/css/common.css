@@ -141,7 +141,7 @@ div.longdesc-link {
 
 /*headings*/
 h1, h2, h3, h4, h5, h6 {
-	color: #336699;
+	color: #000044;
 	margin-top: 0em;
 	margin-bottom: 0em;
 	background-color: transparent;
@@ -190,7 +190,7 @@ h1 {
 .section h1.title {
 	font-size: 1.6em;
 	padding: 0em;
-	color: #336699;
+	color: #000044;
 	text-align: left;
 	background: white;
 }
@@ -508,7 +508,7 @@ h3.author {
 }
 
 .perl_Comment {
-	color: #FF00FF;
+	color: #999999;
 }
 
 
@@ -543,7 +543,7 @@ h3.author {
 
 
 .perl_Keyword {
-	color: #002F5D;
+	color: #0000ff;
 }
 
 
@@ -553,7 +553,8 @@ h3.author {
 
 
 .perl_Others {
-	color: #b03060;
+	color: #007700;
+//	color: #b03060;
 }
 
 

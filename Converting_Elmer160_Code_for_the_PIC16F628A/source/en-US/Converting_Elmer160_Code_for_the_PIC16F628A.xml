@@ -221,7 +221,7 @@
 	</para></listitem>
 	<listitem><para>
 	  <code>_PWRTE_ON</code> - Turn on the power up timer.  This
-	  one isn't terribly important in most cases.  it simple
+	  one isn't terribly important in most cases.  it simply
 	  inserts a small delay before the program starts so that any
 	  circuitry that may need a little time to stabilize before
 	  processing can do so.
@@ -386,7 +386,14 @@ Spot2   equ          H'31'   ; Second program variable
       <code>TRIS</code> registers are set up.
     </para>
     <para>
-      Things get more interesting with the EEPROM, though.  In the
+      However, there are cases where they student may well want to
+      modify the <code>TRIS</code> registers during the execution of
+      the program.  In those cases, the student must take care to
+      recognize that data in bank 0 is not available at the same time
+      as the TRIS register is visible.
+    </para>
+    <para>
+      Things get more interesting with the EEPROM.  In the
       <application>PIC16F84A</application>, the <code>EEDATA</code>
       and <code>EEADR</code> registers are in bank 0, while the
       <code>EECON1</code> and <code>EECON2</code> registers are in
@@ -494,7 +501,31 @@ Loop
       comparator enabled.
     </para>
   </section>
-
+  <section>
+    <title>Conclusions</title>
+    <para>
+      New students just learning microcontrollers would be well
+      advised to replace the <application>PIC16F628A</application> on
+      their PIC-EL with a <application>PIC16F84AA</application>. Doing
+      so will make following the lessons far simpler.
+    </para>
+    <para>
+      Students with some programming familiarity can still follow the
+      course using the <application>PIC16F628A</application> by
+      following a few simple steps, outlined in this document.
+    </para>
+    <para>
+      Some of the more challenging issues in moving between different
+      PICs are eased when relocatable programming (introduced in
+      Lesson 16) is used.
+    </para>
+    <para>
+      While many of the traps in changing processors are not apparent
+      in the Elmer 160 lessons, the student will find that on new
+      designs and circuits, issues may arise.  The later lessons,
+      especially Lesson 21, address these issues.
+    </para>
+  </section>
 
   <xi:include href="Revision_History.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 <!--  <index /> -->

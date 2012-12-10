@@ -20,16 +20,19 @@ WB8RCRwb8rcr@arrl.net
 Legal Notice
 ============
 
-Copyright © 2011 John J. McDonough, WB8RCR. This material may only be
-distributed subject to the terms and conditions set forth in the Creative
-Commons Unported Share Alike (CC-BY-SA), V3.0 or later (the latest
-version is presently available at
-http://creativecommons.org/licenses/by-sa/3.0/).
+The text of and illustrations in this document are licensed by John J.
+McDonough, WB8RCR under a Creative Commons Attribution--Share Alike 3.0
+Unported license ("CC-BY-SA"). An explanation of CC-BY-SA is available at
+http://creativecommons.org/licenses/by-sa/3.0/. In accordance with
+CC-BY-SA, if you distribute this document or an adaptation of it, you
+must provide the URL for the original version.
 
 Abstract
 
-How to convert the Elmer 160 code to the PIC16F628A used in the PIC-EL II
-and PIC-EL III
+The Elmer 160 course was written for the PIC16F84A microcontroller. A
+"PIC-EL" worked with the course using the same part. Later versions of
+the PIC-EL used the PIC16F628A. While similar, the part is different.
+This document describes some of the differences students will encounter.
 
 ------------------------------------------------------------------------
 
@@ -156,7 +159,7 @@ They mean:
     want an interrupt occurring every few minutes.
 
   * _PWRTE_ON - Turn on the power up timer. This one isn't terribly
-    important in most cases. it simple inserts a small delay before the
+    important in most cases. it simply inserts a small delay before the
     program starts so that any circuitry that may need a little time to
     stabilize before processing can do so.
 
@@ -261,15 +264,19 @@ also appears in bank 1, but that isn't the case in the PIC16F628A. The
 data in bank 1 is different data than in bank 0. Typically the programmer
 only sets the TRIS registers once in the program, and usually immediately
 switches back to bank 0. In most cases, there is no need for the data at
-the time the TRIS registers are set up. Things get more interesting with
-the EEPROM, though. In the PIC16F84A, the EEDATA and EEADR registers are
-in bank 0, while the EECON1 and EECON2 registers are in bank 1. This
-works our reasonably well as the programmer generally needs access to
-data when dealing with EEDATA and EEADR, but not the others. On the
-PIC16F628A, however, all these registers are in bank 1. This not only
-means that the banksel directives need to be moved around when converting
-code, the the student must be alert to where the settings are as data is
-manipulated. Consider the following code for the PIC16F84A:
+the time the TRIS registers are set up. However, there are cases where
+they student may well want to modify the TRIS registers during the
+execution of the program. In those cases, the student must take care to
+recognize that data in bank 0 is not available at the same time as the
+TRIS register is visible. Things get more interesting with the EEPROM. In
+the PIC16F84A, the EEDATA and EEADR registers are in bank 0, while the
+EECON1 and EECON2 registers are in bank 1. This works our reasonably well
+as the programmer generally needs access to data when dealing with EEDATA
+and EEADR, but not the others. On the PIC16F628A, however, all these
+registers are in bank 1. This not only means that the banksel directives
+need to be moved around when converting code, the the student must be
+alert to where the settings are as data is manipulated. Consider the
+following code for the PIC16F84A:
 
 Loop
         movf            Location, W     ; Location in EEPROM
@@ -339,12 +346,41 @@ input configuration. Setting the pin to be a digital output is an
 acceptable strategy, as is leaving the comparator enabled.
 
 
+7. Conclusions
+--------------
+
+New students just learning microcontrollers would be well advised to
+replace the PIC16F628A on their PIC-EL with a PIC16F84AA. Doing so will
+make following the lessons far simpler. Students with some programming
+familiarity can still follow the course using the PIC16F628A by following
+a few simple steps, outlined in this document. Some of the more
+challenging issues in moving between different PICs are eased when
+relocatable programming (introduced in Lesson 16) is used. While many of
+the traps in changing processors are not apparent in the Elmer 160
+lessons, the student will find that on new designs and circuits, issues
+may arise. The later lessons, especially Lesson 21, address these issues.
+
+
 A. Revision History
 -------------------
 
 Revision History
 
-Revision 0,1
+Revision 0.2
+
+Sun Dec 9 2012
+
+John McDonough
+
+Correct typos
+
+Enhance banking discussion
+
+Add concluding paragraph
+
+Use Elmer160 brand instead of default
+
+Revision 0.1
 
 Wed Dec 21 2011
 

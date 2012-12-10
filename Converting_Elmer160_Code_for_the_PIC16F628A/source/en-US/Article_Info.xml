@@ -12,7 +12,12 @@
 	<pubsnumber>0</pubsnumber>
 	<abstract>
 		<para>
-		  How to convert the Elmer 160 code to the PIC16F628A used in the PIC-EL II and PIC-EL III
+		  The Elmer 160 course was written for the PIC16F84A
+		  microcontroller.  A "PIC-EL" worked with the course
+		  using the same part.  Later versions of the PIC-EL
+		  used the PIC16F628A.  While similar, the part is
+		  different.  This document describes some of the
+		  differences students will encounter.
 		</para>
 	</abstract>
 	<corpauthor>
