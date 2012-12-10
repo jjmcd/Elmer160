@@ -8,6 +8,20 @@
   <simpara>
     <revhistory>
       <revision>
+	<revnumber>1.0</revnumber>
+	<date>Mon Dec 10 2012</date>
+	<author>
+	  <firstname>John</firstname>
+	  <surname>McDonough</surname>
+	  <email>wbrcr@arrl.net</email>
+	</author>
+	<revdescription>
+	  <simplelist>
+	    <member>Remove draft tag</member>
+	  </simplelist>
+	</revdescription>
+      </revision>
+      <revision>
 	<revnumber>0.3</revnumber>
 	<date>Mon Dec 10 2012</date>
 	<author>

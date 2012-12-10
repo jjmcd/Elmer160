@@ -434,6 +434,14 @@ A. Revision History
 
 Revision History
 
+Revision 1.0
+
+Mon Dec 10 2012
+
+John McDonough
+
+Remove draft tag
+
 Revision 0.3
 
 Mon Dec 10 2012

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Converting Elmer160 Code for the PIC16F628A</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><meta name="description" content="The Elmer 160 course was written for the PIC16F84A microcontroller. A &quot;PIC-EL&quot; worked with the course using the same part. Later versions of the PIC-EL used the PIC16F628A. While similar, the part is different. This document describes some of the differences students will encounter." /></head><body class="draft "><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><div xml:lang="en-US" class="article" id="idp25070352" lang="en-US"><div class="titlepage"><div><div class="producttitle"><span class="productname">Elmer</span> <span class="productnumber">160</span></div><div><h1 id="idp25070352" class="title">Converting Elmer160 Code for the PIC16F628A</h1></div><div><h2 class="subtitle"> </h2></div><div><h3 class="corpauthor">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Converting Elmer160 Code for the PIC16F628A</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 2.8" /><meta name="package" content="Elmer-Converting_Elmer160_Code_for_the_PIC16F628A-160-en-US-0-0" /><meta name="description" content="The Elmer 160 course was written for the PIC16F84A microcontroller. A &quot;PIC-EL&quot; worked with the course using the same part. Later versions of the PIC-EL used the PIC16F628A. While similar, the part is different. This document describes some of the differences students will encounter." /></head><body><p id="title"><a class="left" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="https://fedorahosted.org/publican"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><div xml:lang="en-US" class="article" id="idm370880" lang="en-US"><div class="titlepage"><div><div class="producttitle"><span class="productname">Elmer</span> <span class="productnumber">160</span></div><div><h1 id="idm370880" class="title">Converting Elmer160 Code for the PIC16F628A</h1></div><div><h2 class="subtitle"> </h2></div><div><h3 class="corpauthor">
 		<span class="inlinemediaobject"><img src="Common_Content/images/title_logo.png" /></span>
 
-	</h3></div><div><div xml:lang="en-US" class="authorgroup" lang="en-US"><div class="author"><h3 class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></h3><div class="affiliation"><span class="orgname">WB8RCR</span></div><code class="email"><a class="email" href="mailto:wb8rcr@arrl.net">wb8rcr@arrl.net</a></code></div></div></div><div><div id="idp3173472" class="legalnotice"><h1 class="legalnotice">Legal Notice</h1><div class="para">
+	</h3></div><div><div xml:lang="en-US" class="authorgroup" lang="en-US"><div class="author"><h3 class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></h3><div class="affiliation"><span class="orgname">WB8RCR</span></div><code class="email"><a class="email" href="mailto:wb8rcr@arrl.net">wb8rcr@arrl.net</a></code></div></div></div><div><div id="idp24375600" class="legalnotice"><h1 class="legalnotice">Legal Notice</h1><div class="para">
 		The text of and illustrations in this document are licensed by John J. McDonough, WB8RCR under a Creative Commons Attribution--Share Alike 3.0 Unported license ("CC-BY-SA"). An explanation of CC-BY-SA is available at <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>. In accordance with CC-BY-SA, if you distribute this document or an adaptation of it, you must provide the URL for the original version.
 	</div></div></div><div><div class="abstract"><h6>Abstract</h6><div class="para">
 			The Elmer 160 course was written for the PIC16F84A microcontroller. A "PIC-EL" worked with the course using the same part. Later versions of the PIC-EL used the PIC16F628A. While similar, the part is different. This document describes some of the differences students will encounter.
-		</div></div></div></div><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp25072000">1. Introduction</h2></div></div></div><div class="para">
+		</div></div></div></div><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idm369344">1. Introduction</h2></div></div></div><div class="para">
 			The original Elmer 160 course was written around the <span class="application"><strong>PIC16F84A</strong></span> microcontroller. Even at the time this was a somewhat controversial decision. The <span class="application"><strong>PIC16F84A</strong></span> is a relatively expensive part, and is the least capable of the 14-bit core PICs. However, this lack of capability leads to greater simplicity; something very worthwhile when learning a new subject.
 		</div><div class="para">
 			The American QRP Club kitted a device called the <span class="application"><strong>PIC-EL</strong></span>, designed by AA0ZZ and others, to go along with the course. Eventually, the supply of kits ran out, but demand for the kit remained high.
@@ -49,7 +49,7 @@
 						The <span class="application"><strong>PIC16F628A</strong></span> includes a comparator which is enabled by default. If the student wishes to use the comparator pins for ordinary I/O, the comparator must be turned off.
 					</div></li></ul></div>
 
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp3858720">2. Obvious Changes</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp1394336">2. Obvious Changes</h2></div></div></div><div class="para">
 			There are a number of obvious issues to deal with. First, perhaps most obvious, select the <span class="application"><strong>PIC16F628A</strong></span> as the processor type in <span class="application"><strong>MPLAB</strong></span>. Choose <span class="guimenuitem"><strong>Select Device ...</strong></span> from the <span class="guimenu"><strong>Configure</strong></span> menu, scroll down to the correct device. 
 			<div class="figure"><div class="figure-contents"><div class="mediaobject"><img src="images/628-selectdevice.png" width="270" alt="Selecting the processor in MPLAB" /><div class="longdesc"><div class="para">
 							Selecting the processor in MPLAB
@@ -72,7 +72,7 @@
 					Maybe not now, but perhaps later
 				</div></div></div>
 			 In <span class="application"><strong>MPLAB</strong></span> 8 and earlier, the case of the include file doesn't matter. In most cases, the examples show the file name in lower case, because a number of students use <span class="application"><strong>gpasm</strong></span> which expects lower case file names. However, the more recent <span class="application"><strong>MPLAB-X</strong></span> expects upper case names. Since <span class="application"><strong>gpasm</strong></span> complains about an upper case name, but still finds it, while <span class="application"><strong>MPLAB-X</strong></span> simply fails, it is probably preferable to use upper case names for the include file.
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp83993168">3. Configuration Fuses</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp74854016">3. Configuration Fuses</h2></div></div></div><div class="para">
 			The newer processor, with new features, of course includes additional configuration fuses. Some of those fuses turn out to be important. In the <span class="application"><strong>PIC16F84A</strong></span> the configuration fuse setting almost always looked like: 
 <pre class="screen">
                 __config        _XT_OSC &amp; _WDT_OFF &amp; _PWRTE_ON
@@ -106,7 +106,7 @@
                 __config        _XT_OSC &amp; _WDT_OFF &amp; _PWRTE_ON &amp; _LVP_OFF &amp; _BOREN_OFF
 </pre>
 
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp3479216">4. General Purpose Register Address</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idm1013008">4. General Purpose Register Address</h2></div></div></div><div class="para">
 			The <span class="application"><strong>PIC16F84A</strong></span> has 18 Special Function Registers (<code class="code">SFR</code>s) with addresses from 0x00 to 0x0b in two banks. The <span class="application"><strong>PIC16F628A</strong></span> has 33 Special Function Registers with addresses fro 0x00 to 0x1f. In the <span class="application"><strong>PIC16F84A</strong></span> the General Purpose Registers (<code class="code">GPR</code>s) start at 0x0c. Since that space is taken on the <span class="application"><strong>PIC16F628A</strong></span> by SFRs, the GPRs don't start until 0x20.
 		</div><div class="para">
 			When writing absolute code, (Lessons 15 and earlier) the assembler cannot "allocate" GPR memory. It is up to the programmer to keep track of memory use. In most cases this is done by assigning specific addresses for storage of each variable. For example, In lesson 4 there is code like: 
@@ -136,7 +136,7 @@ Spot2   equ          H'31'   ; Second program variable
 			 it will be necessary to change the <code class="code">H'0c'</code> to some higher value, at least <code class="code">H'20'</code>, assuming the student is confident that the symbols point to GPR locations and don't have some other use.
 		</div><div class="para">
 			Of course, none of this matters in relocatable programs.
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp24485408">5. Special Function Registers</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp21866000">5. Special Function Registers</h2></div></div></div><div class="para">
 			The <span class="application"><strong>PIC16F628A</strong></span> has thirty-three Special Function Registers in four banks. Six of these are echoed in all banks; the same six as in the <span class="application"><strong>PIC16F84A</strong></span>.
 		</div><div class="para">
 			However, those registers that are not in all the banks are not always in the same banks as the <span class="application"><strong>PIC16F84A</strong></span>. Fortunately, the most commonly used registers are. <code class="code">PORTA</code>, <code class="code">TRISA</code>, <code class="code">PORTB</code> and <code class="code">TRISB</code> are all found in their familiar locations.
@@ -179,7 +179,7 @@ Loop
         goto            Loop            ; Go do next location
 </pre>
 
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp24505600">6. Comparator</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp21886192">6. Comparator</h2></div></div></div><div class="para">
 			On the <span class="application"><strong>PIC16F84A</strong></span>, all the pins at power up are configured as digital inputs. A couple of pins have special functions that may be enabled, but on power up, all pins are digital inputs. Students, therefore, are often surprised to see that is not the case on the <span class="application"><strong>PIC16F628A</strong></span>. <code class="code">RA0</code> through <code class="code">RA3</code> are configured for analog at power up.
 		</div><div class="para">
 			These pins serve as comparator inputs on the 628, and cannot be used as ordinary digital I/O until the comparator is disabled. At first glance, doing this is fairly simple: 
@@ -204,7 +204,7 @@ Loop
 			This is not an issue on the PIC-EL because these pins are all pulled up. They will remain at the supply voltage unless pulled down by a switch or the encoder. But in any case, they cannot be left at an intermediate state on the PIC-EL.
 		</div><div class="para">
 			However, for other designs, the student must either ensure that the pin cannot face a high impedance, or not allow the pin to be in its digital input configuration. Setting the pin to be a digital output is an acceptable strategy, as is leaving the comparator enabled.
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp24515696">7. Staying Flexible</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp74799200">7. Staying Flexible</h2></div></div></div><div class="para">
 			While the PIC-EL includes a <span class="application"><strong>PIC16F628A</strong></span>, there are many other 18 pin PICs the student may wish to try, and for projects on purpose-build boards, there is no reason to be limited to 18-pin parts. All of the <span class="application"><strong>PIC16</strong></span> parts are very similar, and with a little care, code can be shared between them.
 		</div><div class="para">
 			The following are some 18 pin PICs that the student may wish to try for different purposes: 
@@ -235,7 +235,7 @@ Loop
 			The code in Lesson 21 has been tested extensively on all of the above processors, and demonstrates techniques for writing code that can be shared across the various PIC parts.
 		</div><div class="para">
 			Code tends to have a life of its own, and code you write today will very likely be copied at some time in the future for some other project. If care is taken initially to allow the code to be flexible, this future re-use will be far less frustrating.
-		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp24539776">8. Conclusions</h2></div></div></div><div class="para">
+		</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" id="idp21928576">8. Conclusions</h2></div></div></div><div class="para">
 			New students just learning microcontrollers would be well advised to replace the <span class="application"><strong>PIC16F628A</strong></span> on their PIC-EL with a <span class="application"><strong>PIC16F84AA</strong></span>. Doing so will make following the lessons far simpler.
 		</div><div class="para">
 			Students with some programming familiarity can still follow the course using the <span class="application"><strong>PIC16F628A</strong></span> by following a few simple steps, outlined in this document.
@@ -244,7 +244,10 @@ Loop
 		</div><div class="para">
 			While many of the traps in changing processors are not apparent in the Elmer 160 lessons, the student will find that on new designs and circuits, issues may arise. The later lessons, especially Lesson 21, address some of these issues.
 		</div></div><div xml:lang="en-US" class="appendix" id="appe-Converting_Elmer160_Code_for_the_PIC16F628A-Revision_History" lang="en-US"><h2 class="title">A. Revision History</h2><div class="para">
-		<div class="revhistory"><table border="0" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="3"><strong>Revision History</strong></th></tr><tr><td align="left">Revision 0.3</td><td align="left">Mon Dec 10 2012</td><td align="left"><span class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></span></td></tr><tr><td align="left" colspan="3">
+		<div class="revhistory"><table border="0" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="3"><strong>Revision History</strong></th></tr><tr><td align="left">Revision 1.0</td><td align="left">Mon Dec 10 2012</td><td align="left"><span class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></span></td></tr><tr><td align="left" colspan="3">
+					<table border="0" summary="Simple list" class="simplelist"><tr><td>Remove draft tag</td></tr></table>
+
+				</td></tr><tr><td align="left">Revision 0.3</td><td align="left">Mon Dec 10 2012</td><td align="left"><span class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></span></td></tr><tr><td align="left" colspan="3">
 					<table border="0" summary="Simple list" class="simplelist"><tr><td>Add section on flexibility</td></tr></table>
 
 				</td></tr><tr><td align="left">Revision 0.2</td><td align="left">Sun Dec 9 2012</td><td align="left"><span class="author"><span class="firstname">John</span> <span class="surname">McDonough</span></span></td></tr><tr><td align="left" colspan="3">

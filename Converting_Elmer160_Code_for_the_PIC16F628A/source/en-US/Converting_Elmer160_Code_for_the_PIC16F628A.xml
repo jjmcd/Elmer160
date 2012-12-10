@@ -3,7 +3,7 @@
 <!ENTITY % BOOK_ENTITIES SYSTEM "Converting_Elmer160_Code_for_the_PIC16F628A.ent">
 %BOOK_ENTITIES;
 ]>
-<article status="draft">
+<article>
   <xi:include href="Article_Info.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
   <section>
     <title>Introduction</title>
