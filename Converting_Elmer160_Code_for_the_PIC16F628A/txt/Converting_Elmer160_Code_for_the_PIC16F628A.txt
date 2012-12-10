@@ -346,7 +346,74 @@ input configuration. Setting the pin to be a digital output is an
 acceptable strategy, as is leaving the comparator enabled.
 
 
-7. Conclusions
+7. Staying Flexible
+-------------------
+
+While the PIC-EL includes a PIC16F628A, there are many other 18 pin PICs
+the student may wish to try, and for projects on purpose-build boards,
+there is no reason to be limited to 18-pin parts. All of the PIC16 parts
+are very similar, and with a little care, code can be shared between
+them. The following are some 18 pin PICs that the student may wish to try
+for different purposes:
+
+  * PIC16F627, PIC16F627A, PIC16F628, PIC16F628A, PIC16F648A - These
+    parts are all virtually identical except for memory size. The "A"
+    parts program faster, but for the hobbyist, that is of little
+    consequence. The student may select between these parts based on
+    price and a project's memory requirements.
+
+  * PIC16F716 - This part includes analog inputs and PWM outputs and is
+    the least expensive 18 pin mid-range part. However, it lacks EEPROM.
+
+  * PIC16F87, PIC16F88 - these parts are the top of the heap for
+    mid-range 18 pin parts. They include lots of memory, a synchronous
+    serial port for SPI and I2C, an 8MHz internal oscillator and
+    specialized low power features. The difference between the two is
+    that the 88 includes analog inputs while the 87 does not.
+
+  * PIC16F818, PIC16F819 - These are somewhat middle of the road parts,
+    including analog inputs and EEPROM, but less expensive than the
+    87/88.
+
+The enhanced mid-range parts (PIC16F1xxx - 4 digits) are more capable,
+but programming is slightly different. For the hobbyist, it is probably
+preferable to move to the PIC18F family, which offers more capability
+with a similar difference in programming. Students proficient in C may
+find the 16 bit parts (PIC24F, PIC24H, PIC24E, dsPIC30F, dsPIC33F,
+dsPIC33E), an even better choice. They are slightly more expensive, quite
+different, but far easier to use. The PIC32 parts are even more powerful,
+but also more different. At hobbyist quantities, the price difference,
+even for the 32 bit parts, is barely noticeable. Since differences in
+memory layout are handled more or less automatically by the linker, the
+student should move to relocatable code as quickly as possible (Lessons
+16 and above). In addition, this offers the capability to take tested
+code and put it in a library for later use. This can greatly speed future
+development. The student should consider using separate files for
+selecting the processor include file and configuration fuses. In the
+later lessons, the include files Processor.inc and Configuration.inc
+select the processor include file and the "normal" configuration settings
+based on a processor symbol passed in from MPLAB. Many of the differences
+between PICs are shared by a number of families. The Processor.inc file
+sets a symbol that can be tested for these various groups of processors.
+For example, the symbol PROC is set to 627 for the 627, 627A, 628, 628A
+and 648A, all of which share similar behavior. The programmer may then
+conditionalize code based on the family. For example:
+
+  IF ( PROC == 627 )
+        movlw    H'07'
+        movwf    CMCON
+  ENDIF
+
+would permit the code to be used on the 84A as well as the 628 and its
+sister parts The code in Lesson 21 has been tested extensively on all of
+the above processors, and demonstrates techniques for writing code that
+can be shared across the various PIC parts. Code tends to have a life of
+its own, and code you write today will very likely be copied at some time
+in the future for some other project. If care is taken initially to allow
+the code to be flexible, this future re-use will be far less frustrating.
+
+
+8. Conclusions
 --------------
 
 New students just learning microcontrollers would be well advised to
@@ -358,13 +425,22 @@ challenging issues in moving between different PICs are eased when
 relocatable programming (introduced in Lesson 16) is used. While many of
 the traps in changing processors are not apparent in the Elmer 160
 lessons, the student will find that on new designs and circuits, issues
-may arise. The later lessons, especially Lesson 21, address these issues.
+may arise. The later lessons, especially Lesson 21, address some of these
+issues.
 
 
 A. Revision History
 -------------------
 
 Revision History
+
+Revision 0.3
+
+Mon Dec 10 2012
+
+John McDonough
+
+Add section on flexibility
 
 Revision 0.2
 

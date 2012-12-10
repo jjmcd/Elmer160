@@ -139,6 +139,7 @@
       </itemizedlist>
     </para>
   </section>
+
   <section>
     <title>Obvious Changes</title>
     <para>
@@ -194,6 +195,7 @@
       preferable to use upper case names for the include file.
     </para>
   </section>
+
   <section>
     <title>Configuration Fuses</title>
     <para>
@@ -501,6 +503,127 @@ Loop
       comparator enabled.
     </para>
   </section>
+
+  <section>
+    <title>Staying Flexible</title>
+    <para>
+      While the PIC-EL includes a
+      <application>PIC16F628A</application>, there are many other 18
+      pin PICs the student may wish to try, and for projects on
+      purpose-build boards, there is no reason to be limited to 18-pin
+      parts.  All of the <application>PIC16</application> parts are
+      very similar, and with a little care, code can be shared between
+      them.
+    </para>
+    <para>
+      The following are some 18 pin PICs that the student may wish to
+      try for different purposes:
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    <application>PIC16F627</application>,
+	    <application>PIC16F627A</application>,
+	    <application>PIC16F628</application>,
+	    <application>PIC16F628A</application>,
+	    <application>PIC16F648A</application> - These parts are
+	    all virtually identical except for memory size.  The "A"
+	    parts program faster, but for the hobbyist, that is of
+	    little consequence.  The student may select between these
+	    parts based on price and a project's memory requirements.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <application>PIC16F716</application> - This part includes
+	    analog inputs and PWM outputs and is the least expensive
+	    18 pin mid-range part.  However, it lacks EEPROM.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <application>PIC16F87</application>,
+	    <application>PIC16F88</application> - these parts are the
+	    top of the heap for mid-range 18 pin parts.  They include
+	    lots of memory, a synchronous serial port for SPI and I2C,
+	    an 8MHz internal oscillator and specialized low power features.
+	    The difference between the two is that the 88 includes
+	    analog inputs while the 87 does not.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <application>PIC16F818</application>,
+	    <application>PIC16F819</application> - These are somewhat
+	    middle of the road parts, including analog inputs and
+	    EEPROM, but less expensive than the 87/88.
+	  </para>
+	</listitem>
+      </itemizedlist>
+      The enhanced mid-range parts
+      (<application>PIC16F1xxx</application> - 4 digits) are more
+      capable, but programming is slightly different.  For the
+      hobbyist, it is probably preferable to move to the
+      <application>PIC18F</application> family, which offers more
+      capability with a similar difference in programming.  Students
+      proficient in C may find the 16 bit parts
+      (<application>PIC24F</application>,
+      <application>PIC24H</application>,
+      <application>PIC24E</application>,
+      <application>dsPIC30F</application>,
+      <application>dsPIC33F</application>,
+      <application>dsPIC33E</application>), an even better choice.
+      They are slightly more expensive, quite different, but far
+      easier to use. The <application>PIC32</application> parts are
+      even more powerful, but also more different.  At hobbyist
+      quantities, the price difference, even for the 32 bit parts, is
+      barely noticeable.
+    </para>
+    <para>
+      Since differences in memory layout are handled more or less
+      automatically by the linker, the student should move to
+      relocatable code as quickly as possible (Lessons 16 and above).
+      In addition, this offers the capability to take tested code and
+      put it in a library for later use.  This can greatly speed
+      future development.
+    </para>
+    <para>
+      The student should consider using separate files for selecting
+      the processor include file and configuration fuses.  In the
+      later lessons, the include files
+      <filename>Processor.inc</filename> and
+      <filename>Configuration.inc</filename> select the processor
+      include file and the "normal" configuration settings based on a
+      processor symbol passed in from MPLAB.
+    </para>
+    <para>
+      Many of the differences between PICs are shared by a number of
+      families.  The <filename>Processor.inc</filename> file sets a symbol
+      that can be tested for these various groups of processors.  For
+      example, the symbol <code>PROC</code> is set to 627 for the 627,
+      627A, 628, 628A and 648A, all of which share similar behavior.
+      The programmer may then conditionalize code based on the family.
+      For example:
+<screen>
+  IF ( PROC == 627 )
+        movlw    H'07'
+        movwf    CMCON
+  ENDIF
+</screen>
+      would permit the code to be used on the 84A as well as the 628 and
+      its sister parts
+    </para>
+    <para>
+      The code in Lesson 21 has been tested extensively on all of the
+      above processors, and demonstrates techniques for writing code
+      that can be shared across the various PIC parts.
+    </para>
+    <para>
+      Code tends to have a life of its own, and code you write today
+      will very likely be copied at some time in the future for some
+      other project.  If care is taken initially to allow the code to
+      be flexible, this future re-use will be far less frustrating.
+    </para>
+  </section>
   <section>
     <title>Conclusions</title>
     <para>
@@ -523,7 +646,7 @@ Loop
       While many of the traps in changing processors are not apparent
       in the Elmer 160 lessons, the student will find that on new
       designs and circuits, issues may arise.  The later lessons,
-      especially Lesson 21, address these issues.
+      especially Lesson 21, address some of these issues.
     </para>
   </section>
 
